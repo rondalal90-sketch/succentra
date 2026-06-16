@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SucCentra</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['DM Sans', 'sans-serif'], mono: ['DM Mono', 'monospace'] },
+      colors: {
+        brand: { DEFAULT: '#1a1916', light: '#f5f4f0', mid: '#f0efe9', border: 'rgba(0,0,0,0.08)' },
+        ok:    { DEFAULT: '#2d7a4f', bg: '#e8f5ee', border: '#a8d9bb' },
+        warn:  { DEFAULT: '#8a5c00', bg: '#fef4dc', border: '#f5d57a' },
+        crit:  { DEFAULT: '#9b2929', bg: '#fdeaea', border: '#f5a8a8' },
+        info:  { DEFAULT: '#1a5fa8', bg: '#e8f0fb', border: '#a8c4f0' },
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { font-family: 'DM Sans', sans-serif; }
+  .mono { font-family: 'DM Mono', monospace; }
+  input[type=file] { display: none; }
+  .modal-scroll::-webkit-scrollbar { width: 4px; }
+  .modal-scroll::-webkit-scrollbar-track { background: #f0efe9; }
+  .modal-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+  @keyframes fadeIn  { from { opacity: 0 } to { opacity: 1 } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(.98) } to { opacity: 1; transform: none } }
+  @keyframes loadBar { 0%{transform:scaleX(0) translateX(0)} 50%{transform:scaleX(.5) translateX(100%)} 100%{transform:scaleX(0) translateX(200%)} }
+  @keyframes spin    { to { transform: rotate(360deg) } }
+  .anim-fade   { animation: fadeIn  .15s ease }
+  .anim-slide  { animation: slideUp .18s ease }
+  .load-bar    { animation: loadBar 1.5s ease-in-out infinite }
+  .spin        { animation: spin .6s linear infinite }
+  .pill-ok   { background:#e8f5ee; color:#2d7a4f; border:1px solid #a8d9bb; }
+  .pill-warn { background:#fef4dc; color:#8a5c00; border:1px solid #f5d57a; }
+  .pill-crit { background:#fdeaea; color:#9b2929; border:1px solid #f5a8a8; }
+  .score-fill { height:100%; border-radius:2px; }
+  .cl-item { transition: background .1s; }
+  .cl-item:hover { background: #f0efe9; }
+  .ai-btn { transition: all .12s; }
+  /* Auth lock — page is blank until Netlify Identity confirms a valid user */
+  body.locked > #app-root,
+  body.locked > #modal-overlay,
+  body.locked > #toast { display: none !important; }
+  #auth-lock-screen { position: fixed; inset: 0; z-index: 99999; background: #f5f4f0; display: flex; align-items: center; justify-content: center; }
+  body:not(.locked) #auth-lock-screen { display: none; }
+</style>
+</head>
+<body class="bg-[#f5f4f0] text-[#1a1916] min-h-screen locked">
+
+<!-- AUTH LOCK SCREEN — visible only while locked -->
+<div id="auth-lock-screen">
+  <div class="text-center">
+    <div class="w-12 h-12 rounded-xl bg-[#1a1916] flex items-center justify-center mx-auto mb-4">
+      <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+    </div>
+    <div class="text-2xl font-bold tracking-tight mb-1">SucCentra</div>
+    <div class="text-sm text-gray-400 mb-6">מערכת ניהול לקוחות פנימית · גישה למוזמנים בלבד</div>
+    <button id="lock-login-btn" class="px-6 py-3 bg-[#1a1916] text-white rounded-xl font-semibold text-sm hover:bg-gray-800 transition-colors">התחבר עם אימייל</button>
+  </div>
+</div>
+
+
+
+<!-- APP ROOT -->
+<div id="app-root">
+  <div id="loadbar" class="hidden fixed top-0 left-0 right-0 h-0.5 bg-[#1a1916] z-[999] load-bar origin-left"></div>
+
+  <header class="bg-white border-b border-black/8 sticky top-0 z-40 h-16 flex items-center px-7 gap-4">
+    <div class="flex items-center gap-2 min-w-[160px]">
+      <div class="w-8 h-8 rounded-lg bg-[#1a1916] flex items-center justify-center flex-shrink-0">
+        <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      </div>
+      <span class="text-lg font-bold tracking-tight">Suc<span class="font-light text-gray-400">Centra</span></span>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="text-3xl font-extrabold tracking-[-0.05em] leading-none">Suc<span class="font-light text-gray-300">Centra</span></div>
+      <div class="text-[11px] text-gray-400 mt-0.5" id="hdr-sub">Customer Success Platform</div>
+    </div>
+    <div class="flex items-center gap-2 min-w-[160px] justify-end">
+      <button onclick="exportCritical()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border border-black/15 rounded-lg bg-white hover:bg-[#f0efe9] transition-colors">ייצוא קריטיים</button>
+      <button onclick="document.getElementById('xfile').click()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-[#1a1916] text-white rounded-lg hover:bg-gray-800 transition-colors">עדכן נתונים</button>
+      <button class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium border border-black/15 rounded-lg bg-white hover:bg-[#f0efe9] transition-colors"><span id="uname">...</span></button>
+      <button onclick="doLogout()" class="p-1.5 border border-black/15 rounded-lg bg-white hover:bg-[#f0efe9] transition-colors">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+      <input type="file" id="xfile" accept=".xlsx,.xls,.csv" onchange="handleFile(event)">
+    </div>
+  </header>
+
+  <!-- KPI RIBBON -->
+  <div class="grid grid-cols-6 divide-x divide-black/8 border-b border-black/8 bg-white">
+    <div class="kpi-cell px-5 py-4 cursor-pointer hover:bg-[#f0efe9] transition-colors" id="kpi-all" onclick="filterStatus('')">
+      <div class="text-[13px] font-semibold text-gray-500 mb-2">סה"כ לקוחות</div>
+      <div class="text-[32px] font-light leading-none text-[#1a1916]" id="m0">—</div>
+    </div>
+    <div class="kpi-cell px-5 py-4 cursor-pointer hover:bg-[#f0efe9] transition-colors" id="kpi-h" onclick="filterStatus('healthy')">
+      <div class="text-[13px] font-semibold text-gray-500 mb-2">בריאים</div>
+      <div class="text-[32px] font-light leading-none text-ok" id="m1">—</div>
+    </div>
+    <div class="kpi-cell px-5 py-4 cursor-pointer hover:bg-[#f0efe9] transition-colors" id="kpi-w" onclick="filterStatus('warning')">
+      <div class="text-[13px] font-semibold text-gray-500 mb-2">דורשים תשומת לב</div>
+      <div class="text-[32px] font-light leading-none text-warn" id="m2">—</div>
+    </div>
+    <div class="kpi-cell px-5 py-4 cursor-pointer hover:bg-[#f0efe9] transition-colors" id="kpi-c" onclick="filterStatus('critical')">
+      <div class="text-[13px] font-semibold text-gray-500 mb-2">קריטיים</div>
+      <div class="text-[32px] font-light leading-none text-crit" id="m3">—</div>
+    </div>
+    <div class="kpi-cell px-5 py-4">
+      <div class="text-[13px] font-semibold text-gray-500 mb-2">ניצול רשיונות ממוצע</div>
+      <div class="text-[32px] font-light leading-none text-[#1a1916]" id="m4">—</div>
+    </div>
+    <div class="kpi-cell px-5 py-4">
+      <div class="text-[13px] font-semibold text-gray-500 mb-2">לקוחות עם AI</div>
+      <div class="text-[32px] font-light leading-none text-info" id="m5">—</div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="p-7">
+    <div class="flex items-center gap-2 mb-4 flex-wrap">
+      <div class="relative w-48 flex-shrink-0">
+        <input id="srch" type="text" placeholder="חיפוש לקוח..." class="w-full pr-3 pl-3 py-1.5 text-xs border border-black/15 rounded-lg bg-white outline-none focus:border-black/40" oninput="render()">
+      </div>
+      <select id="fst" onchange="render()" class="px-2.5 py-1.5 text-xs border border-black/15 rounded-lg bg-white outline-none cursor-pointer focus:border-black/40">
+        <option value="">כל הסטטוסים</option>
+        <option value="critical">קריטי</option>
+        <option value="warning">בינוני</option>
+        <option value="healthy">בריא</option>
+      </select>
+      <select id="srt" onchange="render()" class="px-2.5 py-1.5 text-xs border border-black/15 rounded-lg bg-white outline-none cursor-pointer focus:border-black/40">
+        <option value="score_asc">Health ↑</option>
+        <option value="score_desc">Health ↓</option>
+        <option value="name">שם א–ת</option>
+      </select>
+      <select id="fai" onchange="render()" class="px-2.5 py-1.5 text-xs border border-black/15 rounded-lg bg-white outline-none cursor-pointer focus:border-black/40">
+        <option value="">כל מצב AI</option>
+        <option value="yes">עם AI</option>
+        <option value="no">ללא AI</option>
+      </select>
+      <span id="rc" class="mr-auto text-xs text-gray-400"></span>
+    </div>
+    <div class="bg-white border border-black/8 rounded-xl overflow-hidden">
+      <table class="w-full border-collapse" style="table-layout:fixed">
+        <thead class="bg-[#f0efe9] border-b border-black/8">
+          <tr>
+            <th class="text-right px-3 py-3 text-[13px] font-bold text-gray-500" style="width:20%">לקוח</th>
+            <th class="text-right px-3 py-3 text-[13px] font-bold text-gray-500" style="width:12%">מצב בריאות</th>
+            <th class="text-right px-3 py-3 text-[13px] font-bold text-gray-500" style="width:10%">סטטוס</th>
+            <th class="text-right px-3 py-3 text-[13px] font-bold text-gray-500" style="width:10%">מצב AI</th>
+            <th class="text-right px-3 py-3 text-[13px] font-bold text-gray-500" style="width:10%">כניסות/30י</th>
+            <th class="text-right px-3 py-3 text-[13px] font-bold text-gray-500" style="width:10%">משתמשים</th>
+            <th class="text-right px-3 py-3 text-[13px] font-bold text-gray-500" style="width:10%">ניצול</th>
+            <th class="text-right px-3 py-3 text-[13px] font-bold text-gray-500" style="width:18%">עדכון אחרון</th>
+          </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+      </table>
+      <div id="es" class="hidden text-center py-16 text-gray-400 text-sm">לא נמצאו לקוחות</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal-overlay" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4 anim-fade" onclick="handleOverlayClick(event)">
+  <div id="modal-card" class="anim-slide bg-white rounded-2xl w-[94vw] max-w-[1400px] h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+
+    <div id="modal-header" class="flex items-center gap-3 px-6 py-4 border-b border-black/8 flex-shrink-0 bg-white"></div>
+
+    <div class="flex flex-1 min-h-0 overflow-hidden">
+
+      <!-- RIGHT: Customer details -->
+      <!-- RIGHT: Details -->
+      <div id="modal-right" class="w-[55%] overflow-y-auto modal-scroll px-6 py-5 flex flex-col gap-5">
+
+        <div>
+          <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Health Score</div>
+          <div class="flex items-center gap-3">
+            <div class="text-4xl font-light mono" id="modal-score">—</div>
+            <div class="flex-1">
+              <div class="h-2 bg-[#f0efe9] rounded-full overflow-hidden">
+                <div id="modal-score-bar" class="score-fill h-full bg-gray-300 rounded-full" style="width:0%"></div>
+              </div>
+              <div class="text-[11px] text-gray-400 mt-1" id="modal-score-sub">מתוך 100</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">נתוני לקוח</div>
+          <div class="grid grid-cols-3 gap-2" id="stats-grid"></div>
+          <div class="text-[11px] text-gray-400 mt-2" id="last-update-row"></div>
+        </div>
+
+        <div>
+          <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">פיצ'רים בשימוש</div>
+          <div class="flex flex-wrap gap-1.5" id="features-row"></div>
+        </div>
+
+        <div>
+          <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">ניתוח סיכונים</div>
+          <div id="risk-rows" class="flex flex-col gap-1.5"></div>
+        </div>
+
+        <div>
+          <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">פרטי קשר ויעד</div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">איש קשר ותפקיד</label>
+              <input type="text" id="crm-contact" placeholder="שם ותפקיד..." class="w-full px-2.5 py-1.5 text-xs border border-black/15 rounded-lg bg-white outline-none focus:border-black/40" oninput="saveCRMField('contact', this.value)">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">מטרה עסקית ראשית</label>
+              <input type="text" id="crm-goal" placeholder="הקלד מטרה עסקית..." class="w-full px-2.5 py-1.5 text-xs border border-black/15 rounded-lg bg-white outline-none focus:border-black/40" oninput="saveCRMField('goal', this.value)">
+            </div>
+          </div>
+          <div class="mt-3">
+            <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">האם כולל רכיב AI?</div>
+            <div class="flex gap-2">
+              <button id="ai-yes" onclick="setAI(true)" class="ai-btn flex-1 py-1.5 text-xs font-semibold border rounded-lg text-center bg-[#f0efe9]">✓ כן, פעיל</button>
+              <button id="ai-no" onclick="setAI(false)" class="ai-btn flex-1 py-1.5 text-xs font-semibold border rounded-lg text-center bg-[#f0efe9]">✗ לא פעיל</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">משימות תפעוליות לשיפור המדד</div>
+          <div id="checklist-container" class="flex flex-col gap-1.5"></div>
+        </div>
+
+      </div>
+
+      <!-- LEFT: Chart + Outreach -->
+<div class="w-[45%] border-r border-black/8 bg-[#f5f4f0] flex flex-col min-h-0 overflow-y-auto modal-scroll p-4 gap-4">
+
+        <div class="bg-white border border-black/8 rounded-xl p-4 flex flex-col h-[320px] flex-shrink-0">
+          <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">📈 התפתחות בריאות לקוח</div>
+          <div class="flex-1 relative">
+            <canvas id="evolution-canvas"></canvas>
+          </div>
+          <div class="mt-2 flex gap-2">
+            <input type="text" id="chart-event-input" placeholder="תיאור אירוע ידני בגרף..." class="flex-1 px-2 py-1 text-xs border border-black/15 rounded-lg bg-white outline-none focus:border-black/40" onkeydown="if(event.key==='Enter')addChartEvent()">
+            <button onclick="addChartEvent()" class="px-3 py-1 bg-[#1a1916] text-white text-xs rounded-lg font-semibold hover:bg-gray-800">הוסף</button>
+          </div>
+        </div>
+
+        <div class="bg-white border border-black/8 rounded-xl p-4 flex flex-col flex-1 min-h-[220px]">
+          <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">📝 מחולל פניות Outreach אוטומטי</div>
+          <textarea id="outreach-text" class="w-full flex-1 p-2.5 text-xs text-gray-700 leading-relaxed border border-black/15 rounded-xl bg-white outline-none resize-none modal-scroll" readonly></textarea>
+          <button id="outreach-copy-btn" onclick="copyOutreachMsg()" class="mt-2 w-full flex items-center justify-center gap-1.5 py-2 bg-[#1a1916] text-white font-semibold text-xs rounded-lg hover:bg-gray-800 transition-colors">
+            <span id="outreach-copy-label">📋 העתק הודעה לוואטסאפ</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flex items-center gap-2 px-6 py-3 border-t border-black/8 bg-white flex-shrink-0">
+      <a id="modal-site-link" href="#" target="_blank" class="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold bg-[#1a1916] text-white rounded-xl hover:bg-gray-700 transition-colors">🔗 פתח אתר לקוח</a>
+      <button onclick="closeModal()" class="mr-auto flex items-center gap-1 px-3 py-1.5 text-xs font-medium border border-black/15 rounded-lg bg-white hover:bg-[#fdeaea] hover:text-crit transition-colors">סגור</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#1a1916] text-white text-sm px-4 py-2.5 rounded-xl z-[600] pointer-events-none shadow-lg"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
