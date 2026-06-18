@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SucCentra</title>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -47,27 +46,9 @@ tailwind.config = {
   .cl-item { transition: background .1s; }
   .cl-item:hover { background: #f0efe9; }
   .ai-btn { transition: all .12s; }
-  /* Auth lock — page is blank until Netlify Identity confirms a valid user */
-  body.locked > #app-root,
-  body.locked > #modal-overlay,
-  body.locked > #toast { display: none !important; }
-  #auth-lock-screen { position: fixed; inset: 0; z-index: 99999; background: #f5f4f0; display: flex; align-items: center; justify-content: center; }
-  body:not(.locked) #auth-lock-screen { display: none; }
 </style>
 </head>
-<body class="bg-[#f5f4f0] text-[#1a1916] min-h-screen locked">
-
-<!-- AUTH LOCK SCREEN — visible only while locked -->
-<div id="auth-lock-screen">
-  <div class="text-center">
-    <div class="w-12 h-12 rounded-xl bg-[#1a1916] flex items-center justify-center mx-auto mb-4">
-      <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-    </div>
-    <div class="text-2xl font-bold tracking-tight mb-1">SucCentra</div>
-    <div class="text-sm text-gray-400 mb-6">מערכת ניהול לקוחות פנימית · גישה למוזמנים בלבד</div>
-    <button id="lock-login-btn" class="px-6 py-3 bg-[#1a1916] text-white rounded-xl font-semibold text-sm hover:bg-gray-800 transition-colors">התחבר עם אימייל</button>
-  </div>
-</div>
+<body class="bg-[#f5f4f0] text-[#1a1916] min-h-screen">
 
 
 

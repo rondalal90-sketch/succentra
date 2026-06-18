@@ -665,109 +665,12 @@ function showToast(msg){
   t._timer=setTimeout(function(){t.classList.add('hidden');},2500);
 }
 
-// -- 25. AUTH LOCK + INIT ----------------------------------------------------
-// Strict gate: page stays blank (body.locked) until Netlify Identity confirms
-// a valid invited user. Unauthorized visitors never see any data.
+// -- 25. INIT ----------------------------------------------------------------
+// Access control is handled entirely by Cloudflare Access (server-side, before
+// the page loads). No login screen in the app — the dashboard loads directly.
+function doLogout(){ window.location.reload(); }
 
-var dashboardReady=false;
-function buildDashboard(){
-  if(dashboardReady)return;
-  dashboardReady=true;
+document.addEventListener('DOMContentLoaded', function(){
   updateMetrics();
   render();
-}
-
-function unlockPage(user){
-  document.body.classList.remove('locked');
-  var uname=document.getElementById('uname');
-  if(uname){
-    var nm=(user&&((user.user_metadata&&user.user_metadata.full_name)||user.email))||'משתמש';
-    uname.textContent=nm.split(' ')[0]||'משתמש';
-  }
-  buildDashboard();
-}
-
-function lockPage(){
-  document.body.classList.add('locked');
-}
-
-// Safe wrapper — opens the modal, waiting for the widget if it's still loading.
-function openLogin(){
-  if(typeof netlifyIdentity!=='undefined'&&netlifyIdentity){
-    netlifyIdentity.open('login');
-    return;
-  }
-  // Widget not ready yet — poll briefly, then open as soon as it appears.
-  var tries=0;
-  var t=setInterval(function(){
-    tries++;
-    if(typeof netlifyIdentity!=='undefined'&&netlifyIdentity){
-      clearInterval(t);
-      netlifyIdentity.open('login');
-    } else if(tries>40){ // ~6 seconds
-      clearInterval(t);
-      alert('מערכת ההתחברות לא נטענה. בדוק את החיבור לאינטרנט ורענן את הדף.');
-    }
-  },150);
-}
-
-function doLogout(){
-  if(typeof netlifyIdentity!=='undefined'&&netlifyIdentity&&netlifyIdentity.logout)
-    netlifyIdentity.logout();
-  else window.location.reload();
-}
-
-// Wire up the Identity event handlers once the widget object exists.
-function wireIdentity(){
-  if(typeof netlifyIdentity==='undefined'||!netlifyIdentity){return false;}
-
-  netlifyIdentity.on('init', function(user){
-    if(user){
-      unlockPage(user);
-    } else {
-      lockPage();
-      netlifyIdentity.open('login');
-    }
-  });
-
-  netlifyIdentity.on('login', function(user){
-    unlockPage(user);
-    netlifyIdentity.close();
-  });
-
-  netlifyIdentity.on('logout', function(){
-    window.location.reload();
-  });
-
-  netlifyIdentity.on('close', function(){
-    if(!netlifyIdentity.currentUser()){
-      lockPage();
-      setTimeout(function(){netlifyIdentity.open('login');}, 150);
-    }
-  });
-
-  netlifyIdentity.init({locale:'en'});
-  return true;
-}
-
-function initAuth(){
-  // ALWAYS bind the button first — independent of whether the widget loaded.
-  var lockBtn=document.getElementById('lock-login-btn');
-  if(lockBtn)lockBtn.addEventListener('click',openLogin);
-
-  // Try to wire Identity now. If the widget script hasn't loaded yet,
-  // poll until it does (the <head> script is async).
-  if(!wireIdentity()){
-    var tries=0;
-    var t=setInterval(function(){
-      tries++;
-      if(wireIdentity()||tries>40){clearInterval(t);}
-    },150);
-  }
-}
-
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded', initAuth);
-} else {
-  initAuth();
-}
+});
