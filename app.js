@@ -169,7 +169,7 @@ function render(){
     var score=effectiveScore(r);
     var status=liveStatus(score);
     var bc=status==='healthy'?'#2d7a4f':status==='warning'?'#8a5c00':'#9b2929';
-    var aiBadge=r.ai_enabled?'<span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#e8f5ee] text-[#2d7a4f] border border-[#a8d9bb]">פעיל</span>':'<span class="text-[11px] text-gray-400">—</span>';
+    var aiBadge=r.ai_enabled?'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#e8f5ee] text-[#2d7a4f] border border-[#a8d9bb] hover:bg-[#d4ecde] transition-colors cursor-pointer">✓ פעיל</button>':'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-[#f0efe9] text-gray-400 border border-black/10 hover:bg-[#e8f0fb] hover:text-[#1a5fa8] hover:border-[#a8c4f0] transition-colors cursor-pointer">+ הוסף AI</button>';
     return '<tr class="border-b border-black/5 hover:bg-[#f5f4f0] cursor-pointer transition-colors" onclick="openModal(\''+r.id+'\')">'+
       '<td class="px-3 py-2.5" style="width:20%"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div><div><div class="font-semibold text-[14px] text-[#1a1916] leading-tight">'+r.name+'</div><div class="text-[12px] text-gray-400 leading-tight">'+r.domain+'</div></div></div></td>'+
       '<td class="px-3 py-2.5" style="width:12%"><div class="flex items-center gap-2"><div class="flex-1 h-1 bg-[#f0efe9] rounded-full overflow-hidden"><div class="h-full rounded-full" style="width:'+score+'%;background:'+bc+'"></div></div><span class="mono text-xs font-medium" style="color:'+bc+'">'+score+'</span></div></td>'+
@@ -205,6 +205,24 @@ function updateModalScore(r){
 }
 
 // ── 13. AI TOGGLE ─────────────────────────────────────────────────────────────
+function toggleAIRow(id){
+  var r=DATA.find(function(x){return x.id===id;});if(!r)return;
+  var newVal=!(r.ai_enabled===true);
+  r.ai_enabled=newVal;
+  var crm=getCRM(id);crm.ai_enabled=newVal;saveCRM(id,crm);
+  // If this customer's modal is open, keep the modal buttons in sync
+  if(currentId===id){
+    var yesBtn=document.getElementById('ai-yes');
+    var noBtn=document.getElementById('ai-no');
+    if(yesBtn)yesBtn.className='ai-btn flex-1 py-1.5 text-xs font-semibold border rounded-lg text-center '+(newVal?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
+    if(noBtn)noBtn.className='ai-btn flex-1 py-1.5 text-xs font-semibold border rounded-lg text-center '+(!newVal?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
+    refreshOutreach(r);
+  }
+  render();
+  updateMetrics();
+  showToast(newVal?'AI הופעל ללקוח ✓':'AI בוטל ללקוח');
+}
+
 function setAI(val){
   if(!currentId)return;
   var crm=getCRM(currentId);crm.ai_enabled=val;saveCRM(currentId,crm);
