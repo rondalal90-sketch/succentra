@@ -109,11 +109,12 @@ var evolutionChart=null;
 var MOCK_LABELS=['עדכון אקסל בסיסי','משימת שימור ידע - בוצע','ביצוע מבחן Tutorials','הדרכת Key Contact'];
 var MOCK_OFFSETS=[42,28,14,3];
 function buildMockHistory(r){
+  // Synthetic baseline trend leading up to the current score. The LAST point is
+  // dated today and holds the live score — there is no separate duplicate sentinel.
   var now=Date.now(),cur=r.baseHealth,start=Math.max(5,Math.min(90,cur-25));
   var pts=MOCK_LABELS.map(function(label,i){
-    return{date:new Date(now-MOCK_OFFSETS[i]*86400000).toISOString(),score:Math.max(5,Math.min(100,Math.round(start+(cur-start)*(i/(MOCK_LABELS.length-1))))),label:label,manual:false};
+    return{date:new Date(now-MOCK_OFFSETS[i]*86400000).toISOString(),score:Math.max(5,Math.min(100,Math.round(start+(cur-start)*(i/(MOCK_LABELS.length-1))))),label:label,labels:[label]};
   });
-  pts.push({date:new Date().toISOString(),score:cur,label:'ציון נוכחי',manual:false});
   return pts;
 }
 
@@ -169,8 +170,8 @@ function render(){
     var score=effectiveScore(r);
     var status=liveStatus(score);
     var bc=status==='healthy'?'#2d7a4f':status==='warning'?'#8a5c00':'#9b2929';
-    var aiBadge=r.ai_enabled?'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-semibold px-2.5 py-1 rounded-full bg-[#e8f5ee] text-[#2d7a4f] border border-[#a8d9bb] hover:bg-[#d4ecde] transition-colors cursor-pointer">✓ פעיל</button>':'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-medium px-2.5 py-1 rounded-full bg-[#f0efe9] text-gray-400 border border-black/10 hover:bg-[#e8f0fb] hover:text-[#1a5fa8] hover:border-[#a8c4f0] transition-colors cursor-pointer">+ הוסף AI</button>';
-    return '<tr class="border-b border-black/5 hover:bg-[#f5f4f0] cursor-pointer transition-colors" onclick="openModal(\''+r.id+'\')">'+
+    var aiBadge=r.ai_enabled?'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-semibold px-2.5 py-1 rounded-full bg-[#e8f5ee] text-[#2d7a4f] border border-[#a8d9bb] hover:bg-[#d4ecde] transition-colors cursor-pointer">✓ פעיל</button>':'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-medium px-2.5 py-1 rounded-full bg-[#f0efe9] text-gray-400 border border-black/[0.06] hover:bg-[#e8f0fb] hover:text-[#1a5fa8] hover:border-[#a8c4f0] transition-colors cursor-pointer">+ הוסף AI</button>';
+    return '<tr class="border-b border-black/[0.04] hover:bg-[#f5f4f0] cursor-pointer transition-colors" onclick="openModal(\''+r.id+'\')">'+
       '<td class="px-3 py-2.5" style="width:20%"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center text-[12px] font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div><div><div class="font-semibold text-[16px] text-[#1a1916] leading-tight">'+r.name+'</div><div class="text-[14px] text-gray-400 leading-tight">'+r.domain+'</div></div></div></td>'+
       '<td class="px-3 py-2.5" style="width:12%"><div class="flex items-center gap-2"><div class="flex-1 h-1 bg-[#f0efe9] rounded-full overflow-hidden"><div class="h-full rounded-full" style="width:'+score+'%;background:'+bc+'"></div></div><span class="mono text-[14px] font-medium" style="color:'+bc+'">'+score+'</span></div></td>'+
       '<td class="px-3 py-2.5" style="width:10%"><span class="pill '+pc[status]+' text-[13px] font-semibold px-2 py-0.5 rounded-full">'+sl[status]+'</span></td>'+
@@ -214,8 +215,8 @@ function toggleAIRow(id){
   if(currentId===id){
     var yesBtn=document.getElementById('ai-yes');
     var noBtn=document.getElementById('ai-no');
-    if(yesBtn)yesBtn.className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(newVal?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
-    if(noBtn)noBtn.className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(!newVal?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
+    if(yesBtn)yesBtn.className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(newVal?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/10');
+    if(noBtn)noBtn.className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(!newVal?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/10');
     refreshOutreach(r);
   }
   render();
@@ -227,8 +228,8 @@ function setAI(val){
   if(!currentId)return;
   var crm=getCRM(currentId);crm.ai_enabled=val;saveCRM(currentId,crm);
   var r=DATA.find(function(x){return x.id===currentId;});if(r)r.ai_enabled=val;
-  document.getElementById('ai-yes').className='ai-btn flex-1 py-2 text-[16px] font-semibold border rounded-lg text-center '+(val?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
-  document.getElementById('ai-no').className='ai-btn flex-1 py-2 text-[16px] font-semibold border rounded-lg text-center '+(!val?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
+  document.getElementById('ai-yes').className='ai-btn flex-1 py-2 text-[16px] font-semibold border rounded-lg text-center '+(val?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/10');
+  document.getElementById('ai-no').className='ai-btn flex-1 py-2 text-[16px] font-semibold border rounded-lg text-center '+(!val?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/10');
   if(r){refreshOutreach(r);render();}
 }
 
@@ -239,29 +240,27 @@ function pushHistoryEvent(r,label,newScore,removeLabel){
   var history=getHistory(r.id)||buildMockHistory(r);
   var nowIso=new Date().toISOString();
   var tk=todayKey(nowIso);
-  var sentinel=history[history.length-1];
-  // Find an existing non-sentinel point from today.
+  // Find a point already dated today (single source of truth — no sentinel).
   var todayPoint=null,todayIdx=-1;
-  for(var i=0;i<history.length-1;i++){
+  for(var i=0;i<history.length;i++){
     if(history[i].date&&todayKey(history[i].date)===tk){todayPoint=history[i];todayIdx=i;break;}
   }
   if(todayPoint){
+    // Same day — raise Y, keep one X position, manage the labels list.
     todayPoint.score=newScore;
     if(!todayPoint.labels)todayPoint.labels=todayPoint.label?[todayPoint.label]:[];
-    if(removeLabel){
-      // Remove a matching 'בוצע: X' label when a task is un-checked.
-      todayPoint.labels=todayPoint.labels.filter(function(l){return l!==removeLabel;});
-    }
+    if(removeLabel)todayPoint.labels=todayPoint.labels.filter(function(l){return l!==removeLabel;});
     if(label)todayPoint.labels.push(label);
     todayPoint.label=todayPoint.labels.join('\n');
-    // If today's point has no labels left, drop it entirely (keeps chart clean).
-    if(todayPoint.labels.length===0){
+    // If today's point is a synthetic mock baseline (not a real event) keep it;
+    // only drop a point that became empty AND isn't the sole remaining point.
+    if(todayPoint.labels.length===0&&history.length>1){
       history.splice(todayIdx,1);
     }
-  } else if(label){
-    history.splice(history.length-1,0,{date:nowIso,score:newScore,label:label,labels:[label],manual:false});
+  } else {
+    // First event today — append a new point at the end (most recent X).
+    history.push({date:nowIso,score:newScore,label:label||'',labels:label?[label]:[]});
   }
-  if(sentinel)sentinel.score=newScore;
   saveHistory(r.id,history);
   return history;
 }
@@ -306,14 +305,27 @@ function deleteCustomTask(itemKey){
   if(!window.confirm('האם אתה בטוח שברצונך למחוק? פעולה זו תשפיע על המשימות להמשך ועל הגרף.'))return;
   var r=DATA.find(function(x){return x.id===currentId;});if(!r)return;
   var crm=getCRM(currentId);
+  var _ci=(crm.customChecklistItems||[]).find(function(i){return i.key===itemKey;});
+  var taskName=_ci?_ci.t:'';
   crm.customChecklistItems=(crm.customChecklistItems||[]).filter(function(i){return i.key!==itemKey;});
   crm.customChecked=(crm.customChecked||[]).filter(function(k){return k!==itemKey;});
   crm.archivedCustom=(crm.archivedCustom||[]).filter(function(k){return k!==itemKey;});
   saveCRM(currentId,crm);
+  // Remove this task's 'בוצע: X' label from any chart point it was stacked onto.
+  var taskLabel='בוצע: '+(taskName||'');
   var history=getHistory(r.id)||buildMockHistory(r);
-  history=history.filter(function(p){return p.itemKey!==itemKey;});
+  for(var i=history.length-1;i>=0;i--){
+    var p=history[i];
+    if(p.labels&&p.labels.length){
+      p.labels=p.labels.filter(function(l){return l!==taskLabel;});
+      p.label=p.labels.join('\n');
+      // Drop a point that became empty (and isn't the only point left).
+      if(p.labels.length===0&&history.length>1)history.splice(i,1);
+    }
+  }
   saveHistory(r.id,history);
   renderChecklist(r,crm);
+  renderChart(r);
   updateModalScore(r);
   refreshOutreach(r);
   render();
@@ -348,11 +360,11 @@ function renderChecklist(r,crm){
   var metricHTML=metricItems.map(function(item){
     var isDone=checkedMetric.indexOf(item.key)!==-1;
     var badge=item.p==='high'?'<span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#fdeaea] text-[#9b2929]">דחוף</span>':'<span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#fef4dc] text-[#8a5c00]">מומלץ</span>';
-    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/8 bg-white cursor-pointer select-none '+(isDone?'opacity-50':'')+'" onclick="toggleCheck(this,\''+item.key+'\',false)">'+mkBox(isDone)+'<div class="flex-1 min-w-0"><div class="flex items-center gap-1.5 mb-1">'+badge+'</div><div class="text-[16px] font-semibold text-[#1a1916]">'+item.t+'</div><div class="text-[14px] text-gray-400 mt-0.5">'+item.d+'</div></div></div>';
+    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/[0.05] bg-white cursor-pointer select-none '+(isDone?'opacity-50':'')+'" onclick="toggleCheck(this,\''+item.key+'\',false)">'+mkBox(isDone)+'<div class="flex-1 min-w-0"><div class="flex items-center gap-1.5 mb-1">'+badge+'</div><div class="text-[16px] font-semibold text-[#1a1916]">'+item.t+'</div><div class="text-[14px] text-gray-400 mt-0.5">'+item.d+'</div></div></div>';
   }).join('');
   var customHTML=customItems.map(function(item){
     var isDone=checkedCustom.indexOf(item.key)!==-1;
-    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/8 bg-white select-none '+(isDone?'opacity-50':'')+'">'+
+    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/[0.05] bg-white select-none '+(isDone?'opacity-50':'')+'">'+
       '<div class="cursor-pointer flex-shrink-0 mt-0.5" onclick="toggleCheck(this.closest(\'.cl-item\'),\''+item.key+'\',true)">'+mkBox(isDone)+'</div>'+
       '<div class="flex-1 min-w-0 cursor-pointer" onclick="toggleCheck(this.closest(\'.cl-item\'),\''+item.key+'\',true)">'+
         '<div class="flex items-center gap-1.5 mb-1"><span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#e8f0fb] text-[#1a5fa8]">ידני</span></div>'+
@@ -467,7 +479,7 @@ function openModal(id){
     '<div class="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center text-[16px] font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div>'+
     '<div class="flex-1 min-w-0"><div class="text-[18px] font-semibold text-[#1a1916] leading-tight">'+r.name+'</div><div class="text-[14px] text-gray-400">'+r.domain+'</div></div>'+
     '<span class="status-live-pill pill '+pc[status]+' text-[13px] font-bold px-2.5 py-1 rounded-full flex-shrink-0">'+sl[status]+'</span>'+
-    '<button onclick="closeModal()" class="w-7 h-7 rounded-lg border border-black/15 bg-white hover:bg-[#f0efe9] flex items-center justify-center text-gray-500 transition-colors flex-shrink-0"><i class="fa-solid fa-xmark text-[14px]"></i></button>';
+    '<button onclick="closeModal()" class="w-7 h-7 rounded-lg border border-black/10 bg-white hover:bg-[#f0efe9] flex items-center justify-center text-gray-500 transition-colors flex-shrink-0"><i class="fa-solid fa-xmark text-[14px]"></i></button>';
 
   document.getElementById('modal-score').textContent=score;
   document.getElementById('modal-score').style.color=bc;
@@ -480,7 +492,7 @@ function openModal(id){
   document.getElementById('last-update-row').innerHTML='עדכון אחרון: <strong class="text-gray-600">'+(r.rawDate||'—')+'</strong>'+(r.daysOld<9999?' · '+fd(r.rawDate):'');
 
   var feats=[['חתימה ואישור',r.ras],['מבחנים',r.exams],['הדרכות',r.tuts],['התראות',r.notifs],['פידבקים',r.fbs]];
-  document.getElementById('features-row').innerHTML=feats.map(function(f){return '<span class="text-[14px] px-2.5 py-1 rounded-md border font-medium '+(f[1]>0?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-400 border-black/10')+'">'+f[0]+(f[1]>0?' · '+f[1]:'')+'</span>';}).join('');
+  document.getElementById('features-row').innerHTML=feats.map(function(f){return '<span class="text-[14px] px-2.5 py-1 rounded-md border font-medium '+(f[1]>0?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-400 border-black/[0.06]')+'">'+f[0]+(f[1]>0?' · '+f[1]:'')+'</span>';}).join('');
 
   var thresh=Math.max(r.active*0.6,1);
   var risks=[];
@@ -503,8 +515,8 @@ function openModal(id){
   document.getElementById('crm-goal').value=crm.goal||'';
 
   var aiActive=r.ai_enabled===true;
-  document.getElementById('ai-yes').className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(aiActive?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
-  document.getElementById('ai-no').className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(!aiActive?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
+  document.getElementById('ai-yes').className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(aiActive?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/10');
+  document.getElementById('ai-no').className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(!aiActive?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/10');
 
   renderChecklist(r,crm);
   refreshOutreach(r);
@@ -530,7 +542,8 @@ function renderChart(r){
   var history=getHistory(r.id);
   if(!history||history.length<2){history=buildMockHistory(r);saveHistory(r.id,history);}
   var liveH=effectiveScore(r);
-  history[history.length-1].score=liveH;
+  // Keep the most recent point in sync with the live score (no sentinel assumed).
+  if(history.length)history[history.length-1].score=liveH;
   var status=liveStatus(liveH);
   var lineColor=status==='healthy'?'#2d7a4f':status==='warning'?'#c07800':'#9b2929';
   var fillColor=status==='healthy'?'rgba(45,122,79,0.08)':status==='warning'?'rgba(192,120,0,0.08)':'rgba(155,41,41,0.08)';

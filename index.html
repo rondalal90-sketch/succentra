@@ -56,11 +56,9 @@ tailwind.config = {
 <div id="app-root">
   <div id="loadbar" class="hidden fixed top-0 left-0 right-0 h-0.5 bg-[#1a1916] z-[999] load-bar origin-left"></div>
 
-  <header class="bg-white border-b border-black/8 sticky top-0 z-40 h-16 flex items-center px-7 gap-4">
+  <header class="bg-white border-b border-black/[0.05] sticky top-0 z-40 h-16 flex items-center px-7 gap-4">
     <div class="flex items-center gap-2 min-w-[160px]">
-      <div class="w-8 h-8 rounded-lg bg-[#1a1916] flex items-center justify-center flex-shrink-0">
-        <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-      </div>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAatElEQVR42u2cd5xdVbXHv3vvc26bOyWTkColdAgQQglKEaRJEEQQpUp5QXwoCILyHqA8lWIEFXiA8AQU5IEUKY+O1NACwRApEQgQegkkmUy5c8vZe6/3xz53ZkJCiMKEgHfP53zu53PnnHPP2b+92m+tvZT3XmiMT2zoxhR8ckMp1QDgkxwi0gCgoYIaADRGA4AGAI3RAKABQGM0AGgA0BgNABoANEYDgAYAjdEAoAFAYyyPEa0oDyIC3ntEQKmQrABAfdAF9P9fQCuF0goRWfKpA85XKxAA6pNMSQrgnUcphTEfXRgr1YRMHAGC9yAojAatByAFWA/iA9Bahc9/OQCc90Ra9739O+/O5/FnXudvz77Ny6/MZ+7CEr2VGoq6NKSPqRQIeF3/XtG5sMTKKzVx2DcmstMXx5PNmgHa1VNznkotAJ3LaGKtFxEt6wRFHajPuAoSEbwIkTFYZ7nxLzO54oYZPDBjDgvmlcClsqFNOkcq1RtqEZWDAaoCtRrf/OZETjzqy4xfZzTgeXNBjQeeLvPQbM8zr3re7hZ6qx6tFcWcMKrVsOGqis+vmWGb9TKMGRoDGudTw6g+oxLgvfSpmhvueIJTz7+dJ554HZSBpixRHPW9vSDpolcDjjCMUdRKCSPbs/z2lG+w587jAXj8xR7Ov6WXm2Y6OubZsL6MQBSly1vAK/ACzoOG9qGw84Yxh++c5Uvj8oDGOsHozxgAznmiyPBeRzff/8nlXHXDExDFRMU8ohQipAY0LHFRuk/FQFA7AphI4bpqrLPGEK678NuMW3Mk8zornHzFQi6+x5GUNeQ0JlYoJYQ/AwhKpapHSWqwNc4pqAKxZ8/NNT/bN8eGK2dwDpRWg26wlwsA9cmfNft1vn74eTz/3Fyi9ja8CCIKUQqtFUZrBME5IdQLLLr6tVb43iprr97KHX88irGjh/Lws51MPrvE86+AajFo3W+ASfV6mMjU4opCULhUurRWKA2CxvcqmgqO0/ZTHL1rES8mVC6oTzEAdbUza/Zr7LTvL3n7vQpRaxFrBYVChxnC9VahUgWjIROjMxHKGAhnBc/GekYOLXDnH49ggzVHc9P0hRzwqw56yjkyBYX14FEoBG1UAMICLkx8ECENGYOKUkC9QlJDr43GeQ0ly2G7JFz47eagHkUNGgiDCkBdpczr6GLLPX7OS68sIG4tkNjgzRhjcL01qNVYZ9wYdtlmPb4wYXVWHd1OsZjHaJPa3vCI3nmaW/KsPHIo9z2zkF1P7qYqESZWOB9UjjLgEgO9DrKWMStFrDFKWKk1RjlhXo/ixXfhjXmAjaGgiUwwCf2SaEg6Hft8qcaVRzanFn9w3NVB84IEUm9HceRJl/PS8+8QDW8lsS4YUq1xC3pZd73hnHzMHuz15U3IZrPLdO85c0sccEYXFR9hMhrrBRRorXHdnpa2KvvvlOGbW7ewyWoZWouZAW6p0NVTY8arjj8/VOPyaZbu7ghTNEH1icI6T6ZVc/V9McObS5x9SDGNGxQfdxg3aBJgnSeODLfc+wS77/drovaWMFFImPyFJfb/+ue5YMqhtBTzIELifOp5Ltn4eQGtHJNOe4+7HhPiFkNi05WPwvd49tk+5pQDC6w1Mp8uA4f3ET4Nh7WSoPZQgGP22wknXNnL9Q/n0AWFKI8ShYkU3hncvAq3T4FdxhexDszHrIsGzdkyKS1w5oV3go5RdR9bK1xHL3t9dVOuOO+7tBTzJInFA5HRGKMxOqiCgYeIIo4Ul03t5q5pnqglInESolnR+LLlzO/EXPXDVtYamSexgnUK7yOUCqrfaIVSGu/BOSGxmrVH5bjuuFZOPzjBVxyRAqU0SZcmpysctY9i41UzwWsdBB00KBJQN7xPPfsqm+56Kj5KRVcrpGYZObSJp+46haFtLTjvMB8SggZ+SOiqOMYfM5fX5kaorEdEoZXGlSxnfy/L0ZPasalE6GVcqV6CqowNnHtbD9+/QFAtmoO+YPnRngXGjYlTakP181Mrug3w4jFo7pv2LLZUItPegnWOSBtqPSUO+e5ODBvSQpI4oujDhdAJxFpz9QMLefU1T9QiWA/GgOt0HP41zdGThlKznsikLueyqoCU+HMOjtq1QEuhzKrDNdut3wwEKQuS86miIsLTzpr9dj2mDYcIGMMWG43Fe1nmlzIKBMdlU8vBNU19c18VVllFOOPAdpz3YaL+yadVGrzTHLxdERCsFxSeaJB5CT140w8LFnaA0vjUDVcocJbu3ipaB29jSfTxoqRdsBt/faHKIzMF8gZFUAdS8xy3R4HWphze64+so5VWWAfWKYzSg6Lzl2tCJpPNLAKIRyCX47w/3ku1WiOXjdNAjPfxPQMiYCVY58E7dpggRJKQlBxiFSuNUOy/bRGRj4+7CcZ6+ZFxg/JTkgZOY1cZgXIWVMiyWPGopiyPTX+RHfebwh1Tn2JBRzfiHUq5lK8JrmP9iHTwjjZfp5m7T1+Zh04Zwl5ba3yHZeeNsgxrinD+k+X0VzgvyHlPZAz3TZvF9nudjm5pQrzv4/K1UbieCijFiBHtDG9vApPaBKVT2iAEV5GJWHlUO5tvsAq77zyBjdZdBYD/umIuq40yHPKlYX36vwHAYry/5wt7/JS/zniFqCWPc9Lnyilt8EohVQs1F6TEsEjEGihSkwpDjWxbE5P33oopJ+xFczFLYi2RyfBpHoMGQF0KHpg2i+32OhWVz6HjmP6fC6ykUv0unqgBhIvoPi0ZiDKFtQ55r5ttt1+P/7vkSJqLhZSjUZ9aAAYxEtZYZ/niF8Zx4W8Ow5cq2FIVE4VoVyuFThe5E8GJ4P37D4X3gnOexHpAkR3dztR7nuWHv7gWrTVLXT7yLywB/ZJgiUzMbfc8wXH/dQXPPfcWxBHkMmBMWL1q4GzVM2IGozRK6+AF1TOSSgX3sFbjb7eeyAbrroJzfpHIVyQEg5HRiPyLSkC/JERYa9l1h014/M6f87uzJvPl7ccxangrWS3gHGId4gRxaarQC8pWceUStqObAbMfuHujcd0Vbr7nqb7I+/1xQ2QU5VpthQdg+aUkU5tQHwu7Ssyb10W5YpGUzRTqn+C9Y15HFzfe+TcuuPJhxMSgw4qOjMYu7OJb+2/FH381GWsdxgR1ZLQicY7Tr+vgtXmOS44YjpPlm2hfIfIBS7IJQa+H8pC2libaWpo+9Lodt96IUSNa+fGUWzDNTTjxId2ooFypLqJ2jIbbZ3bykyt7mfGEZ7edsiGd7FmxqrGWpwpaRNwUwQBrhfce55Z2OJKaxTnPQV/fmmxrDudcyOECOMeI9lYArBe0Fk699h12PWk+M+YIplmRiVZ8K/yJlSYOdD8/kFFSglaKWrUaOKM0kBMtoCLGrz9mgP+qefJVh0LIFxy9CyVNzKt/yB0KJZJpMl99xiTgHx31ssWH/jqHWkeZKDYIgreW3JA8X/rCeuEl0rdoyoBgcdaBd4jz/+gvopXvKyOyjkE34issAM6HUpae3gpTzr8VlY3wzqONQrrL7LT1Oqy56ghqietbqt55cDWUS8AnaJYdgHqJzMJKwqX3l5jbWSVOKyf+YRw/7QBYGzwmBUw+7iKee+4ddCHC+xr4BBXB8YfvjHOeTGzIpM6VcglIAliQKpEOM6fkw8hDAp2tPcdfXuHQMxSbn1jjtBt6eberRmRk0GK6FQIASaNga0N+II4NCzq62fuws7nmhseI2go464gjjXuvi8O/tS1bb7YOxmiuvu2vnHnR3anUuDD5JODtAAn44OnzXvAO4kj47zsqXHRnRDzC8HpHlh//UTPhhDK/uq0b592ggDBoADjnsdb1H85hnccO9HR8mHCtAz0RxyHbdfX/PcIWXzmZ626egWltxicVMpEmmV9iwsRVOefk/ahUa5x45nXse8C5PP96Z6pGEnAWfALi04gitdFLMLTWeYwRosjy65u7OfoSwRQMLgm1wbkhwltzs5xzu8d59w+a80/YC4ois8znlkplXnj5He56aBbX3Dydv854CTIxpr0JbxPiOKI2r4s11x7GjRcdzZtzO9j/mMt4bPorqEKe5lxKXzgHrhYYVBGEJAWGwKimRdb1hIvB8OK7JX5yRZWrHo4xhRghJPsVEqrktOX8Q7Pk4jgtS/kUAGCt47xLbqajoxcnjsR6arWEas2SWEc1EWrWUq5a5i0s8eabHbz+dhdSKkMug24poJyg00xLbW43Ez+/Bldd8D1WGTOci66eymNTn6Vp7EhKb83HpcG89jXwNcTH4CwmrYXJRB7SAl3wdJcdT77m+PPDCZc95FjYGRMVNU5CYSOpJ1TrVBzxNfjqJnmcG5xMWTQYqieOI2bNfpNLzroa2oZAzdb3HaV1/yokXnRMmvJCZWLi9ma8BPWklSLpKoHA4Ydty7mnTSYTR3gvNOWz6EIGmySELFpdtfigflywAd5ZAI67fAEvvaHJZj3vdMLL8+D1+RoqOpQmFoPXBTrYoEhT6xS23yTh7P0Kg5px+9gBCEVUnrN+/m88+OgsXpozl7i9BWddoPiVDsW2SvdVMHsliAjW2pC8VxpfqbLlxLH8+Ji9mLTDpszv6GTKeTfyixP2R6PwiU11vOtL7IsXcAnKOxCL+KCCHnnO8uh0BU06mL1YozJgiikdXvczRYiNptbl2Wxdx1XHZIijAMpg5Rw+dqFSKnD4zcUCl5//A3JGU+mpIgps4rGJI7EWay3OOZzzeCd9O+kipZHubn5+3J48fPNpTNphU268fRqbbX8C5156D1EU4wmbvMKK90jd25Ew8crXwNX6vKBiVmGKimxRERdAZ8K11nmcOMR7FB6jobbQsd2GCbf/Z5aVilm8H9yEz6B4QVprrHVMnLA2N/7pJFpzBttVJhNH6LRKSMT3eSpKQIkgyiMqfL/J+DVAPAd9/yz2PPAMXnljPsOGFvvdGCSwbCIo7/siWVywA9gEEdfnajoXDus93qe79PABdO3xicJ2WSbvItx6Up5hLTHOLXuF3QrnhhqjSaxjxy9OYOqtp7Px+JWpzZ2Pd544ivperE99iKBEhaDJe5IkSMjVN01HNRXQOY1NbB+ph5c0wKpPJOAd+ATxNfBVVAqApEAJddADQxTpwKraLmFkc5VLj4u5+LutwePxgz/5gx6IRSZIwvgNVufh23/FKT89gGEtGZJ5C/HlJN0joNE63Y4kkpa0+FAyqBUtLTnEJYEXqnvhQth54S24kE8INsCCS8Knr4b/D+B5QFBGMEoQB7Y7IXY1DvsKTD+jlYO/WAxbliQUZn0m2FBjQkqxkMvy4+O/xaEHTeLSK+/iTzc+yqxnX8dWHeSykIuJoghjgoek+vgd1xfNSj13JD449qm6wtcpBx+MsK2Bq6LE9pF1kQkT68qCTxxNrbDnDjHH7F5k09VDKXvihGg5cwPLhY42WvUlY8aMHMZJx+7H8UfuzSPTZ3HL3TO5f9rfmfXiW5Q7OrEY6OlNVzwYZcJ+Ygmqqw6GwaHFoVX/ao1U/VAY0t2QQKkXbJcnjhwbj4WvbdnE/lsVWGt0FlBYF7YgRZ/lfcL1ZIz3gYKIMjHbbr0x2269MSC8/OpcZjz1ItOffJlHH3ma5qYsifN0dnVi5/WCwPyUdUsSh+ss0VvIQFcP5WoNgO5SGTu/hx4FdHYHWgLYfkPhq5s1MWnTLBuNzaJV2E1vXSj+MvqTS9ws94SMUorIGMRL4IJSWzF21ZGMXXUke+++dUofOKz1XP/7/+CFOXOZ88o7VKq9gDByWDObbbkOpqWJyiodrPW5IYCwzcbDWaklz9prtDB2dAubrT8cvOO0A0f1vaoIJC5UV68I1XTLnJQPwcoHlZTXC6z++RfyPgRjoYK9fj9ZzE9w1qP6ds0sGgUrZZbAtDq8aLx4NBqlP43NOkRQy9BIQT7m9FG9g0oUqQG08oDSxXoNkQxIqvj6fyT1rv4JListQ1oeVdIfCoBIoBcu//O93HDrE3RVkrBrV0JrmSgy1LpL7PaVzTn2O1/Fug/fcrSsk691CNiundbLbTNrzOvW/ROvIKl6TjugyGZrZNM9XB+HiqyDHFjRT9QG1Gt5fvqbq/nZcRfBsDaKQ5pxvt8nj7Si3NHDuuNC1bJ1HvGyGB1d94KMMX2r0nsfPEg1wL9XKl25woKuGgec9R53PKADm5nz/Tl2DfR6vrdroV9aRBYtVVRgBiT/rV+c0Fdp4l+pECmUKwlXPlhhzFDNl8c3IaKov4qXPo83jXPC9inxS3A49EeUgHqiZO67C1htsyMYNWIIN132H6wyZji+j5wKnwJkMhG5bJz2Y1hcJQ20D/UM2Af1CPISgrF9f/0O195s2HSi5sS9sqw5MoMM2MLqvLDGqAzNOZ3erx5byiIJx3qVQ3/s+T6UCFkxbcBTxuzRw26f19x8QnufmnNeMNqn13+YZIRaV70McW60NBUA8Na7C6nML7PVnluywfpjP0T/K275y+M8P+cNjjh4Fwq5HNZ7jNE8NvM5pj7wFAd+cwdGjWzHGM3f/v4q02Y8T7liMUqFpHtk+N5B2zLzVbj2fs3q4xx3/GQIw1oyH/DiYdUb45n6XIWZLwTVISKs1KrYdbMMQ4sZOkoVrphaIbE6TcyE3xs5TDFpQoEhBc2TL1a4aUaVfJvhrS44++YSTVnh0B2KREbx4tyEe/5Wo1QxKOWYvGOOR2c7Zr5syWYNPm04sv7KhknjM8tUUREtzW8XhDHD2yiMbOG2W2dw+db3suZqI1KeRIMTmot5Ntpg9aCSlOLC/72HW69/kAP3/CKFfD406jCGe6Y+zUk/uIAtJo5j9KihnH/pnRz5o4tDS4E4CmrIOihm+M4+W3DfMzGqW7H/lwoMa8lSroWc8MAEu/SpAuHka7o55fc9QY9ECnwEiWbcht08cNpK9FYUR11chTKgXf9KrmXYYIP5TDt9GA+8UOPk8xPi1XI88YrniRndDP0cTN6xwOOzq+xyag8L3tVgQt5h7y1j/jC1ylXXJ9CmU7ZDAREnHFDl9P2aw36zpRinaGn+unOe4cPbmXLivnz/2N9x0D6nhyvEgE4nLV9gxx3X49JzjmbM6GE0NWWJhraiUvVS/+l8PkdUaKHYlKerp8SPfnYVQ4c1c/FZ/87aY0fg0qBIlCJbaOG1+b2IhtWHGkQckdaY93UK8Gk54pz3qpx6dYWtNmvi90dmaYqE2Cguvt9x0rklrnu0zAHb5Ig17L6T4tRvDKE3UWQjzx/uK/ObyyN+f3+FQ7crsMHKml2mJOw4Dv774DaStKHIlJsSFiww/O74LFutFWG9MLw15pyDDb/8liKTNmPprll2+6Xn13c4jt3dMqyYwS8loRMtnUIIketRk3dj4oS1mPrgLKpJLSRTvECkmfrYC9x99f2cNPoaLj3nu3hrsYnt5236JstjazVyWcPfZ79F+fW5/PCMQ/jaLhOX+Nv5jEeJ0FH2KX0ti6mg+nevvecRq4gz8OeHLL1Ok42FN+ZbiOClt4PTkCRCezFivZULffc4ejfD2Td0MfttS3O+yOZrKUTKDClkB5xneWUejP5cxLe3L1Bv3gGOKPZcc0+V2XMtSkEmhop1KG/oKcOw4keMhJUKO1O22GQdtthkncX+n9RqjHj6FR6c/kxfRgyliOO4r/rBupSDT+9XrdXQ4hg1rA3rPNVKQhTr1NgpCrmIjVdVSGS4bUaNY78CmVjhvCyyCVvqeRwHOtY8+oJj6tOVvuLdTKxpblW0FQQvqetqg1GuWSETKSqJwiMYFdzqUsWhUvfTOqFmhUI2cEVKwnWRFpyECu5Jpy1k+pMRn1vFEunQJPC9UobICHoZQr7ow6y5UkuqcJA+X/Dp51+n2tlDy6jRQWqiDLpU5eU33mHTDdcinw8dUAqFLIqw5XTkSm34XJ67H3iKIw7amagpu9j9d5mQYdRqJe553HDyNQs4fvc2ivmon/tHoVOvpLkJfFlz4E6ai77TgviIujNWTRxaaeZ3O5SWtPdEUBf1T6XrPYPSalKlmd9jiUwt3YMmoEKkXdfnsVG88I4w/ZmIAycpLj9yaF/88K3zO/jfqWaZmgBGS6MGjNE8/9IbHHL0ef39NqV/17vShqeefZPet+Zz0Mn7ArDLdhvzpwtvYdf9f8GO24wHQherZ198A8nn6OzqYZuJ49hi+424/g9/YduFJcZ+rh0hQjwUchGnn7gPQ9tauODbefY+o4dT/sdw8d0drLqSCrmCtNNVrew559vNTFgjwzrr9nLxTTUWdAttBYX3OnU6PWcc1BSCukRI7PsWkoA4FSQET0s+Yuxwzb2PKyad3stGo8r88pAmnNckPjgmOnVQWpuhpbXGLY/nOfKSTkwUkTHwyPMqbRglH0UCwsXlUpkZT86BTBbl+3e219vKjG5v49DfTOb7h+2KdZYD99qKV8+czP9cdi/X3DwtdQwi8rmY1pGtIU5Qij+d++/8cFiROx+cxYPTZ6NNBmcdbc0xP/3hXgiwxxbN3H9axJnX9/Lwi56ZL3skpMMwSqiVHAtKkI0irjkqx7GXVLj1cUuVBO1DGzIlnv/8eoFhzZ4hRUdbzjFwO5Q2jtamGk2ZING5jOa3h2b5wR96uXOmMOdtz5RDmmnPJtSKgpYmlA7qaXiL4aIj8/z49zV+exehQaBAIRsxpr1W32rC0pTRUqkIBVhr6eou1yvD32cEPc2FAplcJk331e2GplKpUi5X094/wVdPnGdIS4E4jvoCtq6unkD0qdAvTiloKeZDTwgLOlKApavXk7jFjXBzXgUPyQRgOkqBfNMCklZbtObDXrR53TXyGU1zLu4rdU/EM787oZiBYj4TOrBowXlLR09woZvzms6SxQsMKUbo9NlFPFpras7SVe5nqVwqKUOa0lzGR+GCloXhrG8RGsicLq0yrh4J1zNmSyP16qF/mOAlS2qgIUibr6rFyLo+vanU4hE6i3/vpb+LSl++egnX1ic7+oBn62+9+RHZ0KWznEveaPFB17wf0CWdtyTQP+gRlPrw8/op66Vc876e0gP7Tafp6iVe+/5zl/ZsHykf0BifwqqIxmgA0ACgMRoANABojAYADQAaowFAA4DGaADQAKAxGgA0AGiMBgANABqjAcAi45Nq/vr/srNb/Loma9EAAAAASUVORK5CYII=" alt="SucCentra" class="w-9 h-9 rounded-lg object-contain flex-shrink-0">
       <span class="text-[20px] font-bold tracking-tight">Suc<span class="font-light text-gray-400">Centra</span></span>
     </div>
     <div class="flex-1 text-center">
@@ -68,9 +66,9 @@ tailwind.config = {
       <div class="text-[13px] text-gray-400 mt-0.5" id="hdr-sub">Customer Success Platform</div>
     </div>
     <div class="flex items-center gap-2 min-w-[160px] justify-end">
-      <button onclick="exportCritical()" class="flex items-center gap-1.5 px-3 py-1.5 text-[14px] font-medium border border-black/15 rounded-lg bg-white hover:bg-[#f0efe9] transition-colors">ייצוא קריטיים</button>
+      <button onclick="exportCritical()" class="flex items-center gap-1.5 px-3 py-1.5 text-[14px] font-medium border border-black/10 rounded-lg bg-white hover:bg-[#f0efe9] transition-colors">ייצוא קריטיים</button>
       <button onclick="document.getElementById('xfile').click()" class="flex items-center gap-1.5 px-3 py-1.5 text-[14px] font-semibold bg-[#1a1916] text-white rounded-lg hover:bg-gray-800 transition-colors">עדכן נתונים</button>
-      <button onclick="doLogout()" class="p-1.5 border border-black/15 rounded-lg bg-white hover:bg-[#f0efe9] transition-colors">
+      <button onclick="doLogout()" class="p-1.5 border border-black/10 rounded-lg bg-white hover:bg-[#f0efe9] transition-colors">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       </button>
       <input type="file" id="xfile" accept=".xlsx,.xls,.csv" onchange="handleFile(event)">
@@ -78,7 +76,7 @@ tailwind.config = {
   </header>
 
   <!-- KPI RIBBON -->
-  <div class="grid grid-cols-6 divide-x divide-black/8 border-b border-black/8 bg-white">
+  <div class="grid grid-cols-6 divide-x divide-black/[0.05] border-b border-black/[0.05] bg-white">
     <div class="kpi-cell px-5 py-4 cursor-pointer hover:bg-[#f0efe9] transition-colors" id="kpi-all" onclick="filterStatus('')">
       <div class="text-[15px] font-semibold text-gray-500 mb-2">סה"כ לקוחות</div>
       <div class="text-[34px] font-light leading-none text-[#1a1916]" id="m0">—</div>
@@ -109,29 +107,29 @@ tailwind.config = {
   <div class="p-7">
     <div class="flex items-center gap-2 mb-4 flex-wrap">
       <div class="relative w-48 flex-shrink-0">
-        <input id="srch" type="text" placeholder="חיפוש לקוח..." class="w-full pr-3 pl-3 py-1.5 text-[14px] border border-black/15 rounded-lg bg-white outline-none focus:border-black/40" oninput="render()">
+        <input id="srch" type="text" placeholder="חיפוש לקוח..." class="w-full pr-3 pl-3 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none focus:border-black/30" oninput="render()">
       </div>
-      <select id="fst" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/15 rounded-lg bg-white outline-none cursor-pointer focus:border-black/40">
+      <select id="fst" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none cursor-pointer focus:border-black/30">
         <option value="">כל הסטטוסים</option>
         <option value="critical">קריטי</option>
         <option value="warning">בינוני</option>
         <option value="healthy">בריא</option>
       </select>
-      <select id="srt" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/15 rounded-lg bg-white outline-none cursor-pointer focus:border-black/40">
+      <select id="srt" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none cursor-pointer focus:border-black/30">
         <option value="score_asc">Health ↑</option>
         <option value="score_desc">Health ↓</option>
         <option value="name">שם א–ת</option>
       </select>
-      <select id="fai" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/15 rounded-lg bg-white outline-none cursor-pointer focus:border-black/40">
+      <select id="fai" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none cursor-pointer focus:border-black/30">
         <option value="">כל מצב AI</option>
         <option value="yes">עם AI</option>
         <option value="no">ללא AI</option>
       </select>
       <span id="rc" class="mr-auto text-[14px] text-gray-400"></span>
     </div>
-    <div class="bg-white border border-black/8 rounded-xl">
+    <div class="bg-white border border-black/[0.05] rounded-xl">
       <table class="w-full border-collapse" style="table-layout:fixed">
-        <thead class="bg-[#f0efe9] border-b border-black/8 sticky top-16 z-30">
+        <thead class="bg-[#f0efe9] border-b border-black/[0.05] sticky top-16 z-30">
           <tr>
             <th class="text-right px-3 py-3 text-[15px] font-bold text-gray-500" style="width:20%">לקוח</th>
             <th class="text-right px-3 py-3 text-[15px] font-bold text-gray-500" style="width:12%">מצב בריאות</th>
@@ -154,7 +152,7 @@ tailwind.config = {
 <div id="modal-overlay" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4 anim-fade" onclick="handleOverlayClick(event)">
   <div id="modal-card" class="anim-slide bg-white rounded-2xl w-[94vw] max-w-[1400px] h-[90vh] flex flex-col shadow-2xl overflow-hidden">
 
-    <div id="modal-header" class="flex items-center gap-3 px-6 py-4 border-b border-black/8 flex-shrink-0 bg-white"></div>
+    <div id="modal-header" class="flex items-center gap-3 px-6 py-4 border-b border-black/[0.05] flex-shrink-0 bg-white"></div>
 
     <div class="flex flex-1 min-h-0 overflow-hidden">
 
@@ -196,11 +194,11 @@ tailwind.config = {
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-[12px] font-bold text-gray-400 uppercase tracking-wider mb-1">איש קשר ותפקיד</label>
-              <input type="text" id="crm-contact" placeholder="שם ותפקיד..." class="w-full px-2.5 py-1.5 text-[14px] border border-black/15 rounded-lg bg-white outline-none focus:border-black/40" oninput="saveCRMField('contact', this.value)">
+              <input type="text" id="crm-contact" placeholder="שם ותפקיד..." class="w-full px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none focus:border-black/30" oninput="saveCRMField('contact', this.value)">
             </div>
             <div>
               <label class="block text-[12px] font-bold text-gray-400 uppercase tracking-wider mb-1">מטרה עסקית ראשית</label>
-              <input type="text" id="crm-goal" placeholder="הקלד מטרה עסקית..." class="w-full px-2.5 py-1.5 text-[14px] border border-black/15 rounded-lg bg-white outline-none focus:border-black/40" oninput="saveCRMField('goal', this.value)">
+              <input type="text" id="crm-goal" placeholder="הקלד מטרה עסקית..." class="w-full px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none focus:border-black/30" oninput="saveCRMField('goal', this.value)">
             </div>
           </div>
           <div class="mt-3">
@@ -220,22 +218,22 @@ tailwind.config = {
       </div>
 
       <!-- LEFT: Chart + Outreach -->
-<div class="w-[45%] border-r border-black/8 bg-[#f5f4f0] flex flex-col min-h-0 overflow-y-auto modal-scroll p-4 gap-4">
+<div class="w-[45%] border-r border-black/[0.05] bg-[#f5f4f0] flex flex-col min-h-0 overflow-y-auto modal-scroll p-4 gap-4">
 
-        <div class="bg-white border border-black/8 rounded-xl p-4 flex flex-col h-[320px] flex-shrink-0">
+        <div class="bg-white border border-black/[0.05] rounded-xl p-4 flex flex-col h-[320px] flex-shrink-0">
           <div class="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-2">📈 התפתחות בריאות לקוח</div>
           <div class="flex-1 relative">
             <canvas id="evolution-canvas"></canvas>
           </div>
           <div class="mt-2 flex gap-2">
-            <input type="text" id="chart-event-input" placeholder="תיאור אירוע ידני בגרף..." class="flex-1 px-2 py-1 text-[14px] border border-black/15 rounded-lg bg-white outline-none focus:border-black/40" onkeydown="if(event.key==='Enter')addChartEvent()">
+            <input type="text" id="chart-event-input" placeholder="תיאור אירוע ידני בגרף..." class="flex-1 px-2 py-1 text-[14px] border border-black/10 rounded-lg bg-white outline-none focus:border-black/30" onkeydown="if(event.key==='Enter')addChartEvent()">
             <button onclick="addChartEvent()" class="px-3 py-1 bg-[#1a1916] text-white text-[14px] rounded-lg font-semibold hover:bg-gray-800">הוסף</button>
           </div>
         </div>
 
-        <div class="bg-white border border-black/8 rounded-xl p-4 flex flex-col flex-1 min-h-[220px]">
+        <div class="bg-white border border-black/[0.05] rounded-xl p-4 flex flex-col flex-1 min-h-[220px]">
           <div class="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-2">📝 מחולל פניות Outreach אוטומטי</div>
-          <textarea id="outreach-text" class="w-full flex-1 p-2.5 text-[14px] text-gray-700 leading-relaxed border border-black/15 rounded-xl bg-white outline-none resize-none modal-scroll" readonly></textarea>
+          <textarea id="outreach-text" class="w-full flex-1 p-2.5 text-[14px] text-gray-700 leading-relaxed border border-black/10 rounded-xl bg-white outline-none resize-none modal-scroll" readonly></textarea>
           <button id="outreach-copy-btn" onclick="copyOutreachMsg()" class="mt-2 w-full flex items-center justify-center gap-1.5 py-2 bg-[#1a1916] text-white font-semibold text-[14px] rounded-lg hover:bg-gray-800 transition-colors">
             <span id="outreach-copy-label">📋 העתק הודעה למייל</span>
           </button>
@@ -244,9 +242,9 @@ tailwind.config = {
 
     </div>
 
-    <div class="flex items-center gap-2 px-6 py-3 border-t border-black/8 bg-white flex-shrink-0">
+    <div class="flex items-center gap-2 px-6 py-3 border-t border-black/[0.05] bg-white flex-shrink-0">
       <a id="modal-site-link" href="#" target="_blank" class="flex items-center gap-2 px-5 py-2.5 text-[16px] font-semibold bg-[#1a1916] text-white rounded-xl hover:bg-gray-700 transition-colors">🔗 פתח אתר לקוח</a>
-      <button onclick="closeModal()" class="mr-auto flex items-center gap-1 px-3 py-1.5 text-[14px] font-medium border border-black/15 rounded-lg bg-white hover:bg-[#fdeaea] hover:text-crit transition-colors">סגור</button>
+      <button onclick="closeModal()" class="mr-auto flex items-center gap-1 px-3 py-1.5 text-[14px] font-medium border border-black/10 rounded-lg bg-white hover:bg-[#fdeaea] hover:text-crit transition-colors">סגור</button>
     </div>
   </div>
 </div>
