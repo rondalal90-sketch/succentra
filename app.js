@@ -3,7 +3,9 @@
 // =============================================================================
 
 // ── 1. CUSTOMER DATA ─────────────────────────────────────────────────────────
-const RAW = [{"workspace_id":"27","workspace_name":"Samsung","frontend_domain":"samsung.wyze1.info","License":"110","active_users":"77","locked_users":"2","log_30_days":"75","active_objects":"3646","last_updated_article":"24/05/2026 10:47:36 PM","ReadAndSign":"828","Exams":"1","Tutorials":"31","Notifications":"310","Feedbacks":"1503"},{"workspace_id":"34","workspace_name":"AFI Hotels","frontend_domain":"afi-hotels.wyze1.info","License":"70","active_users":"62","locked_users":"1","log_30_days":"18","active_objects":"407","last_updated_article":"25/05/2026 7:18:01 AM","ReadAndSign":"1","Exams":"","Tutorials":"1","Notifications":"8","Feedbacks":""},{"workspace_id":"39","workspace_name":"Consist","frontend_domain":"consist.wyze1.info","License":"70","active_users":"64","locked_users":"1","log_30_days":"29","active_objects":"232","last_updated_article":"4/05/2026 1:07:11 PM","ReadAndSign":"","Exams":"1","Tutorials":"","Notifications":"","Feedbacks":"4"},{"workspace_id":"41","workspace_name":"019 Mobile","frontend_domain":"019mobile.wyze1.info","License":"10","active_users":"3","locked_users":"","log_30_days":"","active_objects":"22","last_updated_article":"21/07/2022 12:20:47 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"43","workspace_name":"Kfar Saba","frontend_domain":"kspedia.wyze1.info","License":"40","active_users":"44","locked_users":"","log_30_days":"32","active_objects":"2904","last_updated_article":"24/05/2026 2:46:42 PM","ReadAndSign":"","Exams":"","Tutorials":"1","Notifications":"","Feedbacks":"936"},{"workspace_id":"44","workspace_name":"Labor","frontend_domain":"labor.wyze1.info","License":"10","active_users":"9","locked_users":"","log_30_days":"","active_objects":"105","last_updated_article":"22/12/2025 12:08:25 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"2"},{"workspace_id":"48","workspace_name":"Rfura Veezra","frontend_domain":"refua-vezrah.wyze1.info","License":"10","active_users":"10","locked_users":"","log_30_days":"5","active_objects":"1779","last_updated_article":"18/05/2026 6:50:13 AM","ReadAndSign":"7","Exams":"","Tutorials":"","Notifications":"45","Feedbacks":"38"},{"workspace_id":"49","workspace_name":"DMC Service","frontend_domain":"servicedmc.wyze1.info","License":"6","active_users":"6","locked_users":"","log_30_days":"1","active_objects":"58","last_updated_article":"22/02/2026 2:18:01 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"50","workspace_name":"COMASCO","frontend_domain":"comasco.wyze1.info","License":"22","active_users":"22","locked_users":"","log_30_days":"13","active_objects":"519","last_updated_article":"27/04/2026 6:31:56 AM","ReadAndSign":"","Exams":"","Tutorials":"17","Notifications":"","Feedbacks":""},{"workspace_id":"51","workspace_name":"Morning","frontend_domain":"morning.wyze1.info","License":"50","active_users":"45","locked_users":"","log_30_days":"39","active_objects":"1321","last_updated_article":"25/05/2026 8:01:33 AM","ReadAndSign":"","Exams":"","Tutorials":"1","Notifications":"39","Feedbacks":"15"},{"workspace_id":"57","workspace_name":"Haifa Staff","frontend_domain":"ihelpcenter.haifa.ac.il","License":"70","active_users":"32","locked_users":"","log_30_days":"19","active_objects":"702","last_updated_article":"24/05/2026 3:38:45 PM","ReadAndSign":"26","Exams":"3","Tutorials":"","Notifications":"","Feedbacks":"16"},{"workspace_id":"58","workspace_name":"Haifa Students","frontend_domain":"helpcenter.haifa.ac.il","License":"70","active_users":"32","locked_users":"","log_30_days":"19","active_objects":"191","last_updated_article":"20/05/2026 10:24:18 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"50"},{"workspace_id":"60","workspace_name":"Free TV","frontend_domain":"freetv.wyze1.info","License":"32","active_users":"13","locked_users":"2","log_30_days":"4","active_objects":"45","last_updated_article":"21/05/2026 5:58:56 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"61","workspace_name":"Info Peres","frontend_domain":"infoperes.wyze1.info","License":"23","active_users":"18","locked_users":"","log_30_days":"17","active_objects":"80","last_updated_article":"25/05/2026 7:38:46 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"29","Feedbacks":""},{"workspace_id":"65","workspace_name":"MAP","frontend_domain":"mapi-bynetos.wyze1.info","License":"50","active_users":"18","locked_users":"","log_30_days":"3","active_objects":"265","last_updated_article":"19/12/2024 7:02:36 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"37","Feedbacks":"4"},{"workspace_id":"66","workspace_name":"Nitzoley Shoa","frontend_domain":"holocaust-survivors-bynetos.wyze1.info","License":"50","active_users":"18","locked_users":"","log_30_days":"3","active_objects":"147","last_updated_article":"3/04/2025 6:53:09 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"10","Feedbacks":"3"},{"workspace_id":"67","workspace_name":"Shuk Hon","frontend_domain":"shukhahon-bynetos.wyze1.info","License":"50","active_users":"18","locked_users":"","log_30_days":"3","active_objects":"61","last_updated_article":"15/10/2024 8:09:58 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"1","Feedbacks":""},{"workspace_id":"68","workspace_name":"Sonol","frontend_domain":"sonol.wyze1.info","License":"15","active_users":"13","locked_users":"","log_30_days":"5","active_objects":"129","last_updated_article":"9/02/2026 3:29:54 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"74","workspace_name":"Potain","frontend_domain":"potain.wyze1.info","License":"17","active_users":"17","locked_users":"","log_30_days":"3","active_objects":"90","last_updated_article":"24/12/2025 6:27:19 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"76","workspace_name":"Aspire Demo","frontend_domain":"aspire-demo.wyze1.info","License":"6","active_users":"2","locked_users":"","log_30_days":"","active_objects":"5","last_updated_article":"15/03/2023 3:24:42 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"1"},{"workspace_id":"80","workspace_name":"Union Mobility","frontend_domain":"union-mobility.wyze1.info","License":"40","active_users":"40","locked_users":"1","log_30_days":"30","active_objects":"292","last_updated_article":"24/05/2026 4:33:10 AM","ReadAndSign":"2","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"9"},{"workspace_id":"81","workspace_name":"Netzivot","frontend_domain":"netzivot-bynetos.wyze1.info","License":"50","active_users":"18","locked_users":"","log_30_days":"3","active_objects":"154","last_updated_article":"24/05/2026 11:33:58 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"85","workspace_name":"LEGO","frontend_domain":"lego-support.wyze1.info","License":"8","active_users":"6","locked_users":"","log_30_days":"","active_objects":"23","last_updated_article":"22/07/2025 10:16:16 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"2","Feedbacks":"1"},{"workspace_id":"87","workspace_name":"Grow","frontend_domain":"grow.wyze1.info","License":"50","active_users":"48","locked_users":"","log_30_days":"42","active_objects":"381","last_updated_article":"20/05/2026 6:32:44 AM","ReadAndSign":"2","Exams":"","Tutorials":"","Notifications":"33","Feedbacks":"434"},{"workspace_id":"92","workspace_name":"Safe Tec","frontend_domain":"safe-tec.wyze1.info","License":"5","active_users":"5","locked_users":"","log_30_days":"5","active_objects":"524","last_updated_article":"24/05/2026 2:23:39 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"97","workspace_name":"Sendix","frontend_domain":"sendix.wyze1.info","License":"70","active_users":"64","locked_users":"1","log_30_days":"29","active_objects":"14","last_updated_article":"9/11/2023 1:40:00 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"98","workspace_name":"Population-Immigration","frontend_domain":"population-immigration.wyze1.info","License":"115","active_users":"107","locked_users":"","log_30_days":"85","active_objects":"628","last_updated_article":"24/05/2026 10:56:34 AM","ReadAndSign":"468","Exams":"2","Tutorials":"","Notifications":"104","Feedbacks":"126"},{"workspace_id":"101","workspace_name":"SysAid","frontend_domain":"sysaid.wyze1.info","License":"20","active_users":"15","locked_users":"","log_30_days":"8","active_objects":"198","last_updated_article":"18/03/2026 11:06:44 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"102","workspace_name":"Internet Rimon","frontend_domain":"rimon.wyze1.info","License":"150","active_users":"136","locked_users":"1","log_30_days":"128","active_objects":"843","last_updated_article":"25/05/2026 8:16:28 AM","ReadAndSign":"36","Exams":"8","Tutorials":"3","Notifications":"","Feedbacks":"2201"},{"workspace_id":"103","workspace_name":"Yad2 Service","frontend_domain":"service.yad2.co.il","License":"2","active_users":"3","locked_users":"","log_30_days":"2","active_objects":"143","last_updated_article":"24/05/2026 8:55:17 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"2"},{"workspace_id":"104","workspace_name":"RMI","frontend_domain":"rmi.wyze1.info","License":"204","active_users":"193","locked_users":"2","log_30_days":"46","active_objects":"70","last_updated_article":"25/05/2026 7:55:58 AM","ReadAndSign":"4","Exams":"","Tutorials":"1","Notifications":"1","Feedbacks":"33"},{"workspace_id":"105","workspace_name":"Brother","frontend_domain":"brother.wyze1.info","License":"10","active_users":"10","locked_users":"","log_30_days":"8","active_objects":"3083","last_updated_article":"25/05/2026 7:54:27 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"2"},{"workspace_id":"106","workspace_name":"Pantum","frontend_domain":"pantum.wyze1.info","License":"10","active_users":"10","locked_users":"","log_30_days":"8","active_objects":"93","last_updated_article":"14/04/2026 2:25:13 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"107","workspace_name":"Comax","frontend_domain":"comax.wyze1.info","License":"120","active_users":"113","locked_users":"1","log_30_days":"63","active_objects":"3272","last_updated_article":"25/05/2026 6:41:49 AM","ReadAndSign":"65","Exams":"1","Tutorials":"","Notifications":"293","Feedbacks":"1799"},{"workspace_id":"108","workspace_name":"Atlas","frontend_domain":"atlas.wyze1.info","License":"10","active_users":"8","locked_users":"","log_30_days":"","active_objects":"53","last_updated_article":"18/01/2026 12:36:22 PM","ReadAndSign":"1","Exams":"","Tutorials":"","Notifications":"54","Feedbacks":""},{"workspace_id":"111","workspace_name":"Cibus","frontend_domain":"cibus.wyze1.info","License":"100","active_users":"95","locked_users":"","log_30_days":"79","active_objects":"146","last_updated_article":"25/05/2026 7:27:44 AM","ReadAndSign":"4","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"37"},{"workspace_id":"112","workspace_name":"Winner","frontend_domain":"winner.wyze1.info","License":"52","active_users":"44","locked_users":"","log_30_days":"37","active_objects":"92","last_updated_article":"25/05/2026 7:47:00 AM","ReadAndSign":"6","Exams":"1","Tutorials":"","Notifications":"113","Feedbacks":"75"},{"workspace_id":"116","workspace_name":"ContigoPlus","frontend_domain":"contigo-plus.wyze1.info","License":"3","active_users":"3","locked_users":"","log_30_days":"","active_objects":"7","last_updated_article":"17/07/2024 11:17:36 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"118","workspace_name":"Ben Gurion","frontend_domain":"bgu.wyze1.info","License":"30","active_users":"29","locked_users":"1","log_30_days":"20","active_objects":"156","last_updated_article":"20/05/2026 10:34:21 AM","ReadAndSign":"1","Exams":"1","Tutorials":"","Notifications":"2","Feedbacks":"39"},{"workspace_id":"122","workspace_name":"Mayven","frontend_domain":"mayven.wyze1.info","License":"26","active_users":"22","locked_users":"","log_30_days":"19","active_objects":"631","last_updated_article":"24/05/2026 6:35:41 PM","ReadAndSign":"1","Exams":"","Tutorials":"","Notifications":"9","Feedbacks":"138"},{"workspace_id":"123","workspace_name":"Metaylim","frontend_domain":"travelhotels.wyze1.info","License":"10","active_users":"10","locked_users":"","log_30_days":"7","active_objects":"351","last_updated_article":"19/05/2026 7:58:56 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"124","workspace_name":"Aspire","frontend_domain":"aspire-new.wyze1.info","License":"14","active_users":"14","locked_users":"","log_30_days":"17","active_objects":"174","last_updated_article":"18/05/2026 9:17:10 AM","ReadAndSign":"","Exams":"","Tutorials":"1","Notifications":"","Feedbacks":""},{"workspace_id":"125","workspace_name":"R-Cure","frontend_domain":"rcure.wyze1.info","License":"35","active_users":"22","locked_users":"","log_30_days":"12","active_objects":"162","last_updated_article":"25/05/2026 8:27:11 AM","ReadAndSign":"2","Exams":"","Tutorials":"","Notifications":"10","Feedbacks":"2"},{"workspace_id":"126","workspace_name":"Super Pharm","frontend_domain":"super-pharm.wyze1.info","License":"40","active_users":"40","locked_users":"","log_30_days":"27","active_objects":"350","last_updated_article":"19/05/2026 3:44:58 PM","ReadAndSign":"1","Exams":"","Tutorials":"","Notifications":"2","Feedbacks":"63"},{"workspace_id":"127","workspace_name":"Local Elections","frontend_domain":"local-elections.wyze1.info","License":"10","active_users":"10","locked_users":"","log_30_days":"2","active_objects":"45","last_updated_article":"19/03/2026 4:47:43 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"128","workspace_name":"Amisragas IL New","frontend_domain":"amisragaz-info-new.wyze1.info","License":"210","active_users":"197","locked_users":"1","log_30_days":"138","active_objects":"540","last_updated_article":"25/05/2026 4:44:02 AM","ReadAndSign":"35","Exams":"6","Tutorials":"196","Notifications":"","Feedbacks":"409"},{"workspace_id":"129","workspace_name":"Movement Group","frontend_domain":"movement-group.wyze1.info","License":"25","active_users":"25","locked_users":"","log_30_days":"10","active_objects":"349","last_updated_article":"28/04/2026 12:54:55 PM","ReadAndSign":"2","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"132","workspace_name":"Kfar Saba New","frontend_domain":"kspedia-new.wyze1.info","License":"40","active_users":"44","locked_users":"","log_30_days":"32","active_objects":"508","last_updated_article":"25/05/2026 8:27:59 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"133","workspace_name":"Shamir MC IT","frontend_domain":"shamirhospital-it.wyze1.info","License":"100","active_users":"100","locked_users":"1","log_30_days":"36","active_objects":"27","last_updated_article":"4/01/2026 8:25:26 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"1","Feedbacks":""},{"workspace_id":"134","workspace_name":"Shamir MC Service","frontend_domain":"shamirhospital-zimun.wyze1.info","License":"100","active_users":"100","locked_users":"1","log_30_days":"36","active_objects":"372","last_updated_article":"25/05/2026 8:32:14 AM","ReadAndSign":"1","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"327"},{"workspace_id":"135","workspace_name":"Caesarea Development Company","frontend_domain":"caesarea.wyze1.info","License":"20","active_users":"18","locked_users":"","log_30_days":"3","active_objects":"71","last_updated_article":"25/03/2026 6:52:43 AM","ReadAndSign":"3","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"4"},{"workspace_id":"137","workspace_name":"H&M","frontend_domain":"hm.wyze1.info","License":"10","active_users":"10","locked_users":"","log_30_days":"7","active_objects":"295","last_updated_article":"24/05/2026 1:01:23 PM","ReadAndSign":"2","Exams":"5","Tutorials":"1","Notifications":"69","Feedbacks":"65"},{"workspace_id":"139","workspace_name":"Fire Department","frontend_domain":"fdept.wyze1.info","License":"52","active_users":"44","locked_users":"","log_30_days":"37","active_objects":"299","last_updated_article":"25/05/2026 8:09:23 AM","ReadAndSign":"92","Exams":"","Tutorials":"","Notifications":"1","Feedbacks":"113"},{"workspace_id":"140","workspace_name":"ERN","frontend_domain":"ern.wyze1.info","License":"130","active_users":"102","locked_users":"3","log_30_days":"51","active_objects":"390","last_updated_article":"25/05/2026 5:46:32 AM","ReadAndSign":"","Exams":"","Tutorials":"1","Notifications":"","Feedbacks":"104"},{"workspace_id":"141","workspace_name":"sherizly","frontend_domain":"sherizly.wyze1.info","License":"1","active_users":"","locked_users":"","log_30_days":"","active_objects":"9","last_updated_article":"6/02/2025 2:05:07 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"142","workspace_name":"Consist Test","frontend_domain":"consist-test.wyze1.info","License":"0","active_users":"","locked_users":"","log_30_days":"1","active_objects":"10","last_updated_article":"12/04/2026 7:45:37 AM","ReadAndSign":"2","Exams":"1","Tutorials":"1","Notifications":"1","Feedbacks":""},{"workspace_id":"143","workspace_name":"Pais","frontend_domain":"pais.wyze1.info","License":"80","active_users":"77","locked_users":"1","log_30_days":"66","active_objects":"161","last_updated_article":"24/05/2026 9:43:05 AM","ReadAndSign":"8","Exams":"","Tutorials":"40","Notifications":"","Feedbacks":"91"},{"workspace_id":"147","workspace_name":"Ben Security","frontend_domain":"bensecurity.wyze1.info","License":"5","active_users":"5","locked_users":"","log_30_days":"","active_objects":"487","last_updated_article":"11/08/2025 2:04:53 PM","ReadAndSign":"1","Exams":"","Tutorials":"1","Notifications":"1","Feedbacks":"1"},{"workspace_id":"148","workspace_name":"VMark","frontend_domain":"vmark.wyze1.info","License":"20","active_users":"16","locked_users":"1","log_30_days":"5","active_objects":"92","last_updated_article":"25/05/2026 8:31:19 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"18","Feedbacks":""},{"workspace_id":"149","workspace_name":"Chromagen","frontend_domain":"chromagen.wyze1.info","License":"25","active_users":"22","locked_users":"","log_30_days":"17","active_objects":"169","last_updated_article":"19/05/2026 9:47:39 AM","ReadAndSign":"2","Exams":"","Tutorials":"1","Notifications":"2","Feedbacks":"80"},{"workspace_id":"150","workspace_name":"Alia Klita","frontend_domain":"aliaklita.wyze1.info","License":"30","active_users":"34","locked_users":"","log_30_days":"7","active_objects":"106","last_updated_article":"19/03/2026 8:08:21 AM","ReadAndSign":"1","Exams":"","Tutorials":"1","Notifications":"1","Feedbacks":"7"},{"workspace_id":"152","workspace_name":"TerminalX Partners","frontend_domain":"terminalx-partners.wyze1.info","License":"38","active_users":"42","locked_users":"","log_30_days":"28","active_objects":"137","last_updated_article":"30/10/2025 1:04:31 PM","ReadAndSign":"1","Exams":"","Tutorials":"1","Notifications":"1","Feedbacks":""},{"workspace_id":"153","workspace_name":"Ministry of Agriculture","frontend_domain":"moag.wyze1.info","License":"17","active_users":"17","locked_users":"","log_30_days":"15","active_objects":"628","last_updated_article":"21/05/2026 10:46:25 AM","ReadAndSign":"71","Exams":"","Tutorials":"3","Notifications":"1","Feedbacks":"33"},{"workspace_id":"154","workspace_name":"TerminalX","frontend_domain":"terminalx.wyze1.info","License":"38","active_users":"42","locked_users":"","log_30_days":"28","active_objects":"109","last_updated_article":"20/05/2026 10:46:54 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"4","Feedbacks":""},{"workspace_id":"155","workspace_name":"Hadassah","frontend_domain":"hadassah.wyze1.info","License":"35","active_users":"32","locked_users":"","log_30_days":"29","active_objects":"166","last_updated_article":"10/05/2026 5:51:11 AM","ReadAndSign":"2","Exams":"","Tutorials":"4","Notifications":"","Feedbacks":"15"},{"workspace_id":"156","workspace_name":"IDFWO","frontend_domain":"idfwo.wyze1.info","License":"25","active_users":"25","locked_users":"","log_30_days":"14","active_objects":"119","last_updated_article":"25/05/2026 7:57:47 AM","ReadAndSign":"2","Exams":"1","Tutorials":"","Notifications":"20","Feedbacks":"57"},{"workspace_id":"158","workspace_name":"Pool","frontend_domain":"pool.wyze1.info","License":"42","active_users":"38","locked_users":"","log_30_days":"26","active_objects":"92","last_updated_article":"28/04/2026 12:25:36 PM","ReadAndSign":"11","Exams":"","Tutorials":"4","Notifications":"21","Feedbacks":"45"},{"workspace_id":"160","workspace_name":"Shamir MC Dimut","frontend_domain":"shamir-dimut.wyze1.info","License":"100","active_users":"100","locked_users":"1","log_30_days":"36","active_objects":"264","last_updated_article":"20/05/2026 12:13:21 PM","ReadAndSign":"10","Exams":"","Tutorials":"2","Notifications":"9","Feedbacks":"13"},{"workspace_id":"161","workspace_name":"Fandango","frontend_domain":"fandango.wyze1.info","License":"20","active_users":"20","locked_users":"","log_30_days":"19","active_objects":"65","last_updated_article":"19/05/2026 8:34:05 AM","ReadAndSign":"1","Exams":"","Tutorials":"2","Notifications":"1","Feedbacks":"14"},{"workspace_id":"163","workspace_name":"TerminalX Operations","frontend_domain":"terminalx-operations.wyze1.info","License":"38","active_users":"42","locked_users":"","log_30_days":"28","active_objects":"61","last_updated_article":"29/03/2026 10:19:21 AM","ReadAndSign":"1","Exams":"","Tutorials":"1","Notifications":"","Feedbacks":""},{"workspace_id":"164","workspace_name":"Cfir Jerusalem Railway","frontend_domain":"cfir.wyze1.info","License":"10","active_users":"8","locked_users":"","log_30_days":"5","active_objects":"45","last_updated_article":"26/04/2026 10:49:28 AM","ReadAndSign":"72","Exams":"","Tutorials":"","Notifications":"18","Feedbacks":"3"},{"workspace_id":"165","workspace_name":"Next Travel","frontend_domain":"nextravel.wyze1.info","License":"15","active_users":"13","locked_users":"","log_30_days":"13","active_objects":"63","last_updated_article":"19/05/2026 12:44:48 PM","ReadAndSign":"","Exams":"","Tutorials":"1","Notifications":"1","Feedbacks":""},{"workspace_id":"166","workspace_name":"Priority City","frontend_domain":"prioricity.wyze1.info","License":"15","active_users":"15","locked_users":"","log_30_days":"3","active_objects":"78","last_updated_article":"24/05/2026 12:45:43 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":"2"},{"workspace_id":"167","workspace_name":"Israel-Canada Hotels","frontend_domain":"canada.wyze1.info","License":"50","active_users":"37","locked_users":"","log_30_days":"30","active_objects":"118","last_updated_article":"18/05/2026 5:41:24 AM","ReadAndSign":"9","Exams":"","Tutorials":"1","Notifications":"","Feedbacks":"20"},{"workspace_id":"168","workspace_name":"Syteca","frontend_domain":"syteca.wyze1.info","License":"5","active_users":"2","locked_users":"","log_30_days":"","active_objects":"7","last_updated_article":"5/02/2026 1:17:18 PM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"169","workspace_name":"IAA","frontend_domain":"iaa-hrinformation.wyze1.info","License":"60","active_users":"60","locked_users":"","log_30_days":"18","active_objects":"343","last_updated_article":"24/05/2026 8:26:57 AM","ReadAndSign":"1","Exams":"","Tutorials":"","Notifications":"2","Feedbacks":"24"},{"workspace_id":"170","workspace_name":"IBI Captial","frontend_domain":"ibicapital.wyze1.info","License":"130","active_users":"112","locked_users":"","log_30_days":"85","active_objects":"788","last_updated_article":"25/05/2026 5:44:45 AM","ReadAndSign":"1","Exams":"14","Tutorials":"1","Notifications":"","Feedbacks":"9"},{"workspace_id":"171","workspace_name":"Firearm Licensing Department","frontend_domain":"mops.wyze1.info","License":"60","active_users":"46","locked_users":"","log_30_days":"17","active_objects":"30","last_updated_article":"15/04/2026 7:18:23 AM","ReadAndSign":"6","Exams":"","Tutorials":"1","Notifications":"","Feedbacks":"11"},{"workspace_id":"172","workspace_name":"Hamei Gaash","frontend_domain":"gaash.wyze1.info","License":"15","active_users":"1","locked_users":"","log_30_days":"1","active_objects":"100","last_updated_article":"25/05/2026 8:29:26 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"173","workspace_name":"Alia Klita New","frontend_domain":"aliaklita-new.wyze1.info","License":"30","active_users":"34","locked_users":"","log_30_days":"7","active_objects":"50","last_updated_article":"24/05/2026 11:16:30 AM","ReadAndSign":"1","Exams":"4","Tutorials":"","Notifications":"3","Feedbacks":""},{"workspace_id":"174","workspace_name":"Pery","frontend_domain":"pery.wyze1.info","License":"50","active_users":"39","locked_users":"1","log_30_days":"41","active_objects":"63","last_updated_article":"12/05/2026 12:51:51 PM","ReadAndSign":"","Exams":"1","Tutorials":"","Notifications":"1","Feedbacks":"27"},{"workspace_id":"175","workspace_name":"Mor Medical","frontend_domain":"mor.wyze1.info","License":"40","active_users":"3","locked_users":"","log_30_days":"3","active_objects":"53","last_updated_article":"24/05/2026 7:23:22 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""},{"workspace_id":"176","workspace_name":"Rav Bariach","frontend_domain":"rb.wyze1.info","License":"30","active_users":"1","locked_users":"","log_30_days":"1","active_objects":"279","last_updated_article":"25/05/2026 7:27:26 AM","ReadAndSign":"","Exams":"","Tutorials":"","Notifications":"","Feedbacks":""}];
+// Customer data is NOT embedded in the app. It is loaded only from the Excel
+// file the user uploads, and cached in localStorage so it survives reloads.
+var RAW = [];
 
 // ── 2. HELPERS ────────────────────────────────────────────────────────────────
 var AVCOLORS=[['#e8f0fb','#1a5fa8'],['#e8f5ee','#2d7a4f'],['#fef4dc','#8a5c00'],['#fdeaea','#9b2929'],['#f3eefb','#6b3fa8'],['#e8f8f8','#1a7a7a']];
@@ -45,15 +47,88 @@ function saveCRMField(field,value){
 function getHistory(id){try{var s=localStorage.getItem('sh_'+id);if(s)return JSON.parse(s);}catch(e){}return null;}
 function saveHistory(id,h){try{localStorage.setItem('sh_'+id,JSON.stringify(h));}catch(e){}}
 
+// ── METRIC TASK LABELS (single source of truth, clean Hebrew) ────────────────
+var METRIC_LABELS={
+  content_stale:'רענון התוכן במערכת',
+  no_logins:'עידוד המשתמשים להיכנס למערכת',
+  low_lic:'הגדלת השימוש ברישיונות',
+  no_exams:'הוספת מבחנים לעובדים',
+  no_tuts:'בניית הדרכות למשתמשים',
+  no_ras:'הפעלת קריאה ואישור של מסמכים',
+  no_notifs:'שליחת התראות למשתמשים',
+  no_fbs:'איסוף משוב מהמשתמשים'
+};
+
 // ── 4. HEALTH SCORE ───────────────────────────────────────────────────────────
-function calcBaseH(active,logs,daysOld,licPct,featCount){
-  var cS=daysOld<=7?100:daysOld<=30?75:daysOld<=90?40:daysOld<=180?15:0;
-  var thr=Math.max(active*0.6,1);
-  var lS=logs>=thr?100:logs>0&&logs>=thr*0.5?50:logs>0?25:0;
-  var liS=licPct>=80?100:licPct>=50?70:licPct>=30?40:licPct>=10?15:0;
-  var fS=featCount>=4?100:featCount===3?75:featCount===2?50:featCount===1?25:0;
-  return Math.round(cS*0.35+lS*0.30+liS*0.20+fS*0.15);
+// Weighted model (0-100). Rewards real usage of the system:
+//   Engagement (logins per active user)      → up to 30
+//   Content depth (objects per license)      → up to 30
+//   Advanced feature adoption                → up to 25
+//   Content freshness (recency)              → up to 15
+// Then penalties are subtracted:
+//   Progressive recency penalty (stale content)
+//   Relative blocked-users penalty
+// calcBreakdown returns each component so the modal can show WHY a score is what it is.
+function calcBreakdown(d){
+  // d: {active,logs,objects,license,daysOld,locked,ras,exams,tuts,fbs}
+  var active=d.active||0,logs=d.logs||0,objects=d.objects||0,license=d.license||0;
+  var daysOld=(d.daysOld===undefined?9999:d.daysOld),locked=d.locked||0;
+
+  // 1) Engagement — logins relative to active users. Target ~5 logins/active user/month.
+  var engagement=0;
+  if(active>0){
+    var perUser=logs/active;
+    // ~1.2 logins per active user per month = full marks (matches real usage patterns).
+    engagement=Math.max(0,Math.min(30,Math.round((perUser/1.2)*30)));
+  } else if(logs>0){
+    engagement=5; // some activity but no active-user baseline
+  }
+
+  // 2) Content depth — objects relative to licenses (so small clients aren't penalised).
+  var content=0;
+  if(license>0){
+    var perLic=objects/license;
+    // ~3 objects per license = full marks (calibrated to real data).
+    content=Math.max(0,Math.min(30,Math.round((perLic/3)*30)));
+  } else if(objects>0){
+    content=10;
+  }
+
+  // 3) Advanced feature adoption — ReadAndSign, Exams, Tutorials, Feedbacks.
+  //    Each active feature is worth up to ~6.25; capped at 25.
+  var featActive=[d.ras,d.exams,d.tuts,d.fbs].filter(function(v){return (v||0)>0;}).length;
+  var features=Math.round((featActive/4)*25);
+
+  // 4) Content freshness — fresh content earns points (up to 15).
+  var fresh=0;
+  if(daysOld<=30)fresh=15;
+  else if(daysOld<=60)fresh=11;
+  else if(daysOld<=90)fresh=7;
+  else if(daysOld<=180)fresh=3;
+  else fresh=0;
+
+  // Penalty A — progressive recency penalty based on days since last update.
+  var recencyPenalty=0;
+  if(daysOld<=30)recencyPenalty=0;
+  else if(daysOld<=60)recencyPenalty=Math.round(((daysOld-30)/30)*5);      // up to 5
+  else if(daysOld<=90)recencyPenalty=5+Math.round(((daysOld-60)/30)*5);    // 5..10
+  else recencyPenalty=15;                                                  // flat 15 over 90
+
+  // Penalty B — blocked users relative to total licenses (not a flat per-user hit).
+  var blockedPenalty=0;
+  if(license>0&&locked>0){
+    blockedPenalty=Math.min(15,Math.round((locked/license)*100*0.5)); // 0.5 pt per % blocked, cap 15
+  }
+
+  var positive=engagement+content+features+fresh;
+  var total=Math.max(0,Math.min(100,positive-recencyPenalty-blockedPenalty));
+  return{
+    engagement:engagement,content:content,features:features,fresh:fresh,
+    recencyPenalty:recencyPenalty,blockedPenalty:blockedPenalty,
+    positive:positive,total:total
+  };
 }
+function calcBaseH(d){return calcBreakdown(d).total;}
 function effectiveScore(r){
   var crm=getCRM(r.id);
   var cm=(crm.checkedItems||[]).length;
@@ -90,18 +165,30 @@ function processRows(rows,hmap){
     var rawDate=g('last_updated_article'),daysOld=ds(rawDate);
     var licPct=license>0?Math.round((active/license)*100):0;
     var featCount=[ras,exams,tuts,notifs,fbs].filter(function(v){return v>0;}).length;
-    var baseHealth=calcBaseH(active,logs,daysOld,licPct,featCount);
-    return{id:id,name:name,domain:domain,license:license,active:active,locked:locked,logs:logs,objects:objects,rawDate:rawDate,daysOld:daysOld,licPct:licPct,ras:ras,exams:exams,tuts:tuts,notifs:notifs,fbs:fbs,featCount:featCount,baseHealth:baseHealth,ai_enabled:false};
+    var baseHealth=calcBaseH({active:active,logs:logs,objects:objects,license:license,daysOld:daysOld,locked:locked,ras:ras,exams:exams,tuts:tuts,fbs:fbs});
+    return{id:id,name:name,domain:domain,license:license,active:active,locked:locked,logs:logs,objects:objects,rawDate:rawDate,daysOld:daysOld,licPct:licPct,ras:ras,exams:exams,tuts:tuts,notifs:notifs,fbs:fbs,featCount:featCount,baseHealth:baseHealth,ai_enabled:false,inactive:false};
   });
 }
 function applyStoredOverrides(arr){
-  arr.forEach(function(r){var crm=getCRM(r.id);r.ai_enabled=crm.ai_enabled===true;});
+  arr.forEach(function(r){var crm=getCRM(r.id);r.ai_enabled=crm.ai_enabled===true;r.inactive=crm.inactive===true;});
 }
 
 // ── 7. STATE ──────────────────────────────────────────────────────────────────
-var DATA=processRows(RAW,null);
+function loadSavedDataset(){
+  try{
+    var s=localStorage.getItem('succentra_dataset');
+    if(s){var arr=JSON.parse(s);if(arr&&arr.length)return arr;}
+  }catch(e){}
+  return [];
+}
+function saveDataset(){
+  try{localStorage.setItem('succentra_dataset',JSON.stringify(DATA));}catch(e){}
+}
+var DATA=loadSavedDataset();
 applyStoredOverrides(DATA);
-var loadedAt=new Date();
+var savedLoadedAt=null;
+try{var _la=localStorage.getItem('succentra_loaded_at');if(_la)savedLoadedAt=new Date(_la);}catch(e){}
+var loadedAt=savedLoadedAt||new Date();
 var currentId=null;
 var evolutionChart=null;
 
@@ -120,15 +207,17 @@ function buildMockHistory(r){
 
 // ── 9. METRICS ────────────────────────────────────────────────────────────────
 function updateMetrics(){
+  // Inactive customers are shown in the table but excluded from all health stats.
+  var activeSet=DATA.filter(function(r){return r.inactive!==true;});
   document.getElementById('m0').textContent=DATA.length;
-  var scores=DATA.map(function(r){return effectiveScore(r);});
+  var scores=activeSet.map(function(r){return effectiveScore(r);});
   document.getElementById('m1').textContent=scores.filter(function(s){return liveStatus(s)==='healthy';}).length;
   document.getElementById('m2').textContent=scores.filter(function(s){return liveStatus(s)==='warning';}).length;
   document.getElementById('m3').textContent=scores.filter(function(s){return liveStatus(s)==='critical';}).length;
-  var avg=DATA.length?Math.round(DATA.reduce(function(s,r){return s+r.licPct;},0)/DATA.length):0;
+  var avg=activeSet.length?Math.round(activeSet.reduce(function(s,r){return s+r.licPct;},0)/activeSet.length):0;
   document.getElementById('m4').textContent=avg+'%';
-  var aiCount=DATA.filter(function(r){return r.ai_enabled===true;}).length;
-  var aiPct=DATA.length?Math.round((aiCount/DATA.length)*100):0;
+  var aiCount=activeSet.filter(function(r){return r.ai_enabled===true;}).length;
+  var aiPct=activeSet.length?Math.round((aiCount/activeSet.length)*100):0;
   var m5=document.getElementById('m5');
   if(m5)m5.textContent=aiPct+'%';
   document.getElementById('hdr-sub').textContent='עודכן: '+loadedAt.toLocaleDateString('he-IL')+' · '+DATA.length+' לקוחות';
@@ -162,24 +251,45 @@ function render(){
   else if(sc==='score_desc')data.sort(function(a,b){return effectiveScore(b)-effectiveScore(a);});
   else if(sc==='name')data.sort(function(a,b){return a.name.localeCompare(b.name,'he');});
   document.getElementById('rc').textContent=data.length+' לקוחות';
-  document.getElementById('es').classList.toggle('hidden',data.length>0);
+  var esEl=document.getElementById('es');
+  esEl.classList.toggle('hidden',data.length>0);
+  if(data.length===0){
+    esEl.innerHTML=(DATA.length===0)
+      ?'<div class="text-[18px] font-semibold text-[#1a1916] mb-1">אין עדיין נתונים</div><div class="text-[15px] text-gray-400">לחצו על \u201Dעדכן נתונים\u201D למעלה כדי להעלות קובץ Excel ולהתחיל.</div>'
+      :'לא נמצאו לקוחות שמתאימים לסינון';
+  }
   var sl={critical:'קריטי',warning:'בינוני',healthy:'בריא'};
   var pc={healthy:'pill-ok',warning:'pill-warn',critical:'pill-crit'};
   document.getElementById('tb').innerHTML=data.map(function(r){
+    var inactive=r.inactive===true;
     var colors=avc(r.name);var abg=colors[0];var afg=colors[1];
     var score=effectiveScore(r);
     var status=liveStatus(score);
     var bc=status==='healthy'?'#2d7a4f':status==='warning'?'#8a5c00':'#9b2929';
-    var aiBadge=r.ai_enabled?'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-semibold px-2.5 py-1 rounded-full bg-[#e8f5ee] text-[#2d7a4f] border border-[#a8d9bb] hover:bg-[#d4ecde] transition-colors cursor-pointer">✓ פעיל</button>':'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-medium px-2.5 py-1 rounded-full bg-[#f0efe9] text-gray-400 border border-black/[0.06] hover:bg-[#e8f0fb] hover:text-[#1a5fa8] hover:border-[#a8c4f0] transition-colors cursor-pointer">+ הוסף AI</button>';
-    return '<tr class="border-b border-black/[0.04] hover:bg-[#f5f4f0] cursor-pointer transition-colors" onclick="openModal(\''+r.id+'\')">'+
-      '<td class="px-3 py-2.5" style="width:20%"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center text-[12px] font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div><div><div class="font-semibold text-[16px] text-[#1a1916] leading-tight">'+r.name+'</div><div class="text-[14px] text-gray-400 leading-tight">'+r.domain+'</div></div></div></td>'+
-      '<td class="px-3 py-2.5" style="width:12%"><div class="flex items-center gap-2"><div class="flex-1 h-1 bg-[#f0efe9] rounded-full overflow-hidden"><div class="h-full rounded-full" style="width:'+score+'%;background:'+bc+'"></div></div><span class="mono text-[14px] font-medium" style="color:'+bc+'">'+score+'</span></div></td>'+
-      '<td class="px-3 py-2.5" style="width:10%"><span class="pill '+pc[status]+' text-[13px] font-semibold px-2 py-0.5 rounded-full">'+sl[status]+'</span></td>'+
-      '<td class="px-3 py-2.5" style="width:10%">'+aiBadge+'</td>'+
-      '<td class="px-3 py-2.5 text-[15px]" style="width:10%">'+(r.logs||'—')+'</td>'+
-      '<td class="px-3 py-2.5 text-[15px]" style="width:10%">'+r.active+'/'+r.license+'</td>'+
-      '<td class="px-3 py-2.5 text-[15px]" style="width:10%">'+r.licPct+'%</td>'+
-      '<td class="px-3 py-2.5 text-[14px] text-gray-400" style="width:18%">'+fd(r.rawDate)+'</td>'+
+    // Inactive customers render in grey regardless of their critical/healthy status.
+    if(inactive){abg='#ececec';afg='#9ca3af';bc='#9ca3af';}
+    var aiBadge=r.ai_enabled?'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-semibold px-2.5 py-1 rounded-full bg-[#e8f5ee] text-[#2d7a4f] border border-[#a8d9bb] hover:bg-[#d4ecde] transition-colors cursor-pointer">✓ פעיל</button>':'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-medium px-2.5 py-1 rounded-full bg-[#f0efe9] text-gray-400 border border-black/[0.10] hover:bg-[#e8f0fb] hover:text-[#1a5fa8] hover:border-[#a8c4f0] transition-colors cursor-pointer">+ הוסף AI</button>';
+    // Active/inactive toggle button for the new left-most column.
+    var actBtn=inactive
+      ?'<button onclick="event.stopPropagation();toggleInactive(\''+r.id+'\')" class="text-[13px] font-semibold px-2.5 py-1 rounded-full bg-[#f0efe9] text-gray-500 border border-black/10 hover:bg-[#e8f5ee] hover:text-[#2d7a4f] transition-colors cursor-pointer">הפעל</button>'
+      :'<button onclick="event.stopPropagation();toggleInactive(\''+r.id+'\')" class="text-[13px] font-medium px-2.5 py-1 rounded-full bg-white text-gray-400 border border-black/10 hover:bg-[#fdeaea] hover:text-[#9b2929] transition-colors cursor-pointer">השבת</button>';
+    var rowCls=inactive
+      ?'border-b border-black/[0.07] bg-[#fafafa] opacity-60 hover:opacity-90 hover:bg-[#f5f4f0] cursor-pointer transition-all'
+      :'border-b border-black/[0.07] hover:bg-[#f5f4f0] cursor-pointer transition-colors';
+    var nameColor=inactive?'#9ca3af':'#1a1916';
+    var statusPill=inactive
+      ?'<span class="text-[13px] font-semibold px-2 py-0.5 rounded-full bg-[#f0efe9] text-gray-400 border border-black/10">לא פעיל</span>'
+      :'<span class="pill '+pc[status]+' text-[13px] font-semibold px-2 py-0.5 rounded-full">'+sl[status]+'</span>';
+    return '<tr class="'+rowCls+'" onclick="openModal(\''+r.id+'\')">'+
+      '<td class="px-3 py-2.5" style="width:18%"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center text-[12px] font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div><div><div class="font-semibold text-[16px] leading-tight" style="color:'+nameColor+'">'+r.name+'</div><div class="text-[14px] text-gray-400 leading-tight">'+r.domain+'</div></div></div></td>'+
+      '<td class="px-3 py-2.5" style="width:11%"><div class="flex items-center gap-2"><div class="flex-1 h-1 bg-[#f0efe9] rounded-full overflow-hidden"><div class="h-full rounded-full" style="width:'+score+'%;background:'+bc+'"></div></div><span class="mono text-[14px] font-medium" style="color:'+bc+'">'+score+'</span></div></td>'+
+      '<td class="px-3 py-2.5" style="width:10%">'+statusPill+'</td>'+
+      '<td class="px-3 py-2.5" style="width:9%">'+aiBadge+'</td>'+
+      '<td class="px-3 py-2.5 text-[15px]" style="width:9%">'+(r.logs||'—')+'</td>'+
+      '<td class="px-3 py-2.5 text-[15px]" style="width:9%">'+r.active+'/'+r.license+'</td>'+
+      '<td class="px-3 py-2.5 text-[15px]" style="width:9%">'+r.licPct+'%</td>'+
+      '<td class="px-3 py-2.5 text-[14px] text-gray-400" style="width:14%">'+fd(r.rawDate)+'</td>'+
+      '<td class="px-3 py-2.5" style="width:11%">'+actBtn+'</td>'+
       '</tr>';
   }).join('');
 }
@@ -206,6 +316,17 @@ function updateModalScore(r){
 }
 
 // ── 13. AI TOGGLE ─────────────────────────────────────────────────────────────
+function toggleInactive(id){
+  var r=DATA.find(function(x){return x.id===id;});if(!r)return;
+  var newVal=!(r.inactive===true);
+  r.inactive=newVal;
+  var crm=getCRM(id);crm.inactive=newVal;saveCRM(id,crm);
+  saveDataset();
+  render();
+  updateMetrics();
+  showToast(newVal?'הלקוח סומן כלא פעיל':'הלקוח חזר לפעילות');
+}
+
 function toggleAIRow(id){
   var r=DATA.find(function(x){return x.id===id;});if(!r)return;
   var newVal=!(r.ai_enabled===true);
@@ -221,6 +342,7 @@ function toggleAIRow(id){
   }
   render();
   updateMetrics();
+  saveDataset();
   showToast(newVal?'AI הופעל ללקוח ✓':'AI בוטל ללקוח');
 }
 
@@ -276,8 +398,7 @@ function toggleCheck(el,itemKey,isCustom){
   else if(arr.indexOf(itemKey)===-1)arr.push(itemKey);
   crm[field]=arr;saveCRM(currentId,crm);
 
-  var allMetricLabels={content_stale:'עדכון תוכן דחוף',no_logins:'לקוח לא פעיל',low_lic:'ניצול רשיונות נמוך',no_exams:"הטמעת פיצ'ר מבחנים",no_tuts:'יצירת הדרכות',no_ras:'הפעלת Read & Sign',no_notifs:'הפעלת התראות',no_fbs:'הפעלת מנגנון פידבק'};
-  var taskName=allMetricLabels[itemKey];
+  var taskName=METRIC_LABELS[itemKey];
   if(!taskName){var ci=(crm.customChecklistItems||[]).find(function(i){return i.key===itemKey;});taskName=ci?ci.t:itemKey;}
   var chartLabel=wasDone?('בוטל: '+taskName):('בוצע: '+taskName);
 
@@ -339,14 +460,14 @@ function renderChecklist(r,crm){
   var checkedCustom=crm.customChecked||[];
   var archivedCustom=crm.archivedCustom||[];
   var metricItems=[];
-  if(r.daysOld>90)metricItems.push({key:'content_stale',p:'high',t:'עדכון תוכן דחוף',d:r.daysOld+' ימים ללא עדכון'});
-  if(r.logs===0)metricItems.push({key:'no_logins',p:'high',t:'לקוח לא פעיל — פנייה דחופה',d:'אפס כניסות ב-30 יום'});
-  if(r.licPct<30&&r.license>0)metricItems.push({key:'low_lic',p:'high',t:'ניצול רשיונות נמוך',d:r.licPct+'% — סיכון לאי-חידוש'});
-  if(r.exams===0)metricItems.push({key:'no_exams',p:'med',t:"הטמעת פיצ'ר מבחנים",d:'לא נעשה שימוש עדיין'});
-  if(r.tuts===0)metricItems.push({key:'no_tuts',p:'med',t:'יצירת הדרכות',d:'הדרכות לא מוגדרות'});
-  if(r.ras===0)metricItems.push({key:'no_ras',p:'med',t:'הפעלת Read & Sign',d:'לא נעשה שימוש עדיין'});
-  if(r.notifs===0)metricItems.push({key:'no_notifs',p:'med',t:'הפעלת התראות',d:'לא נעשה שימוש עדיין'});
-  if(r.fbs===0)metricItems.push({key:'no_fbs',p:'med',t:'הפעלת מנגנון פידבק',d:'לא נעשה שימוש עדיין'});
+  if(r.daysOld>90)metricItems.push({key:'content_stale',p:'high',t:METRIC_LABELS.content_stale,d:r.daysOld+' ימים ללא עדכון תוכן'});
+  if(r.logs===0)metricItems.push({key:'no_logins',p:'high',t:METRIC_LABELS.no_logins,d:'אין כניסות ב-30 הימים האחרונים'});
+  if(r.licPct<30&&r.license>0)metricItems.push({key:'low_lic',p:'high',t:METRIC_LABELS.low_lic,d:r.licPct+'% ניצול — כדאי להרחיב'});
+  if(r.exams===0)metricItems.push({key:'no_exams',p:'med',t:METRIC_LABELS.no_exams,d:'עדיין לא בשימוש'});
+  if(r.tuts===0)metricItems.push({key:'no_tuts',p:'med',t:METRIC_LABELS.no_tuts,d:'עדיין לא נבנו הדרכות'});
+  if(r.ras===0)metricItems.push({key:'no_ras',p:'med',t:METRIC_LABELS.no_ras,d:'עדיין לא בשימוש'});
+  if(r.notifs===0)metricItems.push({key:'no_notifs',p:'med',t:METRIC_LABELS.no_notifs,d:'עדיין לא בשימוש'});
+  if(r.fbs===0)metricItems.push({key:'no_fbs',p:'med',t:METRIC_LABELS.no_fbs,d:'עדיין לא בשימוש'});
   var customItems=(crm.customChecklistItems||[]).filter(function(item){return archivedCustom.indexOf(item.key)===-1;});
   if(metricItems.length===0&&customItems.length===0){
     document.getElementById('checklist-container').innerHTML='<div class="text-[16px] text-gray-400 py-2">אין משימות פתוחות 🎉</div>';
@@ -360,11 +481,11 @@ function renderChecklist(r,crm){
   var metricHTML=metricItems.map(function(item){
     var isDone=checkedMetric.indexOf(item.key)!==-1;
     var badge=item.p==='high'?'<span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#fdeaea] text-[#9b2929]">דחוף</span>':'<span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#fef4dc] text-[#8a5c00]">מומלץ</span>';
-    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/[0.05] bg-white cursor-pointer select-none '+(isDone?'opacity-50':'')+'" onclick="toggleCheck(this,\''+item.key+'\',false)">'+mkBox(isDone)+'<div class="flex-1 min-w-0"><div class="flex items-center gap-1.5 mb-1">'+badge+'</div><div class="text-[16px] font-semibold text-[#1a1916]">'+item.t+'</div><div class="text-[14px] text-gray-400 mt-0.5">'+item.d+'</div></div></div>';
+    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/[0.10] bg-white cursor-pointer select-none '+(isDone?'opacity-50':'')+'" onclick="toggleCheck(this,\''+item.key+'\',false)">'+mkBox(isDone)+'<div class="flex-1 min-w-0"><div class="flex items-center gap-1.5 mb-1">'+badge+'</div><div class="text-[16px] font-semibold text-[#1a1916]">'+item.t+'</div><div class="text-[14px] text-gray-400 mt-0.5">'+item.d+'</div></div></div>';
   }).join('');
   var customHTML=customItems.map(function(item){
     var isDone=checkedCustom.indexOf(item.key)!==-1;
-    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/[0.05] bg-white select-none '+(isDone?'opacity-50':'')+'">'+
+    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/[0.10] bg-white select-none '+(isDone?'opacity-50':'')+'">'+
       '<div class="cursor-pointer flex-shrink-0 mt-0.5" onclick="toggleCheck(this.closest(\'.cl-item\'),\''+item.key+'\',true)">'+mkBox(isDone)+'</div>'+
       '<div class="flex-1 min-w-0 cursor-pointer" onclick="toggleCheck(this.closest(\'.cl-item\'),\''+item.key+'\',true)">'+
         '<div class="flex items-center gap-1.5 mb-1"><span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#e8f0fb] text-[#1a5fa8]">ידני</span></div>'+
@@ -381,61 +502,55 @@ function renderChecklist(r,crm){
 function buildOutreachMsg(r){
   var crm=getCRM(r.id);
   var score=effectiveScore(r);
-  var status=liveStatus(score);
   var contact=(crm.contact||'').trim();
   var goal=(crm.goal||'').trim();
   var firstName=contact?contact.split(/[\s,\/]+/)[0]:'';
-  var greeting=firstName?('\u05d4\u05d9\u05d9 '+firstName+','):'\u05e9\u05dc\u05d5\u05dd \u05e8\u05d1,';
+  var greeting=firstName?('\u05d4\u05d9\u05d9 '+firstName+','):'\u05e9\u05dc\u05d5\u05dd \u05dc\u05db\u05dd,';
+  var idx=parseInt(r.id||'0')%3;
 
-  // Varied openers based on score band - rotated by workspace_id to avoid same text every time
+  // Openers — refer to "your workspace" / "your knowledge system", never the client name.
   var openersLow=[
-    '\u05e2\u05d1\u05e8\u05ea\u05d9 \u05e2\u05dc \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc '+r.name+' \u05d5\u05e8\u05e6\u05d9\u05ea\u05d9 \u05dc\u05e9\u05ea\u05e3 \u05db\u05de\u05d4 \u05ea\u05d5\u05d1\u05e0\u05d5\u05ea \u05e9\u05e2\u05dc\u05d5 \u2014 \u05d5\u05d9\u05e9 \u05d2\u05dd \u05db\u05de\u05d4 \u05d3\u05d1\u05e8\u05d9\u05dd \u05e9\u05d0\u05e4\u05e9\u05e8 \u05dc\u05e9\u05e4\u05e8 \u05d9\u05d7\u05d3.',
-    '\u05e8\u05e6\u05d9\u05ea\u05d9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05d9\u05ea\u05da \u2014 \u05e0\u05ea\u05d5\u05e0\u05d9 '+r.name+' \u05de\u05e6\u05d1\u05d9\u05e2\u05d9\u05dd \u05e9\u05d9\u05e9 \u05db\u05de\u05d4 \u05d4\u05d6\u05d3\u05de\u05e0\u05d5\u05d9\u05d5\u05ea \u05dc\u05e9\u05d9\u05e4\u05d5\u05e8 \u05e9\u05e2\u05d3\u05d9\u05d9\u05df \u05dc\u05d0 \u05e0\u05e0\u05e6\u05dc\u05d5.',
-    '\u05e7\u05d9\u05d1\u05dc\u05ea\u05d9 \u05d0\u05ea \u05e0\u05ea\u05d5\u05e0\u05d9 '+r.name+' \u05dc\u05d7\u05d5\u05d3\u05e9 \u05d4\u05d0\u05d7\u05e8\u05d5\u05df \u05d5\u05e8\u05e6\u05d9\u05ea\u05d9 \u05dc\u05e9\u05d9\u05ea\u05e3 \u05de\u05d4 \u05d0\u05e0\u05d9 \u05e8\u05d5\u05d0\u05d4 \u05dc\u05e4\u05e0\u05d9 \u05e9\u05e0\u05e7\u05d1\u05e2 \u05d9\u05d7\u05d3 \u05e6\u05e2\u05d3\u05d9 \u05e4\u05e2\u05d5\u05dc\u05d4.'
+    '\u05e2\u05d1\u05e8\u05ea\u05d9 \u05e2\u05dc \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc \u05e1\u05d1\u05d9\u05d1\u05ea \u05d4\u05e2\u05d1\u05d5\u05d3\u05d4 \u05e9\u05dc\u05db\u05dd, \u05d5\u05e8\u05e6\u05d9\u05ea\u05d9 \u05dc\u05e9\u05ea\u05e3 \u05d0\u05ea\u05db\u05dd \u05d1\u05db\u05de\u05d4 \u05d3\u05d1\u05e8\u05d9\u05dd \u05e9\u05e9\u05de\u05ea\u05d9 \u05dc\u05d1 \u05d0\u05dc\u05d9\u05d4\u05dd \u2014 \u05d5\u05d2\u05dd \u05db\u05de\u05d4 \u05e0\u05e7\u05d5\u05d3\u05d5\u05ea \u05e9\u05e0\u05d5\u05db\u05dc \u05dc\u05e9\u05e4\u05e8 \u05d9\u05d7\u05d3.',
+    '\u05e8\u05e6\u05d9\u05ea\u05d9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05d9\u05ea\u05db\u05dd \u05de\u05d4 \u05e9\u05dc\u05d5\u05dd \u2014 \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc \u05de\u05e2\u05e8\u05db\u05ea \u05e0\u05d9\u05d4\u05d5\u05dc \u05d4\u05d9\u05d3\u05e2 \u05e9\u05dc\u05db\u05dd \u05de\u05e8\u05d0\u05d9\u05dd \u05e9\u05d9\u05e9 \u05db\u05de\u05d4 \u05d4\u05d6\u05d3\u05de\u05e0\u05d5\u05d9\u05d5\u05ea \u05d9\u05e4\u05d5\u05ea \u05dc\u05e9\u05d9\u05e4\u05d5\u05e8 \u05e9\u05e2\u05d3\u05d9\u05d9\u05df \u05dc\u05d0 \u05e0\u05d9\u05e6\u05dc\u05ea\u05dd.',
+    '\u05e2\u05d1\u05e8\u05ea\u05d9 \u05e2\u05dc \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d4\u05d0\u05d7\u05e8\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc \u05e1\u05d1\u05d9\u05d1\u05ea \u05d4\u05e2\u05d1\u05d5\u05d3\u05d4 \u05e9\u05dc\u05db\u05dd, \u05d5\u05e8\u05e6\u05d9\u05ea\u05d9 \u05dc\u05e9\u05ea\u05e3 \u05de\u05d4 \u05e9\u05d0\u05e0\u05d9 \u05e8\u05d5\u05d0\u05d4 \u05dc\u05e4\u05e0\u05d9 \u05e9\u05e0\u05e7\u05d1\u05e2 \u05d9\u05d7\u05d3 \u05d0\u05ea \u05d4\u05e6\u05e2\u05d3\u05d9\u05dd \u05d4\u05d1\u05d0\u05d9\u05dd.'
   ];
   var openersGood=[
-    '\u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc '+r.name+' \u05e0\u05e8\u05d0\u05d9\u05dd \u05d8\u05d5\u05d1 \u05d1\u05d7\u05d5\u05d3\u05e9 \u05d4\u05d0\u05d7\u05e8\u05d5\u05df \u2014 \u05de\u05de\u05e9 \u05e9\u05de\u05d7 \u05dc\u05e8\u05d0\u05d5\u05ea \u05e9\u05d4\u05de\u05e2\u05e8\u05db\u05ea \u05e2\u05d5\u05d1\u05d3\u05ea \u05d1\u05e9\u05d1\u05d9\u05dc\u05db\u05dd.',
-    '\u05d3\u05d5\u05e8\u05e9 \u05db\u05d1\u05d5\u05d3 \u05dc\u05e6\u05d5\u05d5\u05ea \u05d1-'+r.name+' \u05e2\u05dc \u05d4\u05ea\u05d5\u05e6\u05d0\u05d5\u05ea \u05d4\u05d8\u05d5\u05d1\u05d5\u05ea \u05e9\u05e8\u05d5\u05d0\u05d9\u05dd \u05d1\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u2014 \u05d0\u05ea\u05dd \u05e2\u05d5\u05e9\u05d9\u05dd \u05e9\u05d9\u05de\u05d5\u05e9 \u05d0\u05de\u05d9\u05ea\u05d9 \u05d1\u05de\u05e2\u05e8\u05db\u05ea.',
-    '\u05e8\u05d0\u05d9\u05ea\u05d9 \u05e9\u05d4\u05e4\u05e2\u05d9\u05dc\u05d5\u05ea \u05d1-'+r.name+' \u05d1\u05de\u05e6\u05d1 \u05d8\u05d5\u05d1 \u05d1\u05d7\u05d5\u05d3\u05e9\u05d9\u05dd \u05d4\u05d0\u05d7\u05e8\u05d5\u05e0\u05d9\u05dd. \u05d7\u05e9\u05d1\u05ea\u05d9 \u05e9\u05e9\u05d5\u05d5\u05d4 \u05dc\u05e2\u05e6\u05d5\u05e8 \u05e8\u05d2\u05e2 \u05d5\u05dc\u05e2\u05d3\u05db\u05df.'
+    '\u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc \u05e1\u05d1\u05d9\u05d1\u05ea \u05d4\u05e2\u05d1\u05d5\u05d3\u05d4 \u05e9\u05dc\u05db\u05dd \u05e0\u05e8\u05d0\u05d9\u05dd \u05d8\u05d5\u05d1 \u05d4\u05d7\u05d5\u05d3\u05e9 \u2014 \u05e9\u05de\u05d7\u05ea\u05d9 \u05dc\u05e8\u05d0\u05d5\u05ea \u05e9\u05d0\u05ea\u05dd \u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd \u05d1\u05de\u05e2\u05e8\u05db\u05ea \u05d1\u05e6\u05d5\u05e8\u05d4 \u05e7\u05d1\u05d5\u05e2\u05d4.',
+    '\u05e8\u05e6\u05d9\u05ea\u05d9 \u05dc\u05d5\u05de\u05e8 \u05db\u05dc \u05d4\u05db\u05d1\u05d5\u05d3 \u2014 \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc \u05de\u05e2\u05e8\u05db\u05ea \u05e0\u05d9\u05d4\u05d5\u05dc \u05d4\u05d9\u05d3\u05e2 \u05e9\u05dc\u05db\u05dd \u05de\u05e8\u05d0\u05d9\u05dd \u05e9\u05d0\u05ea\u05dd \u05e2\u05d5\u05e9\u05d9\u05dd \u05d1\u05d4 \u05e9\u05d9\u05de\u05d5\u05e9 \u05d0\u05de\u05d9\u05ea\u05d9 \u05d5\u05d9\u05d5\u05de\u05d9\u05d5\u05de\u05d9.',
+    '\u05e9\u05de\u05ea\u05d9 \u05dc\u05d1 \u05e9\u05d4\u05e4\u05e2\u05d9\u05dc\u05d5\u05ea \u05d1\u05e1\u05d1\u05d9\u05d1\u05ea \u05d4\u05e2\u05d1\u05d5\u05d3\u05d4 \u05e9\u05dc\u05db\u05dd \u05d9\u05e4\u05d4 \u05d1\u05d7\u05d5\u05d3\u05e9\u05d9\u05dd \u05d4\u05d0\u05d7\u05e8\u05d5\u05e0\u05d9\u05dd, \u05d5\u05d7\u05e9\u05d1\u05ea\u05d9 \u05e9\u05db\u05d3\u05d0\u05d9 \u05dc\u05e2\u05e6\u05d5\u05e8 \u05dc\u05e8\u05d2\u05e2 \u05d5\u05dc\u05e2\u05d3\u05db\u05df \u05d0\u05ea\u05db\u05dd.'
   ];
-  var idx=parseInt(r.id||'0')%3;
   var opening=(score<50)?openersLow[idx]:openersGood[idx];
 
-  // Key risk sentence
+  // Risk sentence — plain, flowing Hebrew, about the workspace.
   var riskLine='';
   if(score<50){
-    if(r.logs===0)riskLine='\n\n\u05e9\u05d9\u05e0\u05d5\u05d9 \u05e7\u05e8\u05d9\u05d8\u05d9 \u05e9\u05e0\u05d9 \u05d1\u05e2\u05d9\u05e0\u05d9 \u05d4\u05d5\u05d0 \u05e9\u05d4\u05de\u05e2\u05e8\u05db\u05ea \u05dc\u05d0 \u05e0\u05d9\u05d2\u05e9\u05ea \u05db\u05dc\u05dc \u05d1-30 \u05d9\u05d5\u05dd \u05d4\u05d0\u05d7\u05e8\u05d5\u05e0\u05d9\u05dd. \u05d6\u05d4 \u05d1\u05d3\u05e8\u05da \u05db\u05dc\u05dc \u05de\u05e8\u05de\u05d6 \u05dc\u05d7\u05d9\u05db\u05d5\u05da \u05d1\u05ea\u05d4\u05dc\u05d9\u05da \u05d4\u05d0\u05d3\u05de\u05d9\u05e0\u05d9\u05e1\u05d8\u05e8\u05d8\u05d9\u05d1\u05d9, \u05d5\u05e8\u05d3\u05d9\u05ea\u05d9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05e9\u05d4\u05db\u05dc \u05d1\u05e1\u05d3\u05e8.';
-    else if(r.daysOld>90)riskLine='\n\n\u05de\u05d4 \u05e9\u05de\u05e9\u05da \u05d0\u05ea \u05e2\u05d9\u05e0\u05d9 \u05d4\u05d5\u05d0 \u05e9\u05d4\u05ea\u05d5\u05db\u05df \u05dc\u05d0 \u05e2\u05d5\u05d3\u05da\u05df '+r.daysOld+' \u05d9\u05d5\u05dd. \u05ea\u05d5\u05db\u05df \u05d9\u05e9\u05df \u05de\u05d5\u05e8\u05d9\u05d3 \u05d0\u05ea \u05d4\u05de\u05e2\u05d5\u05e8\u05d1\u05d5\u05ea \u05d5\u05d0\u05ea \u05d4\u05d0\u05de\u05d5\u05df \u05e9\u05dc \u05d4\u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd \u05d1\u05db\u05dc\u05d9 \u2014 \u05d6\u05d4 \u05de\u05e9\u05d4\u05d5 \u05e9\u05e0\u05d9\u05ea\u05df \u05dc\u05d8\u05e4\u05dc \u05d1\u05d5 \u05d1\u05d9\u05d7\u05d3.';
-    else if(r.licPct<30)riskLine='\n\n'+r.licPct+'% \u05e0\u05d9\u05e6\u05d5\u05dc \u05e8\u05e9\u05d9\u05d5\u05e0\u05d5\u05ea \u05d6\u05d4 \u05d4\u05e8\u05d1\u05d4 \u05de\u05ea\u05d7\u05ea \u05de\u05d4\u05e4\u05d5\u05d8\u05e0\u05e6\u05d9\u05d0\u05dc. \u05d6\u05d4 \u05dc\u05d0 \u05e8\u05e7 \u05e2\u05e0\u05d9\u05d9\u05df \u05e9\u05dc \u05e2\u05dc\u05d5\u05ea \u05d4\u05e2\u05e8\u05da \u2014 \u05d6\u05d4 \u05d0\u05d5\u05de\u05e8 \u05e9\u05e2\u05e8\u05da \u05d7\u05d9\u05d3\u05d5\u05e9 \u05e2\u05dc\u05d5\u05dc \u05dc\u05d4\u05d9\u05d5\u05ea \u05d1\u05e1\u05db\u05e0\u05d4.';
+    if(r.logs===0)riskLine='\n\n\u05d3\u05d1\u05e8 \u05e0\u05d5\u05e1\u05e3 \u05e9\u05d1\u05dc\u05d8 \u05dc\u05e2\u05d9\u05e0\u05d9\u05d9 \u05d4\u05d5\u05d0 \u05e9\u05d1\u05d7\u05d5\u05d3\u05e9 \u05d4\u05d0\u05d7\u05e8\u05d5\u05df \u05dc\u05d0 \u05d4\u05d9\u05d5 \u05db\u05e0\u05d9\u05e1\u05d5\u05ea \u05dc\u05de\u05e2\u05e8\u05db\u05ea \u05db\u05dc\u05dc. \u05d6\u05d4 \u05d1\u05d3\u05e8\u05da \u05db\u05dc\u05dc \u05e1\u05d9\u05de\u05df \u05e9\u05db\u05d3\u05d0\u05d9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05e9\u05d4\u05db\u05dc \u05ea\u05e7\u05d9\u05df, \u05d5\u05d0\u05e9\u05de\u05d7 \u05dc\u05e2\u05d6\u05d5\u05e8 \u05dc\u05e2\u05d5\u05e8\u05e8 \u05d0\u05ea \u05d4\u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd \u05d1\u05d7\u05d6\u05e8\u05d4.';
+    else if(r.daysOld>90)riskLine='\n\n\u05de\u05d4 \u05e9\u05d1\u05dc\u05d8 \u05dc\u05e2\u05d9\u05e0\u05d9\u05d9 \u05d4\u05d5\u05d0 \u05e9\u05d4\u05ea\u05d5\u05db\u05df \u05dc\u05d0 \u05e2\u05d5\u05d3\u05db\u05df \u05db\u05d1\u05e8 '+r.daysOld+' \u05d9\u05de\u05d9\u05dd. \u05db\u05e9\u05d4\u05ea\u05d5\u05db\u05df \u05d9\u05e9\u05df, \u05d4\u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd \u05e0\u05d5\u05d8\u05d9\u05dd \u05dc\u05d4\u05e1\u05ea\u05de\u05da \u05e2\u05dc\u05d9\u05d5 \u05e4\u05d7\u05d5\u05ea, \u05d5\u05d6\u05d4 \u05de\u05e9\u05d4\u05d5 \u05e9\u05e7\u05dc \u05dc\u05e9\u05e4\u05e8 \u05d9\u05d7\u05d3.';
+    else if(r.licPct<30)riskLine='\n\n'+r.licPct+'% \u05e0\u05d9\u05e6\u05d5\u05dc \u05e9\u05dc \u05d4\u05e8\u05d9\u05e9\u05d9\u05d5\u05e0\u05d5\u05ea \u05d6\u05d4 \u05d4\u05e8\u05d1\u05d4 \u05de\u05ea\u05d7\u05ea \u05dc\u05de\u05d4 \u05e9\u05d0\u05e4\u05e9\u05e8. \u05d6\u05d4 \u05d0\u05d5\u05de\u05e8 \u05e9\u05d4\u05e8\u05d1\u05d4 \u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd \u05e2\u05d3\u05d9\u05d9\u05df \u05dc\u05d0 \u05e0\u05d4\u05e0\u05d9\u05dd \u05de\u05d4\u05de\u05e2\u05e8\u05db\u05ea, \u05d5\u05e9\u05d5\u05d5\u05d4 \u05dc\u05e8\u05d0\u05d5\u05ea \u05d0\u05d9\u05da \u05de\u05e8\u05d7\u05d9\u05d1\u05d9\u05dd \u05d0\u05ea \u05d4\u05e9\u05d9\u05de\u05d5\u05e9.';
   }
 
-  // Goal
-  var goalLine=goal?('\n\n\u05d0\u05e0\u05d9 \u05de\u05d1\u05d9\u05df \u05e9\u05d4\u05de\u05d8\u05e8\u05d4 \u05e9\u05dc\u05db\u05dd \u05e2\u05db\u05e9\u05d9\u05d5 \u05d4\u05d9\u05d0 "'+goal+'". \u05d1\u05d5\u05d0\u05d5 \u05e0\u05d1\u05d3\u05d5\u05e7 \u05d9\u05d7\u05d3 \u05d0\u05d9\u05da \u05d4\u05e2\u05d3\u05db\u05d5\u05df \u05d4\u05e0\u05db\u05d7\u05d9 \u05d9\u05db\u05d5\u05dc \u05dc\u05ea\u05de\u05d5\u05da \u05d1\u05d6\u05d4 \u05d8\u05d5\u05d1 \u05d9\u05d5\u05ea\u05e8.'):'';
+  var goalLine=goal?('\n\n\u05d0\u05e0\u05d9 \u05d6\u05d5\u05db\u05e8 \u05e9\u05d4\u05de\u05d8\u05e8\u05d4 \u05e9\u05dc\u05db\u05dd \u05d4\u05d9\u05d0 "'+goal+'", \u05d5\u05d1\u05d5\u05d0\u05d5 \u05e0\u05d1\u05d3\u05d5\u05e7 \u05d9\u05d7\u05d3 \u05d0\u05d9\u05da \u05d4\u05e6\u05e2\u05d3\u05d9\u05dd \u05d4\u05d1\u05d0\u05d9\u05dd \u05d9\u05e7\u05e8\u05d1\u05d5 \u05d0\u05ea\u05db\u05dd \u05d0\u05dc\u05d9\u05d4.'):'';
 
-  // AI
-  var aiLine=r.ai_enabled?('\n\n\u05e9\u05de\u05ea\u05d9 \u05dc\u05e8\u05db\u05d9\u05d1 \u05d4-AI \u05e9\u05d0\u05ea\u05dd \u05db\u05d1\u05e8 \u05e2\u05d5\u05d1\u05d3\u05d9\u05dd \u05d0\u05d9\u05ea\u05d5 \u2014 \u05d6\u05d4 \u05de\u05e2\u05d5\u05dc\u05d4. \u05d0\u05e9\u05de\u05d7 \u05dc\u05e2\u05e9\u05d5\u05ea \u05e8\u05d0\u05d9\u05d5\u05df \u05e7\u05e6\u05e8 \u05d1\u05d9\u05d7\u05d3 \u05db\u05d3\u05d9 \u05dc\u05d5\u05d5\u05d3\u05d0 \u05e9\u05d0\u05ea\u05dd \u05de\u05e4\u05d9\u05e7\u05d9\u05dd \u05de\u05de\u05e0\u05d5 \u05d0\u05ea \u05d4\u05de\u05e7\u05e1\u05d9\u05de\u05d5\u05dd.'):'';
+  var aiLine=r.ai_enabled?('\n\n\u05e8\u05d0\u05d9\u05ea\u05d9 \u05e9\u05d0\u05ea\u05dd \u05db\u05d1\u05e8 \u05e2\u05d5\u05d1\u05d3\u05d9\u05dd \u05e2\u05dd \u05e8\u05db\u05d9\u05d1 \u05d4-AI \u2014 \u05d6\u05d4 \u05de\u05e6\u05d5\u05d9\u05df. \u05d0\u05e9\u05de\u05d7 \u05dc\u05e2\u05d1\u05d5\u05e8 \u05d0\u05d9\u05ea\u05db\u05dd \u05e2\u05dc\u05d9\u05d5 \u05e8\u05d2\u05e2 \u05db\u05d3\u05d9 \u05dc\u05d5\u05d5\u05d3\u05d0 \u05e9\u05d0\u05ea\u05dd \u05de\u05e4\u05d9\u05e7\u05d9\u05dd \u05de\u05de\u05e0\u05d5 \u05d0\u05ea \u05d4\u05de\u05e8\u05d1.'):'';
 
-  // Open tasks
   var allMetricDefs=[
-    {key:'content_stale',t:'\u05e2\u05d3\u05db\u05d5\u05df \u05ea\u05d5\u05db\u05df \u05d3\u05d7\u05d5\u05e3',cond:r.daysOld>90},
-    {key:'no_logins',t:'\u05d4\u05d2\u05d1\u05e8\u05ea \u05e4\u05e2\u05d9\u05dc\u05d5\u05ea \u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd',cond:r.logs===0},
-    {key:'low_lic',t:'\u05d4\u05d2\u05d3\u05dc\u05ea \u05e0\u05d9\u05e6\u05d5\u05dc \u05e8\u05e9\u05d9\u05d5\u05e0\u05d5\u05ea',cond:r.licPct<30&&r.license>0},
-    {key:'no_exams',t:'\u05d4\u05d8\u05de\u05e2\u05ea \u05de\u05d1\u05d7\u05e0\u05d9\u05dd',cond:r.exams===0},
-    {key:'no_tuts',t:'\u05d9\u05e6\u05d9\u05e8\u05ea \u05d4\u05d3\u05e8\u05db\u05d5\u05ea',cond:r.tuts===0},
-    {key:'no_ras',t:'\u05d4\u05e4\u05e2\u05dc\u05ea Read & Sign',cond:r.ras===0},
-    {key:'no_notifs',t:'\u05d4\u05e4\u05e2\u05dc\u05ea \u05d4\u05ea\u05e8\u05d0\u05d5\u05ea',cond:r.notifs===0},
-    {key:'no_fbs',t:'\u05d4\u05e4\u05e2\u05dc\u05ea \u05e4\u05d9\u05d3\u05d1\u05e7',cond:r.fbs===0}
+    {key:'content_stale',t:'\u05e8\u05e2\u05e0\u05d5\u05df \u05d4\u05ea\u05d5\u05db\u05df \u05d1\u05de\u05e2\u05e8\u05db\u05ea',cond:r.daysOld>90},
+    {key:'no_logins',t:'\u05e2\u05d9\u05d3\u05d5\u05d3 \u05d4\u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd \u05dc\u05d4\u05d9\u05db\u05e0\u05e1 \u05dc\u05de\u05e2\u05e8\u05db\u05ea',cond:r.logs===0},
+    {key:'low_lic',t:'\u05d4\u05d2\u05d3\u05dc\u05ea \u05d4\u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05e8\u05d9\u05e9\u05d9\u05d5\u05e0\u05d5\u05ea',cond:r.licPct<30&&r.license>0},
+    {key:'no_exams',t:'\u05d4\u05d5\u05e1\u05e4\u05ea \u05de\u05d1\u05d7\u05e0\u05d9\u05dd \u05dc\u05e2\u05d5\u05d1\u05d3\u05d9\u05dd',cond:r.exams===0},
+    {key:'no_tuts',t:'\u05d1\u05e0\u05d9\u05d9\u05ea \u05d4\u05d3\u05e8\u05db\u05d5\u05ea \u05dc\u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd',cond:r.tuts===0},
+    {key:'no_ras',t:'\u05d4\u05e4\u05e2\u05dc\u05ea \u05e7\u05e8\u05d9\u05d0\u05d4 \u05d5\u05d0\u05d9\u05e9\u05d5\u05e8 \u05e9\u05dc \u05de\u05e1\u05de\u05db\u05d9\u05dd',cond:r.ras===0},
+    {key:'no_notifs',t:'\u05e9\u05dc\u05d9\u05d7\u05ea \u05d4\u05ea\u05e8\u05d0\u05d5\u05ea \u05dc\u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd',cond:r.notifs===0},
+    {key:'no_fbs',t:'\u05d0\u05d9\u05e1\u05d5\u05e3 \u05de\u05e9\u05d5\u05d1 \u05de\u05d4\u05de\u05e9\u05ea\u05de\u05e9\u05d9\u05dd',cond:r.fbs===0}
   ];
   var checkedMetric=(getCRM(r.id).checkedItems||[]);
   var openTasks=allMetricDefs.filter(function(d){return d.cond&&checkedMetric.indexOf(d.key)===-1;}).map(function(d){return '\u2022 '+d.t;});
+  var tasksLine=openTasks.length>0?('\n\n\u05db\u05de\u05d4 \u05e0\u05e7\u05d5\u05d3\u05d5\u05ea \u05e9\u05d0\u05e9\u05de\u05d7 \u05dc\u05e2\u05d1\u05d5\u05e8 \u05e2\u05dc\u05d9\u05d4\u05df \u05d0\u05d9\u05ea\u05db\u05dd:\n'+openTasks.join('\n')):'';
 
-  var tasksLine=openTasks.length>0?('\n\n\u05d4\u05e0\u05e7\u05d5\u05d3\u05d5\u05ea \u05e9\u05d4\u05d9\u05d9\u05ea\u05d9 \u05e8\u05d5\u05e6\u05d4 \u05dc\u05e2\u05d1\u05d5\u05e8 \u05d0\u05d9\u05ea\u05da:\n'+openTasks.join('\n')):'';
-
-  // Varied CTAs
   var ctas=[
-    '\n\n\u05d0\u05e4\u05e9\u05e8 \u05dc\u05ea\u05d0\u05dd 15 \u05d3\u05e7\u05d5\u05ea \u05e7\u05e6\u05e8\u05d5\u05ea \u05d1\u05e9\u05d1\u05d5\u05e2 \u05d4\u05d1\u05d0?',
-    '\n\n\u05d9\u05e9 \u05d6\u05de\u05df \u05dc\u05e9\u05d9\u05d7\u05d4 \u05e7\u05e6\u05e8\u05d4 \u05d1\u05e9\u05d1\u05d5\u05e2\u05d9\u05d9\u05dd \u05d4\u05e7\u05e8\u05d5\u05d1\u05d9\u05dd?',
-    '\n\n\u05de\u05ea\u05d9 \u05e0\u05d5\u05d7 \u05dc\u05da \u05dc\u05e9\u05d9\u05d7\u05d4 \u05e7\u05e6\u05e8\u05d4?'
+    '\n\n\u05d0\u05e4\u05e9\u05e8 \u05dc\u05e7\u05d1\u05d5\u05e2 \u05e9\u05d9\u05d7\u05d4 \u05e7\u05e6\u05e8\u05d4 \u05e9\u05dc \u05e8\u05d1\u05e2 \u05e9\u05e2\u05d4 \u05d1\u05e9\u05d1\u05d5\u05e2 \u05d4\u05d1\u05d0?',
+    '\n\n\u05d9\u05e9 \u05dc\u05db\u05dd \u05d6\u05de\u05df \u05dc\u05e9\u05d9\u05d7\u05d4 \u05e7\u05e6\u05e8\u05d4 \u05d1\u05d9\u05de\u05d9\u05dd \u05d4\u05e7\u05e8\u05d5\u05d1\u05d9\u05dd?',
+    '\n\n\u05de\u05ea\u05d9 \u05e0\u05d5\u05d7 \u05dc\u05db\u05dd \u05dc\u05e9\u05d5\u05d7\u05d7 \u05db\u05de\u05d4 \u05d3\u05e7\u05d5\u05ea?'
   ];
   var ctaLine=ctas[idx];
 
@@ -467,6 +582,7 @@ function openModal(id){
   var r=DATA.find(function(x){return x.id===id;});if(!r)return;
   currentId=id;
   var _cei=document.getElementById('chart-event-input');if(_cei)_cei.value='';
+  var _cpp=document.getElementById('chart-points-panel');if(_cpp)_cpp.classList.add('hidden');
   var colors=avc(r.name);var abg=colors[0];var afg=colors[1];
   var score=effectiveScore(r);
   var status=liveStatus(score);
@@ -486,13 +602,29 @@ function openModal(id){
   document.getElementById('modal-score-bar').style.width=score+'%';
   document.getElementById('modal-score-bar').style.background=bc;
   document.getElementById('modal-score-sub').textContent='מתוך 100 · '+sl[status];
+  // Score breakdown (transparency) — shows how the base score is composed.
+  var bd=calcBreakdown({active:r.active,logs:r.logs,objects:r.objects,license:r.license,daysOld:r.daysOld,locked:r.locked,ras:r.ras,exams:r.exams,tuts:r.tuts,fbs:r.fbs});
+  var crmB=getCRM(r.id);var bonus=((crmB.checkedItems||[]).length+(crmB.customChecked||[]).length)*10;
+  var bdItems=[
+    ['פעילות (כניסות)',bd.engagement+'/30','#1a5fa8'],
+    ['בניית תוכן',bd.content+'/30','#2d7a4f'],
+    ['אימוץ פיצ\'רים',bd.features+'/25','#6b3fa8'],
+    ['רעננות תוכן',bd.fresh+'/15','#8a5c00']
+  ];
+  if(bd.recencyPenalty>0)bdItems.push(['קנס עדכון','-'+bd.recencyPenalty,'#9b2929']);
+  if(bd.blockedPenalty>0)bdItems.push(['קנס חסומים','-'+bd.blockedPenalty,'#9b2929']);
+  if(bonus>0)bdItems.push(['בונוס משימות','+'+bonus,'#2d7a4f']);
+  var sbEl=document.getElementById('score-breakdown');
+  if(sbEl)sbEl.innerHTML=bdItems.map(function(it){
+    return '<div class="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#f5f4f0]"><span class="text-[13px] text-gray-500">'+it[0]+'</span><span class="text-[14px] font-semibold mono" style="color:'+it[2]+'">'+it[1]+'</span></div>';
+  }).join('');
 
   var stats=[['רשיונות',r.license],['פעילים',r.active],['נעולים',r.locked||0],['כניסות/30י',r.logs||0],['מאמרים',r.objects],['ניצול',r.licPct+'%']];
   document.getElementById('stats-grid').innerHTML=stats.map(function(s){return '<div class="bg-[#f5f4f0] rounded-lg px-3 py-2.5"><div class="text-[14px] text-gray-400 font-medium mb-0.5">'+s[0]+'</div><div class="text-[16px] font-semibold mono text-[#1a1916]">'+s[1]+'</div></div>';}).join('');
   document.getElementById('last-update-row').innerHTML='עדכון אחרון: <strong class="text-gray-600">'+(r.rawDate||'—')+'</strong>'+(r.daysOld<9999?' · '+fd(r.rawDate):'');
 
   var feats=[['חתימה ואישור',r.ras],['מבחנים',r.exams],['הדרכות',r.tuts],['התראות',r.notifs],['פידבקים',r.fbs]];
-  document.getElementById('features-row').innerHTML=feats.map(function(f){return '<span class="text-[14px] px-2.5 py-1 rounded-md border font-medium '+(f[1]>0?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-400 border-black/[0.06]')+'">'+f[0]+(f[1]>0?' · '+f[1]:'')+'</span>';}).join('');
+  document.getElementById('features-row').innerHTML=feats.map(function(f){return '<span class="text-[14px] px-2.5 py-1 rounded-md border font-medium '+(f[1]>0?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-400 border-black/[0.10]')+'">'+f[0]+(f[1]>0?' · '+f[1]:'')+'</span>';}).join('');
 
   var thresh=Math.max(r.active*0.6,1);
   var risks=[];
@@ -537,6 +669,64 @@ function handleOverlayClick(e){if(e.target===document.getElementById('modal-over
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 
 // ── 20. CHART ─────────────────────────────────────────────────────────────────
+// ── CHART POINT MANAGEMENT (delete / revert points) ──────────────────────────
+function toggleChartManage(){
+  var panel=document.getElementById('chart-points-panel');
+  if(!panel)return;
+  panel.classList.toggle('hidden');
+  if(!panel.classList.contains('hidden')){
+    var r=DATA.find(function(x){return x.id===currentId;});
+    if(r)renderChartPoints(r);
+  }
+}
+function renderChartPoints(r){
+  var list=document.getElementById('chart-points-list');
+  if(!list)return;
+  var history=getHistory(r.id)||[];
+  if(!history.length){list.innerHTML='<div class="text-[13px] text-gray-400 py-1">אין נקודות בגרף.</div>';return;}
+  list.innerHTML=history.map(function(p,i){
+    var labels=(p.labels&&p.labels.length)?p.labels.join(' · '):(p.label||'נקודה');
+    var when=fmtDate(p.date);
+    return '<div class="flex items-center gap-2 p-2 rounded-lg border border-black/[0.10] bg-[#f5f4f0]">'+
+      '<div class="flex-1 min-w-0"><div class="text-[14px] font-medium text-[#1a1916] truncate">'+labels+'</div><div class="text-[13px] text-gray-400">'+when+' · ציון '+p.score+'</div></div>'+
+      '<button onclick="deleteChartPoint('+i+')" class="flex-shrink-0 p-1.5 rounded hover:bg-red-50 transition-colors" title="מחק נקודה"><i class="fa-solid fa-trash text-gray-300 hover:text-red-500 text-[14px] transition-colors"></i></button>'+
+    '</div>';
+  }).join('');
+}
+function deleteChartPoint(index){
+  var r=DATA.find(function(x){return x.id===currentId;});if(!r)return;
+  var history=getHistory(r.id)||[];
+  if(index<0||index>=history.length)return;
+  var point=history[index];
+  if(!window.confirm('למחוק את הנקודה הזו מהגרף? משימות שסומנו בנקודה זו יחזרו לרשימת המשימות הפתוחות.'))return;
+  // Any "בוצע: X" labels on this point → uncheck the matching tasks so they return to open.
+  var crm=getCRM(r.id);
+  var labels=(point.labels&&point.labels.length)?point.labels:(point.label?[point.label]:[]);
+  // Build label→key map from the shared metric labels.
+  var labelToKey={};
+  Object.keys(METRIC_LABELS).forEach(function(k){labelToKey[METRIC_LABELS[k]]=k;});
+  labels.forEach(function(l){
+    var taskName=l.indexOf('בוצע: ')===0?l.substring(6):'';
+    if(!taskName)return;
+    var mk=labelToKey[taskName];
+    if(mk){crm.checkedItems=(crm.checkedItems||[]).filter(function(k){return k!==mk;});}
+    var ci=(crm.customChecklistItems||[]).find(function(it){return it.t===taskName;});
+    if(ci){crm.customChecked=(crm.customChecked||[]).filter(function(k){return k!==ci.key;});}
+  });
+  saveCRM(r.id,crm);
+  // Remove the point itself.
+  history.splice(index,1);
+  saveHistory(r.id,history);
+  renderChecklist(r,crm);
+  renderChart(r);
+  renderChartPoints(r);
+  updateModalScore(r);
+  refreshOutreach(r);
+  render();
+  updateMetrics();
+  showToast('הנקודה נמחקה מהגרף ✓');
+}
+
 function renderChart(r){
   var canvas=document.getElementById('evolution-canvas');if(!canvas)return;
   var history=getHistory(r.id);
@@ -684,7 +874,10 @@ function handleFile(e){
         pushHistoryEvent(r,uploadLabel,snap);
       });
 
-      loadedAt=new Date();updateMetrics();render();
+      loadedAt=new Date();
+      try{localStorage.setItem('succentra_loaded_at',loadedAt.toISOString());}catch(e){}
+      saveDataset();
+      updateMetrics();render();
       showToast('בוצע מיזוג: '+newRows.length+' לקוחות, התקדמות נשמרה ✓');
     }catch(err){showToast('שגיאה: '+err.message);}
     document.getElementById('loadbar').classList.add('hidden');
