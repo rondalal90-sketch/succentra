@@ -169,16 +169,16 @@ function render(){
     var score=effectiveScore(r);
     var status=liveStatus(score);
     var bc=status==='healthy'?'#2d7a4f':status==='warning'?'#8a5c00':'#9b2929';
-    var aiBadge=r.ai_enabled?'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#e8f5ee] text-[#2d7a4f] border border-[#a8d9bb] hover:bg-[#d4ecde] transition-colors cursor-pointer">✓ פעיל</button>':'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-[#f0efe9] text-gray-400 border border-black/10 hover:bg-[#e8f0fb] hover:text-[#1a5fa8] hover:border-[#a8c4f0] transition-colors cursor-pointer">+ הוסף AI</button>';
+    var aiBadge=r.ai_enabled?'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-semibold px-2.5 py-1 rounded-full bg-[#e8f5ee] text-[#2d7a4f] border border-[#a8d9bb] hover:bg-[#d4ecde] transition-colors cursor-pointer">✓ פעיל</button>':'<button onclick="event.stopPropagation();toggleAIRow(\''+r.id+'\')" class="text-[13px] font-medium px-2.5 py-1 rounded-full bg-[#f0efe9] text-gray-400 border border-black/10 hover:bg-[#e8f0fb] hover:text-[#1a5fa8] hover:border-[#a8c4f0] transition-colors cursor-pointer">+ הוסף AI</button>';
     return '<tr class="border-b border-black/5 hover:bg-[#f5f4f0] cursor-pointer transition-colors" onclick="openModal(\''+r.id+'\')">'+
-      '<td class="px-3 py-2.5" style="width:20%"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div><div><div class="font-semibold text-[14px] text-[#1a1916] leading-tight">'+r.name+'</div><div class="text-[12px] text-gray-400 leading-tight">'+r.domain+'</div></div></div></td>'+
-      '<td class="px-3 py-2.5" style="width:12%"><div class="flex items-center gap-2"><div class="flex-1 h-1 bg-[#f0efe9] rounded-full overflow-hidden"><div class="h-full rounded-full" style="width:'+score+'%;background:'+bc+'"></div></div><span class="mono text-xs font-medium" style="color:'+bc+'">'+score+'</span></div></td>'+
-      '<td class="px-3 py-2.5" style="width:10%"><span class="pill '+pc[status]+' text-[11px] font-semibold px-2 py-0.5 rounded-full">'+sl[status]+'</span></td>'+
+      '<td class="px-3 py-2.5" style="width:20%"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center text-[12px] font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div><div><div class="font-semibold text-[16px] text-[#1a1916] leading-tight">'+r.name+'</div><div class="text-[14px] text-gray-400 leading-tight">'+r.domain+'</div></div></div></td>'+
+      '<td class="px-3 py-2.5" style="width:12%"><div class="flex items-center gap-2"><div class="flex-1 h-1 bg-[#f0efe9] rounded-full overflow-hidden"><div class="h-full rounded-full" style="width:'+score+'%;background:'+bc+'"></div></div><span class="mono text-[14px] font-medium" style="color:'+bc+'">'+score+'</span></div></td>'+
+      '<td class="px-3 py-2.5" style="width:10%"><span class="pill '+pc[status]+' text-[13px] font-semibold px-2 py-0.5 rounded-full">'+sl[status]+'</span></td>'+
       '<td class="px-3 py-2.5" style="width:10%">'+aiBadge+'</td>'+
-      '<td class="px-3 py-2.5 text-[13px]" style="width:10%">'+(r.logs||'—')+'</td>'+
-      '<td class="px-3 py-2.5 text-[13px]" style="width:10%">'+r.active+'/'+r.license+'</td>'+
-      '<td class="px-3 py-2.5 text-[13px]" style="width:10%">'+r.licPct+'%</td>'+
-      '<td class="px-3 py-2.5 text-[12px] text-gray-400" style="width:18%">'+fd(r.rawDate)+'</td>'+
+      '<td class="px-3 py-2.5 text-[15px]" style="width:10%">'+(r.logs||'—')+'</td>'+
+      '<td class="px-3 py-2.5 text-[15px]" style="width:10%">'+r.active+'/'+r.license+'</td>'+
+      '<td class="px-3 py-2.5 text-[15px]" style="width:10%">'+r.licPct+'%</td>'+
+      '<td class="px-3 py-2.5 text-[14px] text-gray-400" style="width:18%">'+fd(r.rawDate)+'</td>'+
       '</tr>';
   }).join('');
 }
@@ -199,7 +199,7 @@ function updateModalScore(r){
   // Update the live status pill in the modal header
   var headerPill=document.querySelector('#modal-header .status-live-pill');
   if(headerPill){
-    headerPill.className='status-live-pill text-[11px] font-bold px-2.5 py-1 rounded-full flex-shrink-0 '+pc[status];
+    headerPill.className='status-live-pill text-[13px] font-bold px-2.5 py-1 rounded-full flex-shrink-0 '+pc[status];
     headerPill.textContent=sl[status];
   }
 }
@@ -214,8 +214,8 @@ function toggleAIRow(id){
   if(currentId===id){
     var yesBtn=document.getElementById('ai-yes');
     var noBtn=document.getElementById('ai-no');
-    if(yesBtn)yesBtn.className='ai-btn flex-1 py-1.5 text-xs font-semibold border rounded-lg text-center '+(newVal?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
-    if(noBtn)noBtn.className='ai-btn flex-1 py-1.5 text-xs font-semibold border rounded-lg text-center '+(!newVal?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
+    if(yesBtn)yesBtn.className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(newVal?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
+    if(noBtn)noBtn.className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(!newVal?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
     refreshOutreach(r);
   }
   render();
@@ -227,12 +227,45 @@ function setAI(val){
   if(!currentId)return;
   var crm=getCRM(currentId);crm.ai_enabled=val;saveCRM(currentId,crm);
   var r=DATA.find(function(x){return x.id===currentId;});if(r)r.ai_enabled=val;
-  document.getElementById('ai-yes').className='ai-btn flex-1 py-2 text-sm font-semibold border rounded-lg text-center '+(val?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
-  document.getElementById('ai-no').className='ai-btn flex-1 py-2 text-sm font-semibold border rounded-lg text-center '+(!val?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
+  document.getElementById('ai-yes').className='ai-btn flex-1 py-2 text-[16px] font-semibold border rounded-lg text-center '+(val?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
+  document.getElementById('ai-no').className='ai-btn flex-1 py-2 text-[16px] font-semibold border rounded-lg text-center '+(!val?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
   if(r){refreshOutreach(r);render();}
 }
 
 // ── 14. CHECKLIST TOGGLE ──────────────────────────────────────────────────────
+// ── HISTORY HELPER: stack same-day events on one point (improvements 5+7) ─────
+function todayKey(iso){var d=new Date(iso);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function pushHistoryEvent(r,label,newScore,removeLabel){
+  var history=getHistory(r.id)||buildMockHistory(r);
+  var nowIso=new Date().toISOString();
+  var tk=todayKey(nowIso);
+  var sentinel=history[history.length-1];
+  // Find an existing non-sentinel point from today.
+  var todayPoint=null,todayIdx=-1;
+  for(var i=0;i<history.length-1;i++){
+    if(history[i].date&&todayKey(history[i].date)===tk){todayPoint=history[i];todayIdx=i;break;}
+  }
+  if(todayPoint){
+    todayPoint.score=newScore;
+    if(!todayPoint.labels)todayPoint.labels=todayPoint.label?[todayPoint.label]:[];
+    if(removeLabel){
+      // Remove a matching 'בוצע: X' label when a task is un-checked.
+      todayPoint.labels=todayPoint.labels.filter(function(l){return l!==removeLabel;});
+    }
+    if(label)todayPoint.labels.push(label);
+    todayPoint.label=todayPoint.labels.join('\n');
+    // If today's point has no labels left, drop it entirely (keeps chart clean).
+    if(todayPoint.labels.length===0){
+      history.splice(todayIdx,1);
+    }
+  } else if(label){
+    history.splice(history.length-1,0,{date:nowIso,score:newScore,label:label,labels:[label],manual:false});
+  }
+  if(sentinel)sentinel.score=newScore;
+  saveHistory(r.id,history);
+  return history;
+}
+
 function toggleCheck(el,itemKey,isCustom){
   var box=el.querySelector('.check-box'),mark=el.querySelector('.check-mark');
   var wasDone=box.classList.contains('bg-[#2d7a4f]');
@@ -253,20 +286,14 @@ function toggleCheck(el,itemKey,isCustom){
   else{box.classList.add('bg-[#2d7a4f]','border-[#2d7a4f]');box.classList.remove('border-gray-300');mark.classList.remove('hidden');el.classList.add('opacity-50');}
 
   var newScore=effectiveScore(r);
-  var history=getHistory(r.id)||buildMockHistory(r);
-  var nowIso=new Date().toISOString();
-  history.splice(history.length-1,0,{date:nowIso,score:newScore,label:chartLabel,manual:false});
-  history[history.length-1].score=newScore;
-  saveHistory(r.id,history);
-
-  if(evolutionChart){
-    var ds=evolutionChart.data.datasets[0];
-    var lbls=evolutionChart.data.labels;
-    ds.data.splice(ds.data.length-1,0,newScore);
-    lbls.splice(lbls.length-1,0,fmtDate(nowIso));
-    ds.data[ds.data.length-1]=newScore;
-    evolutionChart.update();
+  // Stack the event onto today's point (improvements 5+7), then rebuild the chart.
+  // On check: add 'בוצע: X'. On uncheck: remove that same label from today's point.
+  if(wasDone){
+    pushHistoryEvent(r,null,newScore,'בוצע: '+taskName);
+  } else {
+    pushHistoryEvent(r,'בוצע: '+taskName,newScore);
   }
+  renderChart(r);
 
   updateModalScore(r);
   refreshOutreach(r);
@@ -310,7 +337,7 @@ function renderChecklist(r,crm){
   if(r.fbs===0)metricItems.push({key:'no_fbs',p:'med',t:'הפעלת מנגנון פידבק',d:'לא נעשה שימוש עדיין'});
   var customItems=(crm.customChecklistItems||[]).filter(function(item){return archivedCustom.indexOf(item.key)===-1;});
   if(metricItems.length===0&&customItems.length===0){
-    document.getElementById('checklist-container').innerHTML='<div class="text-sm text-gray-400 py-2">אין משימות פתוחות 🎉</div>';
+    document.getElementById('checklist-container').innerHTML='<div class="text-[16px] text-gray-400 py-2">אין משימות פתוחות 🎉</div>';
     return;
   }
   function mkBox(isDone){
@@ -320,19 +347,19 @@ function renderChecklist(r,crm){
   }
   var metricHTML=metricItems.map(function(item){
     var isDone=checkedMetric.indexOf(item.key)!==-1;
-    var badge=item.p==='high'?'<span class="text-xs font-bold px-1.5 py-0.5 rounded bg-[#fdeaea] text-[#9b2929]">דחוף</span>':'<span class="text-xs font-bold px-1.5 py-0.5 rounded bg-[#fef4dc] text-[#8a5c00]">מומלץ</span>';
-    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/8 bg-white cursor-pointer select-none '+(isDone?'opacity-50':'')+'" onclick="toggleCheck(this,\''+item.key+'\',false)">'+mkBox(isDone)+'<div class="flex-1 min-w-0"><div class="flex items-center gap-1.5 mb-1">'+badge+'</div><div class="text-sm font-semibold text-[#1a1916]">'+item.t+'</div><div class="text-xs text-gray-400 mt-0.5">'+item.d+'</div></div></div>';
+    var badge=item.p==='high'?'<span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#fdeaea] text-[#9b2929]">דחוף</span>':'<span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#fef4dc] text-[#8a5c00]">מומלץ</span>';
+    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/8 bg-white cursor-pointer select-none '+(isDone?'opacity-50':'')+'" onclick="toggleCheck(this,\''+item.key+'\',false)">'+mkBox(isDone)+'<div class="flex-1 min-w-0"><div class="flex items-center gap-1.5 mb-1">'+badge+'</div><div class="text-[16px] font-semibold text-[#1a1916]">'+item.t+'</div><div class="text-[14px] text-gray-400 mt-0.5">'+item.d+'</div></div></div>';
   }).join('');
   var customHTML=customItems.map(function(item){
     var isDone=checkedCustom.indexOf(item.key)!==-1;
     return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/8 bg-white select-none '+(isDone?'opacity-50':'')+'">'+
       '<div class="cursor-pointer flex-shrink-0 mt-0.5" onclick="toggleCheck(this.closest(\'.cl-item\'),\''+item.key+'\',true)">'+mkBox(isDone)+'</div>'+
       '<div class="flex-1 min-w-0 cursor-pointer" onclick="toggleCheck(this.closest(\'.cl-item\'),\''+item.key+'\',true)">'+
-        '<div class="flex items-center gap-1.5 mb-1"><span class="text-xs font-bold px-1.5 py-0.5 rounded bg-[#e8f0fb] text-[#1a5fa8]">ידני</span></div>'+
-        '<div class="text-sm font-semibold text-[#1a1916]">'+item.t+'</div>'+
-        '<div class="text-xs text-gray-400 mt-0.5">'+item.d+'</div>'+
+        '<div class="flex items-center gap-1.5 mb-1"><span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#e8f0fb] text-[#1a5fa8]">ידני</span></div>'+
+        '<div class="text-[16px] font-semibold text-[#1a1916]">'+item.t+'</div>'+
+        '<div class="text-[14px] text-gray-400 mt-0.5">'+item.d+'</div>'+
       '</div>'+
-      '<button onclick="event.stopPropagation();deleteCustomTask(\''+item.key+'\')" class="flex-shrink-0 p-1 mt-0.5 rounded hover:bg-red-50 transition-colors" title="מחק משימה"><i class="fa-solid fa-trash text-gray-300 hover:text-red-500 text-xs transition-colors"></i></button>'+
+      '<button onclick="event.stopPropagation();deleteCustomTask(\''+item.key+'\')" class="flex-shrink-0 p-1 mt-0.5 rounded hover:bg-red-50 transition-colors" title="מחק משימה"><i class="fa-solid fa-trash text-gray-300 hover:text-red-500 text-[14px] transition-colors"></i></button>'+
     '</div>';
   }).join('');
   document.getElementById('checklist-container').innerHTML=metricHTML+customHTML;
@@ -400,7 +427,7 @@ function buildOutreachMsg(r){
   ];
   var ctaLine=ctas[idx];
 
-  return greeting+'\n\n'+opening+riskLine+goalLine+aiLine+tasksLine+ctaLine+'\n\n\u05d1\u05d1\u05e8\u05db\u05d4,\n\u05e6\u05d5\u05d5\u05ea SucCentra';
+  return greeting+'\n\n'+opening+riskLine+goalLine+aiLine+tasksLine+ctaLine+'\n\n\u05d1\u05d1\u05e8\u05db\u05d4,\n\u05e6\u05d5\u05d5\u05ea WYZE';
 }
 
 function refreshOutreach(r){
@@ -417,7 +444,7 @@ function copyOutreachMsg(){
     if(lbl)lbl.textContent='✓ הועתק!';
     if(btn){btn.classList.remove('bg-[#1a1916]');btn.classList.add('bg-[#2d7a4f]');}
     setTimeout(function(){
-      if(lbl)lbl.textContent='📋 העתק הודעה לוואטסאפ';
+      if(lbl)lbl.textContent='📋 העתק הודעה למייל';
       if(btn){btn.classList.remove('bg-[#2d7a4f]');btn.classList.add('bg-[#1a1916]');}
     },2000);
   });
@@ -427,6 +454,7 @@ function copyOutreachMsg(){
 function openModal(id){
   var r=DATA.find(function(x){return x.id===id;});if(!r)return;
   currentId=id;
+  var _cei=document.getElementById('chart-event-input');if(_cei)_cei.value='';
   var colors=avc(r.name);var abg=colors[0];var afg=colors[1];
   var score=effectiveScore(r);
   var status=liveStatus(score);
@@ -436,10 +464,10 @@ function openModal(id){
   var crm=getCRM(id);
 
   document.getElementById('modal-header').innerHTML=
-    '<div class="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center text-sm font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div>'+
-    '<div class="flex-1 min-w-0"><div class="text-base font-semibold text-[#1a1916] leading-tight">'+r.name+'</div><div class="text-xs text-gray-400">'+r.domain+'</div></div>'+
-    '<span class="status-live-pill pill '+pc[status]+' text-[11px] font-bold px-2.5 py-1 rounded-full flex-shrink-0">'+sl[status]+'</span>'+
-    '<button onclick="closeModal()" class="w-7 h-7 rounded-lg border border-black/15 bg-white hover:bg-[#f0efe9] flex items-center justify-center text-gray-500 transition-colors flex-shrink-0"><i class="fa-solid fa-xmark text-xs"></i></button>';
+    '<div class="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center text-[16px] font-bold" style="background:'+abg+';color:'+afg+'">'+ini(r.name)+'</div>'+
+    '<div class="flex-1 min-w-0"><div class="text-[18px] font-semibold text-[#1a1916] leading-tight">'+r.name+'</div><div class="text-[14px] text-gray-400">'+r.domain+'</div></div>'+
+    '<span class="status-live-pill pill '+pc[status]+' text-[13px] font-bold px-2.5 py-1 rounded-full flex-shrink-0">'+sl[status]+'</span>'+
+    '<button onclick="closeModal()" class="w-7 h-7 rounded-lg border border-black/15 bg-white hover:bg-[#f0efe9] flex items-center justify-center text-gray-500 transition-colors flex-shrink-0"><i class="fa-solid fa-xmark text-[14px]"></i></button>';
 
   document.getElementById('modal-score').textContent=score;
   document.getElementById('modal-score').style.color=bc;
@@ -448,11 +476,11 @@ function openModal(id){
   document.getElementById('modal-score-sub').textContent='מתוך 100 · '+sl[status];
 
   var stats=[['רשיונות',r.license],['פעילים',r.active],['נעולים',r.locked||0],['כניסות/30י',r.logs||0],['מאמרים',r.objects],['ניצול',r.licPct+'%']];
-  document.getElementById('stats-grid').innerHTML=stats.map(function(s){return '<div class="bg-[#f5f4f0] rounded-lg px-3 py-2.5"><div class="text-xs text-gray-400 font-medium mb-0.5">'+s[0]+'</div><div class="text-sm font-semibold mono text-[#1a1916]">'+s[1]+'</div></div>';}).join('');
+  document.getElementById('stats-grid').innerHTML=stats.map(function(s){return '<div class="bg-[#f5f4f0] rounded-lg px-3 py-2.5"><div class="text-[14px] text-gray-400 font-medium mb-0.5">'+s[0]+'</div><div class="text-[16px] font-semibold mono text-[#1a1916]">'+s[1]+'</div></div>';}).join('');
   document.getElementById('last-update-row').innerHTML='עדכון אחרון: <strong class="text-gray-600">'+(r.rawDate||'—')+'</strong>'+(r.daysOld<9999?' · '+fd(r.rawDate):'');
 
   var feats=[['חתימה ואישור',r.ras],['מבחנים',r.exams],['הדרכות',r.tuts],['התראות',r.notifs],['פידבקים',r.fbs]];
-  document.getElementById('features-row').innerHTML=feats.map(function(f){return '<span class="text-xs px-2.5 py-1 rounded-md border font-medium '+(f[1]>0?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-400 border-black/10')+'">'+f[0]+(f[1]>0?' · '+f[1]:'')+'</span>';}).join('');
+  document.getElementById('features-row').innerHTML=feats.map(function(f){return '<span class="text-[14px] px-2.5 py-1 rounded-md border font-medium '+(f[1]>0?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-400 border-black/10')+'">'+f[0]+(f[1]>0?' · '+f[1]:'')+'</span>';}).join('');
 
   var thresh=Math.max(r.active*0.6,1);
   var risks=[];
@@ -469,14 +497,14 @@ function openModal(id){
   else if(r.featCount<3)risks.push({t:'warn',tx:r.featCount+" פיצ'רים פעילים מתוך 5"});
   else risks.push({t:'ok',tx:r.featCount+" פיצ'רים פעילים"});
   var rCls={ok:'bg-[#e8f5ee] text-[#1f5e3a]',warn:'bg-[#fef4dc] text-[#6b4800]',bad:'bg-[#fdeaea] text-[#7a1f1f]'};
-  document.getElementById('risk-rows').innerHTML=risks.map(function(item){return '<div class="text-sm px-3 py-2.5 rounded-lg '+rCls[item.t]+'">'+item.tx+'</div>';}).join('');
+  document.getElementById('risk-rows').innerHTML=risks.map(function(item){return '<div class="text-[16px] px-3 py-2.5 rounded-lg '+rCls[item.t]+'">'+item.tx+'</div>';}).join('');
 
   document.getElementById('crm-contact').value=crm.contact||'';
   document.getElementById('crm-goal').value=crm.goal||'';
 
   var aiActive=r.ai_enabled===true;
-  document.getElementById('ai-yes').className='ai-btn flex-1 py-1.5 text-xs font-semibold border rounded-lg text-center '+(aiActive?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
-  document.getElementById('ai-no').className='ai-btn flex-1 py-1.5 text-xs font-semibold border rounded-lg text-center '+(!aiActive?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
+  document.getElementById('ai-yes').className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(aiActive?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-500 border-black/15');
+  document.getElementById('ai-no').className='ai-btn flex-1 py-1.5 text-[14px] font-semibold border rounded-lg text-center '+(!aiActive?'bg-[#fdeaea] text-[#9b2929] border-[#f5a8a8]':'bg-[#f0efe9] text-gray-500 border-black/15');
 
   renderChecklist(r,crm);
   refreshOutreach(r);
@@ -508,7 +536,7 @@ function renderChart(r){
   var fillColor=status==='healthy'?'rgba(45,122,79,0.08)':status==='warning'?'rgba(192,120,0,0.08)':'rgba(155,41,41,0.08)';
   var chartLabels=history.map(function(p){return fmtDate(p.date);});
   var chartScores=history.map(function(p){return p.score;});
-  var evtLabels=history.map(function(p){return p.label;});
+  var evtLabels=history.map(function(p){return (p.labels&&p.labels.length)?p.labels:(p.label?[p.label]:['']);});
   if(evolutionChart){evolutionChart.destroy();evolutionChart=null;}
   evolutionChart=new Chart(canvas,{
     type:'line',
@@ -536,8 +564,11 @@ function renderChart(r){
           padding:12,cornerRadius:10,
           displayColors:false,
           callbacks:{
-            title:function(ctx){return evtLabels[ctx[0].dataIndex]||'';},
-            label:function(ctx){return 'ציון: '+ctx.parsed.y+' | תאריך: '+chartLabels[ctx.dataIndex];}
+            title:function(ctx){return 'תאריך: '+chartLabels[ctx[0].dataIndex]+' · ציון: '+ctx[0].parsed.y;},
+            label:function(ctx){
+              var arr=evtLabels[ctx.dataIndex]||[''];
+              return arr;
+            }
           }
         }
       },
@@ -562,12 +593,8 @@ function addChartEvent(){
   crm.customChecked=customChecked;
   saveCRM(currentId,crm);
   var newScore=effectiveScore(r);
-  var history=getHistory(r.id)||buildMockHistory(r);
-  var nowIso=new Date().toISOString();
-  var newPoint={date:nowIso,score:newScore,label:'בוצע: '+label,manual:true,itemKey:itemKey};
-  history.splice(history.length-1,0,newPoint);
-  history[history.length-1].score=newScore;
-  saveHistory(r.id,history);
+  // Stack onto today's point so multiple same-day events share one X position.
+  pushHistoryEvent(r,'בוצע: '+label,newScore);
   input.value='';
   renderChecklist(r,crm);
   renderChart(r);
@@ -638,18 +665,10 @@ function handleFile(e){
       var uploadDate=new Date().toISOString();
       var uploadLabel='עדכון נתונים — '+new Date().toLocaleDateString('he-IL');
       DATA.forEach(function(r){
-        var h=getHistory(r.id);
-        if(!h||h.length<2){h=buildMockHistory(r);}
         var snap=effectiveScore(r);
-        // Only add a snapshot if the score actually changed vs the last saved point
-        var lastScore=h[h.length-1]?h[h.length-1].score:null;
-        if(lastScore===null||Math.abs(snap-lastScore)>=1){
-          // Insert before the final 'ציון נוכחי' sentinel
-          h.splice(h.length-1,0,{date:uploadDate,score:snap,label:uploadLabel,manual:false});
-        }
-        // Always update the sentinel's score to match current
-        h[h.length-1].score=snap;
-        saveHistory(r.id,h);
+        // Use the same stacking helper so a same-day upload joins today's point
+        // (raises Y, keeps X) instead of creating a duplicate column.
+        pushHistoryEvent(r,uploadLabel,snap);
       });
 
       loadedAt=new Date();updateMetrics();render();
