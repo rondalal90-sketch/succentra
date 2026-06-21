@@ -887,6 +887,66 @@ function handleFile(e){
 }
 
 // ── 23. EXPORT ────────────────────────────────────────────────────────────────
+// ── FULL BACKUP / RESTORE ─────────────────────────────────────────────────────
+// Captures EVERYTHING: the dataset, the load timestamp, and every per-customer
+// CRM entry (crm_<id>) and history entry (sh_<id>). This is the user's safety net
+// in case localStorage is cleared, or to move data between browsers/computers.
+function exportBackup(){
+  var backup={
+    version:1,
+    exportedAt:new Date().toISOString(),
+    dataset:[],
+    loadedAt:null,
+    crm:{},
+    history:{}
+  };
+  try{var ds=localStorage.getItem('succentra_dataset');if(ds)backup.dataset=JSON.parse(ds);}catch(e){}
+  try{backup.loadedAt=localStorage.getItem('succentra_loaded_at')||null;}catch(e){}
+  // Walk all localStorage keys and grab every crm_ and sh_ entry.
+  try{
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(!k)continue;
+      if(k.indexOf('crm_')===0){try{backup.crm[k]=JSON.parse(localStorage.getItem(k));}catch(e){backup.crm[k]=localStorage.getItem(k);}}
+      else if(k.indexOf('sh_')===0){try{backup.history[k]=JSON.parse(localStorage.getItem(k));}catch(e){backup.history[k]=localStorage.getItem(k);}}
+    }
+  }catch(e){}
+  var blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  var d=new Date();
+  var stamp=d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2);
+  a.download='succentra-backup-'+stamp+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  showToast('גיבוי מלא הורד בהצלחה ✓');
+}
+
+function handleRestore(e){
+  var file=e.target.files[0];if(!file){return;}
+  if(!window.confirm('שחזור מגיבוי יחליף את כל הנתונים הנוכחיים במערכת בנתונים מהקובץ. להמשיך?')){e.target.value='';return;}
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      var backup=JSON.parse(ev.target.result);
+      if(!backup||!backup.version){showToast('קובץ גיבוי לא תקין');e.target.value='';return;}
+      // Restore dataset + timestamp
+      if(backup.dataset)localStorage.setItem('succentra_dataset',JSON.stringify(backup.dataset));
+      if(backup.loadedAt)localStorage.setItem('succentra_loaded_at',backup.loadedAt);
+      // Restore every CRM + history entry
+      if(backup.crm){Object.keys(backup.crm).forEach(function(k){localStorage.setItem(k,JSON.stringify(backup.crm[k]));});}
+      if(backup.history){Object.keys(backup.history).forEach(function(k){localStorage.setItem(k,JSON.stringify(backup.history[k]));});}
+      // Reload the dataset into memory and refresh the UI.
+      DATA=loadSavedDataset();
+      applyStoredOverrides(DATA);
+      try{var _la=localStorage.getItem('succentra_loaded_at');if(_la)loadedAt=new Date(_la);}catch(e2){}
+      updateMetrics();render();
+      showToast('שוחזר מגיבוי: '+DATA.length+' לקוחות ✓');
+    }catch(err){showToast('שגיאה בשחזור: '+err.message);}
+    e.target.value='';
+  };
+  reader.readAsText(file);
+}
+
 function exportCritical(){
   var crit=DATA.filter(function(r){var s=liveStatus(effectiveScore(r));return s==='critical'||s==='warning';});
   if(!crit.length){showToast('אין לקוחות לייצוא');return;}
