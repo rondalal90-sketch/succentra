@@ -619,11 +619,11 @@ function openModal(id){
     return '<div class="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#f5f4f0]"><span class="text-[13px] text-gray-500">'+it[0]+'</span><span class="text-[14px] font-semibold mono" style="color:'+it[2]+'">'+it[1]+'</span></div>';
   }).join('');
 
-  var stats=[['רשיונות',r.license],['פעילים',r.active],['נעולים',r.locked||0],['כניסות/30י',r.logs||0],['מאמרים',r.objects],['ניצול',r.licPct+'%']];
+  var stats=[['רשיונות',r.license],['פעילים',r.active],['נעולים',r.locked||0],['כניסות/30י',r.logs||0],['מאמרים',r.objects],['ניצול רישיונות',r.licPct+'%']];
   document.getElementById('stats-grid').innerHTML=stats.map(function(s){return '<div class="bg-[#f5f4f0] rounded-lg px-3 py-2.5"><div class="text-[14px] text-gray-400 font-medium mb-0.5">'+s[0]+'</div><div class="text-[16px] font-semibold mono text-[#1a1916]">'+s[1]+'</div></div>';}).join('');
-  document.getElementById('last-update-row').innerHTML='עדכון אחרון: <strong class="text-gray-600">'+(r.rawDate||'—')+'</strong>'+(r.daysOld<9999?' · '+fd(r.rawDate):'');
+  document.getElementById('last-update-row').innerHTML='<span class="text-[15px] font-semibold text-[#1a1916]">עדכון אחרון:</span> <strong class="text-[15px] font-bold text-[#1a1916]">'+(r.rawDate||'—')+'</strong>'+(r.daysOld<9999?' <span class="text-[14px] text-gray-500">· '+fd(r.rawDate)+'</span>':'');
 
-  var feats=[['חתימה ואישור',r.ras],['מבחנים',r.exams],['הדרכות',r.tuts],['התראות',r.notifs],['פידבקים',r.fbs]];
+  var feats=[['קרא וחתום',r.ras],['מבחנים',r.exams],['לומדות',r.tuts],['הודעות',r.notifs],['משובים',r.fbs]];
   document.getElementById('features-row').innerHTML=feats.map(function(f){return '<span class="text-[14px] px-2.5 py-1 rounded-md border font-medium '+(f[1]>0?'bg-[#e8f5ee] text-[#2d7a4f] border-[#a8d9bb]':'bg-[#f0efe9] text-gray-400 border-black/[0.10]')+'">'+f[0]+(f[1]>0?' · '+f[1]:'')+'</span>';}).join('');
 
   var thresh=Math.max(r.active*0.6,1);
