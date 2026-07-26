@@ -135,7 +135,7 @@ function effectiveScore(r){
   var cc=(crm.customChecked||[]).length;
   return Math.min(100,r.baseHealth+(cm+cc)*10);
 }
-function liveStatus(score){return score>=65?'healthy':score>=35?'warning':'critical';}
+function liveStatus(score){return score>=70?'healthy':score>=35?'warning':'critical';}
 
 // ── 5. COLUMN MAP ─────────────────────────────────────────────────────────────
 var CM={workspace_id:['workspace_id','id'],workspace_name:['workspace_name','name','customer'],frontend_domain:['frontend_domain','domain'],License:['license','licenses'],active_users:['active_users','active users'],locked_users:['locked_users','locked'],log_30_days:['log_30_days','logins','log 30'],active_objects:['active_objects','articles','objects'],last_updated_article:['last_updated_article','last update','last updated'],ReadAndSign:['readandsign','read and sign'],Exams:['exams'],Tutorials:['tutorials'],Notifications:['notifications'],Feedbacks:['feedbacks','feedback']};
@@ -239,17 +239,38 @@ function render(){
   var sc=document.getElementById('srt').value;
   var faiEl=document.getElementById('fai');
   var fai=faiEl?faiEl.value:'';
+  var fusersEl=document.getElementById('fusers');
+  var fusers=fusersEl?fusersEl.value:'';
+  var fdateEl=document.getElementById('fdate');
+  var fdate=fdateEl?fdateEl.value:'';
   var data=DATA.filter(function(r){
     if(srch&&r.name.toLowerCase().indexOf(srch)===-1&&r.domain.toLowerCase().indexOf(srch)===-1)return false;
     var s=effectiveScore(r);
     if(sf&&liveStatus(s)!==sf)return false;
     if(fai==='yes'&&r.ai_enabled!==true)return false;
     if(fai==='no'&&r.ai_enabled===true)return false;
+    // users filter
+    if(fusers==='0')if((r.active||0)!==0)return false;
+    if(fusers==='1_20')if((r.active||0)<1||(r.active||0)>20)return false;
+    if(fusers==='21_100')if((r.active||0)<21||(r.active||0)>100)return false;
+    if(fusers==='100p')if((r.active||0)<=100)return false;
+    // date filter
+    if(fdate==='fresh')if((r.daysOld||9999)>30)return false;
+    if(fdate==='ok')if((r.daysOld||9999)<=30||(r.daysOld||9999)>90)return false;
+    if(fdate==='stale')if((r.daysOld||9999)<=90)return false;
     return true;
   });
   if(sc==='score_asc')data.sort(function(a,b){return effectiveScore(a)-effectiveScore(b);});
   else if(sc==='score_desc')data.sort(function(a,b){return effectiveScore(b)-effectiveScore(a);});
   else if(sc==='name')data.sort(function(a,b){return a.name.localeCompare(b.name,'he');});
+  else if(sc==='date_new')data.sort(function(a,b){return (a.daysOld||9999)-(b.daysOld||9999);});
+  else if(sc==='date_old')data.sort(function(a,b){return (b.daysOld||9999)-(a.daysOld||9999);});
+  else if(sc==='users_asc')data.sort(function(a,b){return (a.active||0)-(b.active||0);});
+  else if(sc==='users_desc')data.sort(function(a,b){return (b.active||0)-(a.active||0);});
+  else if(sc==='lic_asc')data.sort(function(a,b){return (a.licPct||0)-(b.licPct||0);});
+  else if(sc==='lic_desc')data.sort(function(a,b){return (b.licPct||0)-(a.licPct||0);});
+  else if(sc==='logs_desc')data.sort(function(a,b){return (b.logs||0)-(a.logs||0);});
+  else if(sc==='logs_asc')data.sort(function(a,b){return (a.logs||0)-(b.logs||0);});
   document.getElementById('rc').textContent=data.length+' לקוחות';
   var esEl=document.getElementById('es');
   esEl.classList.toggle('hidden',data.length>0);
@@ -258,7 +279,7 @@ function render(){
       ?'<div class="text-[18px] font-semibold text-[#1a1916] mb-1">אין עדיין נתונים</div><div class="text-[15px] text-gray-400">לחצו על \u201Dעדכן נתונים\u201D למעלה כדי להעלות קובץ Excel ולהתחיל.</div>'
       :'לא נמצאו לקוחות שמתאימים לסינון';
   }
-  var sl={critical:'קריטי',warning:'בינוני',healthy:'בריא'};
+  var sl={critical:'בסיכון',warning:'בינוני',healthy:'בריא'};
   var pc={healthy:'pill-ok',warning:'pill-warn',critical:'pill-crit'};
   document.getElementById('tb').innerHTML=data.map(function(r){
     var inactive=r.inactive===true;
@@ -299,7 +320,7 @@ function updateModalScore(r){
   var score=effectiveScore(r);
   var status=liveStatus(score);
   var bc=status==='healthy'?'#2d7a4f':status==='warning'?'#8a5c00':'#9b2929';
-  var sl={critical:'קריטי',warning:'בינוני',healthy:'בריא'};
+  var sl={critical:'בסיכון',warning:'בינוני',healthy:'בריא'};
   var pc={healthy:'pill-ok',warning:'pill-warn',critical:'pill-crit'};
   var ms=document.getElementById('modal-score');
   var msb=document.getElementById('modal-score-bar');
@@ -588,7 +609,7 @@ function openModal(id){
   var status=liveStatus(score);
   var bc=status==='healthy'?'#2d7a4f':status==='warning'?'#8a5c00':'#9b2929';
   var pc={healthy:'pill-ok',warning:'pill-warn',critical:'pill-crit'};
-  var sl={critical:'קריטי',warning:'בינוני',healthy:'בריא'};
+  var sl={critical:'בסיכון',warning:'בינוני',healthy:'בריא'};
   var crm=getCRM(id);
 
   document.getElementById('modal-header').innerHTML=
@@ -606,10 +627,10 @@ function openModal(id){
   var bd=calcBreakdown({active:r.active,logs:r.logs,objects:r.objects,license:r.license,daysOld:r.daysOld,locked:r.locked,ras:r.ras,exams:r.exams,tuts:r.tuts,fbs:r.fbs});
   var crmB=getCRM(r.id);var bonus=((crmB.checkedItems||[]).length+(crmB.customChecked||[]).length)*10;
   var bdItems=[
-    ['פעילות (כניסות)',bd.engagement+'/30','#1a5fa8'],
-    ['בניית תוכן',bd.content+'/30','#2d7a4f'],
-    ['אימוץ פיצ\'רים',bd.features+'/25','#6b3fa8'],
-    ['רעננות תוכן',bd.fresh+'/15','#8a5c00']
+    ['ניקוד פעילות (כניסות)',bd.engagement+'/30','#1a5fa8'],
+    ['ניקוד ניצול רישיונות',bd.content+'/30','#2d7a4f'],
+    ['ניקוד שימוש בפיצ\'רים',bd.features+'/25','#6b3fa8'],
+    ['ניקוד עדכון תוכן לאחרונה',bd.fresh+'/15','#8a5c00']
   ];
   if(bd.recencyPenalty>0)bdItems.push(['קנס עדכון','-'+bd.recencyPenalty,'#9b2929']);
   if(bd.blockedPenalty>0)bdItems.push(['קנס חסומים','-'+bd.blockedPenalty,'#9b2929']);
@@ -961,6 +982,16 @@ function exportCritical(){
 }
 
 // ── 24. TOAST ─────────────────────────────────────────────────────────────────
+// ── SCORING EXPLANATION MODAL ────────────────────────────────────────────────
+function showScoringExplain(){
+  var overlay=document.getElementById('scoring-explain-overlay');
+  if(overlay)overlay.classList.remove('hidden');
+}
+function hideScoringExplain(){
+  var overlay=document.getElementById('scoring-explain-overlay');
+  if(overlay)overlay.classList.add('hidden');
+}
+
 function showToast(msg){
   var t=document.getElementById('toast');
   t.textContent=msg;t.classList.remove('hidden');

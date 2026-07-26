@@ -91,7 +91,7 @@ tailwind.config = {
       <div class="text-[34px] font-light leading-none text-warn" id="m2">—</div>
     </div>
     <div class="kpi-cell px-5 py-4 cursor-pointer hover:bg-[#f0efe9] transition-colors" id="kpi-c" onclick="filterStatus('critical')">
-      <div class="text-[15px] font-semibold text-gray-500 mb-2">קריטיים</div>
+      <div class="text-[15px] font-semibold text-gray-500 mb-2">בסיכון</div>
       <div class="text-[34px] font-light leading-none text-crit" id="m3">—</div>
     </div>
     <div class="kpi-cell px-5 py-4">
@@ -112,19 +112,40 @@ tailwind.config = {
       </div>
       <select id="fst" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none cursor-pointer focus:border-black/30">
         <option value="">כל הסטטוסים</option>
-        <option value="critical">קריטי</option>
-        <option value="warning">בינוני</option>
-        <option value="healthy">בריא</option>
+        <option value="critical">בסיכון (0–34)</option>
+        <option value="warning">בינוני (35–69)</option>
+        <option value="healthy">בריא (70–100)</option>
       </select>
       <select id="srt" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none cursor-pointer focus:border-black/30">
-        <option value="score_asc">Health ↑</option>
-        <option value="score_desc">Health ↓</option>
+        <option value="score_asc">ציון ↑</option>
+        <option value="score_desc">ציון ↓</option>
         <option value="name">שם א–ת</option>
+        <option value="date_new">עדכון חדש ← ישן</option>
+        <option value="date_old">עדכון ישן ← חדש</option>
+        <option value="users_desc">משתמשים ↓</option>
+        <option value="users_asc">משתמשים ↑</option>
+        <option value="logs_desc">כניסות ↓</option>
+        <option value="logs_asc">כניסות ↑</option>
+        <option value="lic_desc">ניצול ↓</option>
+        <option value="lic_asc">ניצול ↑</option>
       </select>
       <select id="fai" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none cursor-pointer focus:border-black/30">
         <option value="">כל מצב AI</option>
         <option value="yes">עם AI</option>
         <option value="no">ללא AI</option>
+      </select>
+      <select id="fusers" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none cursor-pointer focus:border-black/30">
+        <option value="">כל המשתמשים</option>
+        <option value="0">0 משתמשים</option>
+        <option value="1_20">1–20 משתמשים</option>
+        <option value="21_100">21–100 משתמשים</option>
+        <option value="100p">מעל 100</option>
+      </select>
+      <select id="fdate" onchange="render()" class="px-2.5 py-1.5 text-[14px] border border-black/10 rounded-lg bg-white outline-none cursor-pointer focus:border-black/30">
+        <option value="">כל תאריכי עדכון</option>
+        <option value="fresh">עדכן עד 30 יום</option>
+        <option value="ok">31–90 יום</option>
+        <option value="stale">מעל 90 יום</option>
       </select>
       <span id="rc" class="mr-auto text-[14px] text-gray-400"></span>
     </div>
@@ -174,6 +195,7 @@ tailwind.config = {
             </div>
           </div>
           <div id="score-breakdown" class="mt-3 grid grid-cols-2 gap-1.5"></div>
+          <button onclick="showScoringExplain()" class="mt-2 w-full text-[13px] font-medium text-gray-400 hover:text-[#1a5fa8] border border-black/[0.10] rounded-lg py-1.5 hover:border-[#a8c4f0] hover:bg-[#e8f0fb] transition-colors">אופן חישוב ניקוד ↗</button>
         </div>
 
         <div>
@@ -214,7 +236,7 @@ tailwind.config = {
         </div>
 
         <div>
-          <div class="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-2">משימות תפעוליות לשיפור המדד</div>
+          <div class="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-2">משימות ותובנות לשיפור הציון</div>
           <div id="checklist-container" class="flex flex-col gap-1.5"></div>
         </div>
 
@@ -255,6 +277,70 @@ tailwind.config = {
     <div class="flex items-center gap-2 px-6 py-3 border-t border-black/[0.10] bg-white flex-shrink-0">
       <a id="modal-site-link" href="#" target="_blank" class="flex items-center gap-2 px-5 py-2.5 text-[16px] font-semibold bg-[#1a1916] text-white rounded-xl hover:bg-gray-700 transition-colors">🔗 פתח אתר לקוח</a>
       <button onclick="closeModal()" class="mr-auto flex items-center gap-1 px-3 py-1.5 text-[14px] font-medium border border-black/10 rounded-lg bg-white hover:bg-[#fdeaea] hover:text-crit transition-colors">סגור</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCORING EXPLANATION MODAL -->
+<div id="scoring-explain-overlay" class="hidden fixed inset-0 z-[60] bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4" onclick="if(event.target===this)hideScoringExplain()">
+  <div class="bg-white rounded-2xl w-[90vw] max-w-[720px] max-h-[85vh] overflow-y-auto modal-scroll shadow-2xl">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-black/[0.10] sticky top-0 bg-white z-10">
+      <div class="text-[17px] font-semibold text-[#1a1916]">אופן חישוב ניקוד הבריאות</div>
+      <button onclick="hideScoringExplain()" class="w-7 h-7 rounded-lg border border-black/10 flex items-center justify-center text-gray-400 hover:bg-[#f0efe9] transition-colors">✕</button>
+    </div>
+    <div class="px-6 py-5">
+      <p class="text-[14px] text-gray-500 mb-4">הציון מחושב מ-0 עד 100 ומודד כמה הלקוח משתמש במערכת בפועל. מורכב מ-4 רכיבים חיוביים בניכוי קנסות.</p>
+      <table class="w-full text-right border-collapse text-[14px]">
+        <thead>
+          <tr class="bg-[#f0efe9]">
+            <th class="px-3 py-2.5 font-semibold text-gray-600 border border-black/[0.10] w-[28%]">פרמטר</th>
+            <th class="px-3 py-2.5 font-semibold text-gray-600 border border-black/[0.10] w-[35%]">אופן חישוב</th>
+            <th class="px-3 py-2.5 font-semibold text-gray-600 border border-black/[0.10]">הסבר</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-[#f5f4f0]">
+            <td class="px-3 py-2.5 border border-black/[0.10] font-medium text-[#1a5fa8]">ניקוד פעילות<br><span class="text-[12px] text-gray-400 font-normal">עד 30 נקודות</span></td>
+            <td class="px-3 py-2.5 border border-black/[0.10] font-mono text-[13px]">כניסות ÷ משתמשים פעילים<br>יעד: 1.2 כניסות למשתמש</td>
+            <td class="px-3 py-2.5 border border-black/[0.10] text-gray-600">מודד עד כמה המשתמשים הפעילים נכנסים למערכת. יחסי לגודל הלקוח.</td>
+          </tr>
+          <tr class="hover:bg-[#f5f4f0]">
+            <td class="px-3 py-2.5 border border-black/[0.10] font-medium text-[#2d7a4f]">ניקוד ניצול רישיונות<br><span class="text-[12px] text-gray-400 font-normal">עד 30 נקודות</span></td>
+            <td class="px-3 py-2.5 border border-black/[0.10] font-mono text-[13px]">מאמרים ÷ רישיונות<br>יעד: 3 מאמרים לרישיון</td>
+            <td class="px-3 py-2.5 border border-black/[0.10] text-gray-600">מודד כמה תוכן נבנה ביחס לגודל המנוי. לא מקפח לקוחות קטנים.</td>
+          </tr>
+          <tr class="hover:bg-[#f5f4f0]">
+            <td class="px-3 py-2.5 border border-black/[0.10] font-medium text-[#6b3fa8]">ניקוד שימוש בפיצ'רים<br><span class="text-[12px] text-gray-400 font-normal">עד 25 נקודות</span></td>
+            <td class="px-3 py-2.5 border border-black/[0.10] font-mono text-[13px]">מספר פיצ'רים פעילים ÷ 4<br>קרא וחתום, מבחנים, לומדות, משובים</td>
+            <td class="px-3 py-2.5 border border-black/[0.10] text-gray-600">כל פיצ'ר מתקדם שבשימוש מוסיף ~6.25 נקודות. מודד עומק אימוץ.</td>
+          </tr>
+          <tr class="hover:bg-[#f5f4f0]">
+            <td class="px-3 py-2.5 border border-black/[0.10] font-medium text-[#8a5c00]">ניקוד עדכון תוכן<br><span class="text-[12px] text-gray-400 font-normal">עד 15 נקודות</span></td>
+            <td class="px-3 py-2.5 border border-black/[0.10] font-mono text-[13px]">ימים מאז עדכון אחרון:<br>≤30י → 15 | ≤60י → 11 | ≤90י → 7 | ≤180י → 3</td>
+            <td class="px-3 py-2.5 border border-black/[0.10] text-gray-600">תוכן עדכני = מערכת חיה. ככל שהתוכן ישן יותר, הניקוד יורד.</td>
+          </tr>
+          <tr class="bg-[#fff5f5] hover:bg-[#fdeaea]">
+            <td class="px-3 py-2.5 border border-black/[0.10] font-medium text-[#9b2929]">קנס תוכן ישן<br><span class="text-[12px] text-gray-400 font-normal">עד −15 נקודות</span></td>
+            <td class="px-3 py-2.5 border border-black/[0.10] font-mono text-[13px]">31–60י: עד −5<br>61–90י: עד −10 | 90י+: −15 קבוע</td>
+            <td class="px-3 py-2.5 border border-black/[0.10] text-gray-600">קנס הדרגתי על תוכן שלא עודכן. מאחר 90 יום — הקנס המקסימלי.</td>
+          </tr>
+          <tr class="bg-[#fff5f5] hover:bg-[#fdeaea]">
+            <td class="px-3 py-2.5 border border-black/[0.10] font-medium text-[#9b2929]">קנס משתמשים חסומים<br><span class="text-[12px] text-gray-400 font-normal">עד −15 נקודות</span></td>
+            <td class="px-3 py-2.5 border border-black/[0.10] font-mono text-[13px]">% חסומים מתוך רישיונות × 0.5</td>
+            <td class="px-3 py-2.5 border border-black/[0.10] text-gray-600">יחסי לגודל — ארגון גדול לא נענש יתר על המידה על מספר קטן של חסומים.</td>
+          </tr>
+          <tr class="bg-[#f0f7ff] hover:bg-[#e8f0fb]">
+            <td class="px-3 py-2.5 border border-black/[0.10] font-medium text-[#1a5fa8]">בונוס משימות<br><span class="text-[12px] text-gray-400 font-normal">+10 לכל משימה</span></td>
+            <td class="px-3 py-2.5 border border-black/[0.10] font-mono text-[13px]">מספר משימות שבוצעו × 10<br>מוגבל לציון מקסימלי 100</td>
+            <td class="px-3 py-2.5 border border-black/[0.10] text-gray-600">פעולות CS שביצעת (צ'קליסט) מעלות את הציון ומשקפות עבודת שיפור פעילה.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mt-4 flex gap-2 text-[13px]">
+        <div class="flex-1 px-3 py-2 rounded-lg bg-[#e8f5ee] text-[#2d7a4f] font-medium text-center">בריא: 70–100</div>
+        <div class="flex-1 px-3 py-2 rounded-lg bg-[#fef4dc] text-[#8a5c00] font-medium text-center">בינוני: 35–69</div>
+        <div class="flex-1 px-3 py-2 rounded-lg bg-[#fdeaea] text-[#9b2929] font-medium text-center">בסיכון: 0–34</div>
+      </div>
     </div>
   </div>
 </div>
