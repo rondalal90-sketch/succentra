@@ -70,62 +70,68 @@ var METRIC_LABELS={
 //   Relative blocked-users penalty
 // calcBreakdown returns each component so the modal can show WHY a score is what it is.
 function calcBreakdown(d){
-  // d: {active,logs,objects,license,daysOld,locked,ras,exams,tuts,fbs}
-  var active=d.active||0,logs=d.logs||0,objects=d.objects||0,license=d.license||0;
+  // Weighted scoring model — total 100 points:
+  //   פעילות (כניסות÷רישיונות)          → 35 points
+  //   ניצול מכסת רישיונות (פעילים÷רישיונות) → 15 points
+  //   שימוש בפיצ'רים (RAS,Feedbacks,Notif) → 15 points
+  //   עדכון תוכן לאחרונה               → 35 points (with progressive penalty)
+  var active=d.active||0,logs=d.logs||0,license=d.license||0;
   var daysOld=(d.daysOld===undefined?9999:d.daysOld),locked=d.locked||0;
 
-  // 1) Engagement — logins relative to active users. Target ~5 logins/active user/month.
+  // 1) פעילות — כניסות ÷ רישיונות, משקל 35
+  // Target: ~1 login per license per month = full marks (realistic baseline)
   var engagement=0;
-  if(active>0){
-    var perUser=logs/active;
-    // ~1.2 logins per active user per month = full marks (matches real usage patterns).
-    engagement=Math.max(0,Math.min(30,Math.round((perUser/1.2)*30)));
-  } else if(logs>0){
-    engagement=5; // some activity but no active-user baseline
-  }
-
-  // 2) Content depth — objects relative to licenses (so small clients aren't penalised).
-  var content=0;
   if(license>0){
-    var perLic=objects/license;
-    // ~3 objects per license = full marks (calibrated to real data).
-    content=Math.max(0,Math.min(30,Math.round((perLic/3)*30)));
-  } else if(objects>0){
-    content=10;
+    var perLic=logs/license;
+    engagement=Math.max(0,Math.min(35,Math.round((perLic/1)*35)));
+  } else if(logs>0){
+    engagement=5;
   }
 
-  // 3) Advanced feature adoption — ReadAndSign, Exams, Tutorials, Feedbacks.
-  //    Each active feature is worth up to ~6.25; capped at 25.
-  var featActive=[d.ras,d.exams,d.tuts,d.fbs].filter(function(v){return (v||0)>0;}).length;
-  var features=Math.round((featActive/4)*25);
+  // 2) ניצול מכסת רישיונות — משתמשים פעילים ÷ רישיונות, משקל 15
+  var utilization=0;
+  if(license>0){
+    var util=active/license;
+    utilization=Math.max(0,Math.min(15,Math.round(util*15)));
+  }
 
-  // 4) Content freshness — fresh content earns points (up to 15).
+  // 3) שימוש בפיצ'רים — RAS, Feedbacks, Notifications (no Exams/Tutorials), משקל 15
+  // Each feature scored 0–5; total capped at 15
+  var rasScore=0,fbsScore=0,notifScore=0;
+  if((d.ras||0)>0){rasScore=5;}
+  if((d.fbs||0)>0){fbsScore=5;}
+  if((d.notifs||0)>0){notifScore=5;}
+  var features=rasScore+fbsScore+notifScore; // max 15
+
+  // 4) עדכון תוכן לאחרונה — משקל 35 עם קנס הדרגתי
+  // Fresh (≤30 days) = full 35; then progressive reduction
   var fresh=0;
-  if(daysOld<=30)fresh=15;
-  else if(daysOld<=60)fresh=11;
-  else if(daysOld<=90)fresh=7;
-  else if(daysOld<=180)fresh=3;
-  else fresh=0;
+  if(daysOld<=30){
+    fresh=35;
+  } else if(daysOld<=60){
+    // 31–60 days: reduce from 35 down to 30 (penalty up to 5)
+    var pen=Math.round(((daysOld-30)/30)*5);
+    fresh=35-pen;
+  } else if(daysOld<=90){
+    // 61–90 days: reduce from 30 down to 25 (penalty 5→10)
+    var pen=5+Math.round(((daysOld-60)/30)*5);
+    fresh=35-pen;
+  } else {
+    // 90+ days: fixed penalty of 15 → score = 20
+    fresh=35-15;
+  }
 
-  // Penalty A — progressive recency penalty based on days since last update.
-  var recencyPenalty=0;
-  if(daysOld<=30)recencyPenalty=0;
-  else if(daysOld<=60)recencyPenalty=Math.round(((daysOld-30)/30)*5);      // up to 5
-  else if(daysOld<=90)recencyPenalty=5+Math.round(((daysOld-60)/30)*5);    // 5..10
-  else recencyPenalty=15;                                                  // flat 15 over 90
-
-  // Penalty B — blocked users relative to total licenses (not a flat per-user hit).
+  // Blocked users penalty (relative, capped at 10)
   var blockedPenalty=0;
   if(license>0&&locked>0){
-    blockedPenalty=Math.min(15,Math.round((locked/license)*100*0.5)); // 0.5 pt per % blocked, cap 15
+    blockedPenalty=Math.min(10,Math.round((locked/license)*100*0.3));
   }
 
-  var positive=engagement+content+features+fresh;
-  var total=Math.max(0,Math.min(100,positive-recencyPenalty-blockedPenalty));
+  var total=Math.max(0,Math.min(100,engagement+utilization+features+fresh-blockedPenalty));
   return{
-    engagement:engagement,content:content,features:features,fresh:fresh,
-    recencyPenalty:recencyPenalty,blockedPenalty:blockedPenalty,
-    positive:positive,total:total
+    engagement:engagement,utilization:utilization,features:features,fresh:fresh,
+    blockedPenalty:blockedPenalty,
+    total:total
   };
 }
 function calcBaseH(d){return calcBreakdown(d).total;}
@@ -224,6 +230,61 @@ function updateMetrics(){
 }
 
 // ── 10. KPI FILTER ────────────────────────────────────────────────────────────
+// ── COLUMN HEADER FILTER/SORT HELPERS ────────────────────────────────────────
+function setFilter(selectId, value){
+  var el=document.getElementById(selectId);
+  if(el)el.value=value;
+  // Sync the column header visual select too
+  var colEl=document.getElementById('col-'+selectId);
+  if(colEl)colEl.value=value;
+  render();
+}
+
+function _setSrt(val){
+  var el=document.getElementById('srt');
+  if(el)el.value=val;
+  render();
+  // Update sort button indicators
+  ['score','name','logs','lic','date'].forEach(function(k){
+    var btn=document.getElementById('sort-'+k+'-btn');
+    if(btn)btn.style.color='';
+  });
+}
+
+function cycleSortScore(){
+  var el=document.getElementById('srt');
+  var cur=el?el.value:'';
+  _setSrt(cur==='score_desc'?'score_asc':'score_desc');
+  var btn=document.getElementById('sort-score-btn');
+  if(btn){btn.textContent=(document.getElementById('srt').value==='score_desc'?'↓':'↑');btn.style.color='#1a1916';}
+}
+function cycleSortName(){
+  _setSrt('name');
+  var btn=document.getElementById('sort-name-btn');
+  if(btn){btn.textContent='↑';btn.style.color='#1a1916';}
+}
+function cycleSortLogs(){
+  var el=document.getElementById('srt');
+  var cur=el?el.value:'';
+  _setSrt(cur==='logs_desc'?'logs_asc':'logs_desc');
+  var btn=document.getElementById('sort-logs-btn');
+  if(btn){btn.textContent=(document.getElementById('srt').value==='logs_desc'?'↓':'↑');btn.style.color='#1a1916';}
+}
+function cycleSortLic(){
+  var el=document.getElementById('srt');
+  var cur=el?el.value:'';
+  _setSrt(cur==='lic_desc'?'lic_asc':'lic_desc');
+  var btn=document.getElementById('sort-lic-btn');
+  if(btn){btn.textContent=(document.getElementById('srt').value==='lic_desc'?'↓':'↑');btn.style.color='#1a1916';}
+}
+function cycleSortDate(){
+  var el=document.getElementById('srt');
+  var cur=el?el.value:'';
+  _setSrt(cur==='date_new'?'date_old':'date_new');
+  var btn=document.getElementById('sort-date-btn');
+  if(btn){btn.textContent=(document.getElementById('srt').value==='date_new'?'↑':'↓');btn.style.color='#1a1916';}
+}
+
 function filterStatus(s){
   document.getElementById('fst').value=s;
   document.querySelectorAll('.kpi-cell').forEach(function(el){el.classList.remove('bg-[#1a1916]','!text-white');});
@@ -624,16 +685,15 @@ function openModal(id){
   document.getElementById('modal-score-bar').style.background=bc;
   document.getElementById('modal-score-sub').textContent='מתוך 100 · '+sl[status];
   // Score breakdown (transparency) — shows how the base score is composed.
-  var bd=calcBreakdown({active:r.active,logs:r.logs,objects:r.objects,license:r.license,daysOld:r.daysOld,locked:r.locked,ras:r.ras,exams:r.exams,tuts:r.tuts,fbs:r.fbs});
+  var bd=calcBreakdown({active:r.active,logs:r.logs,objects:r.objects,license:r.license,daysOld:r.daysOld,locked:r.locked,ras:r.ras,exams:r.exams,tuts:r.tuts,notifs:r.notifs,fbs:r.fbs});
   var crmB=getCRM(r.id);var bonus=((crmB.checkedItems||[]).length+(crmB.customChecked||[]).length)*10;
   var bdItems=[
-    ['ניקוד פעילות (כניסות)',bd.engagement+'/30','#1a5fa8'],
-    ['ניקוד ניצול רישיונות',bd.content+'/30','#2d7a4f'],
-    ['ניקוד שימוש בפיצ\'רים',bd.features+'/25','#6b3fa8'],
-    ['ניקוד עדכון תוכן לאחרונה',bd.fresh+'/15','#8a5c00']
+    ['ניקוד פעילות (35%)',bd.engagement+'/35','#1a5fa8'],
+    ['ניקוד ניצול מכסת רישיונות (15%)',bd.utilization+'/15','#2d7a4f'],
+    ['ניקוד שימוש בפיצ\'רים (15%)',bd.features+'/15','#6b3fa8'],
+    ['ניקוד עדכון תוכן לאחרונה (35%)',bd.fresh+'/35','#8a5c00']
   ];
-  if(bd.recencyPenalty>0)bdItems.push(['קנס עדכון','-'+bd.recencyPenalty,'#9b2929']);
-  if(bd.blockedPenalty>0)bdItems.push(['קנס חסומים','-'+bd.blockedPenalty,'#9b2929']);
+  if(bd.blockedPenalty>0)bdItems.push(['קנס משתמשים חסומים','-'+bd.blockedPenalty,'#9b2929']);
   if(bonus>0)bdItems.push(['בונוס משימות','+'+bonus,'#2d7a4f']);
   var sbEl=document.getElementById('score-breakdown');
   if(sbEl)sbEl.innerHTML=bdItems.map(function(it){
@@ -872,11 +932,16 @@ function handleFile(e){
           existing.fbs=incoming.fbs;
           existing.featCount=incoming.featCount;
           existing.baseHealth=incoming.baseHealth;
-          // Keep: history, checklist states, CRM fields, ai_enabled — all untouched
+          // Keep: ai_enabled, inactive, history, checklist, CRM contact/goal — all untouched
+          // Re-apply from CRM to be safe (handles edge case where in-memory flag drifted)
+          var existingCrm=getCRM(existing.id);
+          existing.ai_enabled=existingCrm.ai_enabled===true;
+          existing.inactive=existingCrm.inactive===true;
         } else {
-          // Brand-new customer — add with fresh state, restore any localStorage if exists
+          // Brand-new customer — restore ALL persisted flags from localStorage
           var crm=getCRM(incoming.id);
           incoming.ai_enabled=crm.ai_enabled===true;
+          incoming.inactive=crm.inactive===true;
           DATA.push(incoming);
         }
       });
