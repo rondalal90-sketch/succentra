@@ -117,8 +117,8 @@ function calcBreakdown(d){
     var pen=5+Math.round(((daysOld-60)/30)*5);
     fresh=35-pen;
   } else {
-    // 90+ days: fixed penalty of 15 → score = 20
-    fresh=35-15;
+    // 90+ days: no fresh content score at all
+    fresh=0;
   }
 
   // Blocked users penalty (relative, capped at 10)
