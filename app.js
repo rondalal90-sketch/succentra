@@ -315,10 +315,11 @@ function render(){
     if(fusers==='1_20')if((r.active||0)<1||(r.active||0)>20)return false;
     if(fusers==='21_100')if((r.active||0)<21||(r.active||0)>100)return false;
     if(fusers==='100p')if((r.active||0)<=100)return false;
-    // date filter
-    if(fdate==='fresh')if((r.daysOld||9999)>30)return false;
-    if(fdate==='ok')if((r.daysOld||9999)<=30||(r.daysOld||9999)>90)return false;
-    if(fdate==='stale')if((r.daysOld||9999)<=90)return false;
+    // date filter — recalculate live from rawDate so stale detection is always current
+    var liveDays=ds(r.rawDate);
+    if(fdate==='fresh')if(liveDays>30)return false;
+    if(fdate==='ok')if(liveDays<=30||liveDays>90)return false;
+    if(fdate==='stale')if(liveDays<=90)return false;
     return true;
   });
   if(sc==='score_asc')data.sort(function(a,b){return effectiveScore(a)-effectiveScore(b);});
