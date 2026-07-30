@@ -298,11 +298,12 @@ function render(){
   var srch=(document.getElementById('srch').value||'').toLowerCase();
   var sf=document.getElementById('fst').value;
   var sc=document.getElementById('srt').value;
-  var faiEl=document.getElementById('fai');
+  var faiEl=document.getElementById('col-fai')||document.getElementById('fai');
   var fai=faiEl?faiEl.value:'';
-  var fusersEl=document.getElementById('fusers');
+  var fusersEl=document.getElementById('col-fusers')||document.getElementById('fusers');
   var fusers=fusersEl?fusersEl.value:'';
-  var fdateEl=document.getElementById('fdate');
+  // Read from visible column-header selects (primary) or hidden fallback selects
+  var fdateEl=document.getElementById('col-fdate')||document.getElementById('fdate');
   var fdate=fdateEl?fdateEl.value:'';
   var data=DATA.filter(function(r){
     if(srch&&r.name.toLowerCase().indexOf(srch)===-1&&r.domain.toLowerCase().indexOf(srch)===-1)return false;
