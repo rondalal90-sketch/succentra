@@ -139,7 +139,13 @@ function effectiveScore(r){
   var crm=getCRM(r.id);
   var cm=(crm.checkedItems||[]).length;
   var cc=(crm.customChecked||[]).length;
-  return Math.min(100,r.baseHealth+(cm+cc)*10);
+  // Always recalculate base health with live daysOld so score stays current
+  // even if the customer was loaded from Excel weeks ago.
+  var liveDaysOld=ds(r.rawDate);
+  var liveBase=calcBaseH({active:r.active,logs:r.logs,objects:r.objects,
+    license:r.license,daysOld:liveDaysOld,locked:r.locked,
+    ras:r.ras,exams:r.exams,tuts:r.tuts,notifs:r.notifs,fbs:r.fbs});
+  return Math.min(100,liveBase+(cm+cc)*10);
 }
 function liveStatus(score){return score>=70?'healthy':score>=35?'warning':'critical';}
 
@@ -323,17 +329,21 @@ function render(){
     if(fdate==='stale')if(liveDays<=90)return false;
     return true;
   });
-  if(sc==='score_asc')data.sort(function(a,b){return effectiveScore(a)-effectiveScore(b);});
-  else if(sc==='score_desc')data.sort(function(a,b){return effectiveScore(b)-effectiveScore(a);});
-  else if(sc==='name')data.sort(function(a,b){return a.name.localeCompare(b.name,'he');});
-  else if(sc==='date_new')data.sort(function(a,b){return (a.daysOld||9999)-(b.daysOld||9999);});
-  else if(sc==='date_old')data.sort(function(a,b){return (b.daysOld||9999)-(a.daysOld||9999);});
-  else if(sc==='users_asc')data.sort(function(a,b){return (a.active||0)-(b.active||0);});
-  else if(sc==='users_desc')data.sort(function(a,b){return (b.active||0)-(a.active||0);});
-  else if(sc==='lic_asc')data.sort(function(a,b){return (a.licPct||0)-(b.licPct||0);});
-  else if(sc==='lic_desc')data.sort(function(a,b){return (b.licPct||0)-(a.licPct||0);});
-  else if(sc==='logs_desc')data.sort(function(a,b){return (b.logs||0)-(a.logs||0);});
-  else if(sc==='logs_asc')data.sort(function(a,b){return (a.logs||0)-(b.logs||0);});
+  // Helper: inactive always sink to bottom regardless of sort
+  function inactiveWeight(r){return r.inactive===true?1:0;}
+  if(sc==='score_asc')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||effectiveScore(a)-effectiveScore(b);});
+  else if(sc==='score_desc')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||effectiveScore(b)-effectiveScore(a);});
+  else if(sc==='name')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||a.name.localeCompare(b.name,'he');});
+  else if(sc==='date_new')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||(a.daysOld||9999)-(b.daysOld||9999);});
+  else if(sc==='date_old')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||(b.daysOld||9999)-(a.daysOld||9999);});
+  else if(sc==='users_asc')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||(a.active||0)-(b.active||0);});
+  else if(sc==='users_desc')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||(b.active||0)-(a.active||0);});
+  else if(sc==='lic_asc')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||(a.licPct||0)-(b.licPct||0);});
+  else if(sc==='lic_desc')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||(b.licPct||0)-(a.licPct||0);});
+  else if(sc==='logs_desc')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||(b.logs||0)-(a.logs||0);});
+  else if(sc==='logs_asc')data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b)||(a.logs||0)-(b.logs||0);});
+  // Default: active first, then inactive — always
+  data.sort(function(a,b){return inactiveWeight(a)-inactiveWeight(b);});
   document.getElementById('rc').textContent=data.length+' לקוחות';
   var esEl=document.getElementById('es');
   esEl.classList.toggle('hidden',data.length>0);
@@ -442,7 +452,7 @@ function setAI(val){
 // ── 14. CHECKLIST TOGGLE ──────────────────────────────────────────────────────
 // ── HISTORY HELPER: stack same-day events on one point (improvements 5+7) ─────
 function todayKey(iso){var d=new Date(iso);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
-function pushHistoryEvent(r,label,newScore,removeLabel){
+function pushHistoryEvent(r,label,newScore,removeLabel,pointType){
   var history=getHistory(r.id)||buildMockHistory(r);
   var nowIso=new Date().toISOString();
   var tk=todayKey(nowIso);
@@ -465,10 +475,33 @@ function pushHistoryEvent(r,label,newScore,removeLabel){
     }
   } else {
     // First event today — append a new point at the end (most recent X).
-    history.push({date:nowIso,score:newScore,label:label||'',labels:label?[label]:[]});
+    history.push({date:nowIso,score:newScore,label:label||'',labels:label?[label]:[],type:pointType||'task'});
   }
   saveHistory(r.id,history);
   return history;
+}
+
+// ── TASK TIMESTAMP HELPERS ──────────────────────────────────────────────────
+function getTaskDoneAt(crm, itemKey, isCustom){
+  var field=isCustom?'customCheckedAt':'checkedItemsAt';
+  var map=crm[field]||{};
+  return map[itemKey]||null;
+}
+function saveTaskDoneAt(crm, itemKey, isCustom, timestamp){
+  var field=isCustom?'customCheckedAt':'checkedItemsAt';
+  if(!crm[field])crm[field]={};
+  if(timestamp===null){delete crm[field][itemKey];}
+  else{crm[field][itemKey]=timestamp;}
+}
+function daysSince(isoStr){
+  if(!isoStr)return null;
+  return Math.floor((Date.now()-new Date(isoStr).getTime())/86400000);
+}
+function formatDaysAgo(n){
+  if(n===null)return '';
+  if(n===0)return 'בוצע היום';
+  if(n===1)return 'בוצע אתמול';
+  return 'בוצע לפני '+n+' ימים';
 }
 
 function toggleCheck(el,itemKey,isCustom){
@@ -480,7 +513,11 @@ function toggleCheck(el,itemKey,isCustom){
   var arr=crm[field]||[];
   if(wasDone)arr=arr.filter(function(k){return k!==itemKey;});
   else if(arr.indexOf(itemKey)===-1)arr.push(itemKey);
-  crm[field]=arr;saveCRM(currentId,crm);
+  crm[field]=arr;
+  // Save or clear the completion timestamp
+  if(wasDone){saveTaskDoneAt(crm,itemKey,isCustom,null);}
+  else{saveTaskDoneAt(crm,itemKey,isCustom,new Date().toISOString());}
+  saveCRM(currentId,crm);
 
   var taskName=METRIC_LABELS[itemKey];
   if(!taskName){var ci=(crm.customChecklistItems||[]).find(function(i){return i.key===itemKey;});taskName=ci?ci.t:itemKey;}
@@ -543,6 +580,11 @@ function renderChecklist(r,crm){
   var checkedMetric=crm.checkedItems||[];
   var checkedCustom=crm.customChecked||[];
   var archivedCustom=crm.archivedCustom||[];
+  // Check last interaction: most recent task completion date
+  var allDoneAts=Object.values(crm.checkedItemsAt||{}).concat(Object.values(crm.customCheckedAt||{}));
+  var lastInteraction=allDoneAts.length?allDoneAts.reduce(function(a,b){return a>b?a:b;},allDoneAts[0]):null;
+  var daysSinceInteraction=lastInteraction?daysSince(lastInteraction):null;
+  var showReminder=daysSinceInteraction!==null&&daysSinceInteraction>30;
   var metricItems=[];
   if(r.daysOld>90)metricItems.push({key:'content_stale',p:'high',t:METRIC_LABELS.content_stale,d:r.daysOld+' ימים ללא עדכון תוכן'});
   if(r.logs===0)metricItems.push({key:'no_logins',p:'high',t:METRIC_LABELS.no_logins,d:'אין כניסות ב-30 הימים האחרונים'});
@@ -565,7 +607,9 @@ function renderChecklist(r,crm){
   var metricHTML=metricItems.map(function(item){
     var isDone=checkedMetric.indexOf(item.key)!==-1;
     var badge=item.p==='high'?'<span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#fdeaea] text-[#9b2929]">דחוף</span>':'<span class="text-[14px] font-bold px-1.5 py-0.5 rounded bg-[#fef4dc] text-[#8a5c00]">מומלץ</span>';
-    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/[0.10] bg-white cursor-pointer select-none '+(isDone?'opacity-50':'')+'" onclick="toggleCheck(this,\''+item.key+'\',false)">'+mkBox(isDone)+'<div class="flex-1 min-w-0"><div class="flex items-center gap-1.5 mb-1">'+badge+'</div><div class="text-[16px] font-semibold text-[#1a1916]">'+item.t+'</div><div class="text-[14px] text-gray-400 mt-0.5">'+item.d+'</div></div></div>';
+    var doneAt=isDone?getTaskDoneAt(crm,item.key,false):null;
+    var doneLabel=doneAt?'<span class="text-[13px] text-[#2d7a4f] mt-0.5 block">'+formatDaysAgo(daysSince(doneAt))+'</span>':'';
+    return '<div class="cl-item flex items-start gap-2.5 p-3 rounded-lg border border-black/[0.10] bg-white cursor-pointer select-none '+(isDone?'opacity-50':'')+'" onclick="toggleCheck(this,\''+item.key+'\',false)">'+mkBox(isDone)+'<div class="flex-1 min-w-0"><div class="flex items-center gap-1.5 mb-1">'+badge+'</div><div class="text-[16px] font-semibold text-[#1a1916]">'+item.t+'</div><div class="text-[14px] text-gray-400 mt-0.5">'+item.d+'</div>'+doneLabel+'</div></div>';
   }).join('');
   var customHTML=customItems.map(function(item){
     var isDone=checkedCustom.indexOf(item.key)!==-1;
@@ -579,7 +623,8 @@ function renderChecklist(r,crm){
       '<button onclick="event.stopPropagation();deleteCustomTask(\''+item.key+'\')" class="flex-shrink-0 p-1 mt-0.5 rounded hover:bg-red-50 transition-colors" title="מחק משימה"><i class="fa-solid fa-trash text-gray-300 hover:text-red-500 text-[14px] transition-colors"></i></button>'+
     '</div>';
   }).join('');
-  document.getElementById('checklist-container').innerHTML=metricHTML+customHTML;
+  var reminderBanner=showReminder?'<div class="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-[#fef4dc] border border-[#f5d57a] mb-2"><span class="text-[14px] text-[#8a5c00]">⚠️ לא טיפלת בלקוח זה כבר '+daysSinceInteraction+' ימים</span></div>':'';
+  document.getElementById('checklist-container').innerHTML=reminderBanner+metricHTML+customHTML;
 }
 
 // ── 17. OUTREACH ──────────────────────────────────────────────────────────────
@@ -826,7 +871,13 @@ function renderChart(r){
   if(evolutionChart){evolutionChart.destroy();evolutionChart=null;}
   evolutionChart=new Chart(canvas,{
     type:'line',
-    data:{labels:chartLabels,datasets:[{data:chartScores,borderColor:lineColor,backgroundColor:fillColor,borderWidth:2.5,pointBackgroundColor:lineColor,pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:6,pointHoverRadius:9,fill:true,tension:0.4}]},
+    data:{labels:chartLabels,datasets:[{data:chartScores,borderColor:lineColor,backgroundColor:fillColor,borderWidth:2.5,
+      pointBackgroundColor:history.map(function(p){return p.type==='upload'?'#f59e0b':lineColor;}),
+      pointBorderColor:history.map(function(p){return p.type==='upload'?'#d97706':'#fff';}),
+      pointBorderWidth:history.map(function(p){return p.type==='upload'?2.5:2;}),
+      pointRadius:history.map(function(p){return p.type==='upload'?8:6;}),
+      pointStyle:history.map(function(p){return p.type==='upload'?'triangle':'circle';}),
+      pointHoverRadius:9,fill:true,tension:0.4}]},
     options:{
       responsive:true,maintainAspectRatio:false,
       interaction:{mode:'index',intersect:false},
@@ -850,7 +901,7 @@ function renderChart(r){
           padding:12,cornerRadius:10,
           displayColors:false,
           callbacks:{
-            title:function(ctx){return 'תאריך: '+chartLabels[ctx[0].dataIndex]+' · ציון: '+ctx[0].parsed.y;},
+            title:function(ctx){var p=history[ctx[0].dataIndex];var prefix=p&&p.type==='upload'?'📊 ':'' ;return prefix+'תאריך: '+chartLabels[ctx[0].dataIndex]+' · ציון: '+ctx[0].parsed.y;},
             label:function(ctx){
               var arr=evtLabels[ctx.dataIndex]||[''];
               return arr;
@@ -959,7 +1010,7 @@ function handleFile(e){
         var snap=effectiveScore(r);
         // Use the same stacking helper so a same-day upload joins today's point
         // (raises Y, keeps X) instead of creating a duplicate column.
-        pushHistoryEvent(r,uploadLabel,snap);
+        pushHistoryEvent(r,uploadLabel,snap,null,'upload');
       });
 
       loadedAt=new Date();
